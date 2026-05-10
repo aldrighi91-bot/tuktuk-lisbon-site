@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tuk Tuk Lisbon — Discover Lisbon by Tuk Tuk</title>
+<meta name="description" content="Discover Lisbon by Tuk Tuk with a Local Guide. Private and unforgettable tuk tuk tours through Lisbon's most iconic spots." />
+<meta property="og:title" content="Tuk Tuk Lisbon — Discover Lisbon by Tuk Tuk" />
+<meta property="og:description" content="Private and unforgettable tuk tuk tours through Lisbon's most iconic spots." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/28647d55eba01951b4c48b1b8077b4c9.png" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50:'hsl(214 100% 97%)',100:'hsl(214 95% 93%)',200:'hsl(213 97% 87%)',300:'hsl(212 96% 78%)',400:'hsl(213 94% 68%)',
+            500:'hsl(217 91% 60%)',600:'hsl(221 83% 53%)',700:'hsl(224 76% 48%)',800:'hsl(214 100% 32%)',900:'hsl(222 47% 11%)',
+          },
+          ink:'hsl(222 47% 11%)', muted:'hsl(215 16% 47%)',
+          border:'hsl(214 32% 91%)', surface:'hsl(210 40% 96%)',
+        },
+        fontFamily: { sans: ['"DM Sans"','ui-sans-serif','system-ui','sans-serif'] },
+        boxShadow: {
+          card:'0 1px 2px 0 rgb(0 0 0 / .05), 0 1px 3px 0 rgb(0 0 0 / .06)',
+          cta:'0 12px 30px -10px hsl(221 83% 53% / .45)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior:smooth; }
+  body { font-family:'DM Sans', sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  h1,h2,h3,h4 { text-wrap:balance; letter-spacing:-.02em; }
+  p { text-wrap:pretty; }
+  .section { max-width:1280px; margin:0 auto; padding:0 1.25rem; }
+  @media (min-width:1024px){ .section{ padding:0 2rem; } }
+  .gentle-bounce { animation: gentle-bounce 2s infinite; }
+  @keyframes gentle-bounce { 0%,20%,50%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-10px)} 60%{transform:translateY(-5px)} }
+  .carousel { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+  .carousel::-webkit-scrollbar{ display:none; }
+  .carousel > * { flex:0 0 100%; scroll-snap-align:start; }
+  .carousel-arrow { position:absolute; top:50%; transform:translateY(-50%); width:2.5rem; height:2.5rem; border-radius:9999px;
+    background:rgba(255,255,255,.92); color:#222; box-shadow:0 2px 8px rgba(0,0,0,.15);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .2s, background .2s; z-index:10; }
+  .carousel-arrow:hover { background:#fff; transform:translateY(-50%) scale(1.08); }
+  .hero-overlay { background: linear-gradient(180deg, rgba(8,15,40,.55) 0%, rgba(8,15,40,.35) 40%, rgba(8,15,40,.65) 100%); }
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker{ display:none; }
+  details[open] .chev { transform:rotate(180deg); }
+  .lift { transition:transform .25s ease, box-shadow .25s ease; }
+  .lift:hover { transform:translateY(-2px); box-shadow:0 16px 40px -16px rgb(0 0 0 / .18); }
+  .reveal { opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity:1; transform:translateY(0); }
+  .lang-btn[aria-current="true"]{ color:#fff; background: rgba(255,255,255,.15); }
+</style>
+</head>
+<body class="bg-white text-ink">
+
+<!-- HEADER -->
+<header class="absolute top-0 left-0 right-0 z-40">
+  <div class="section flex items-center justify-between h-24">
+    <a href="#home" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow">Tuk Tuk Lisbon</a>
+    <div class="flex items-center gap-4 md:gap-6">
+      <nav class="hidden md:flex items-center gap-8 text-white/90 font-medium">
+        <a href="#passeios" class="hover:text-white" data-i18n="nav.tours">Tours</a>
+        <a href="#como-funciona" class="hover:text-white" data-i18n="nav.howItWorks">How It Works</a>
+        <a href="#contacto" class="hover:text-white" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3 text-white/90">
+        <a href="https://www.instagram.com/tuk_tuk_lisbon_tours" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-white">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <div class="flex items-center gap-1 text-sm font-semibold" id="lang-switcher">
+          <button class="lang-btn px-2 py-1 rounded text-white/65 hover:text-white" data-lang="pt">PT</button>
+          <button class="lang-btn px-2 py-1 rounded text-white/65 hover:text-white" data-lang="en">EN</button>
+          <button class="lang-btn px-2 py-1 rounded text-white/65 hover:text-white" data-lang="es">ES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img src="https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/28647d55eba01951b4c48b1b8077b4c9.png"
+         alt="Tuk Tuk in Lisbon" class="w-full h-full object-cover object-center" />
+    <div class="absolute inset-0 hero-overlay"></div>
+  </div>
+  <div class="relative z-10 section text-center w-full max-w-4xl flex flex-col items-center mt-12">
+    <h1 data-i18n="hero.title" class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6 drop-shadow-lg">Discover Lisbon by Tuk Tuk with a Local Guide</h1>
+    <p data-i18n="hero.subtitle" class="text-lg md:text-2xl text-white/90 leading-relaxed mb-10 max-w-2xl drop-shadow font-medium">Private and unforgettable tuk tuk tours through Lisbon's most iconic spots.</p>
+    <div class="flex flex-col items-center gap-4 w-full sm:w-auto">
+      <a href="#contacto" onclick="event.preventDefault(); openWa();" class="w-full sm:w-72 h-14 inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 hover:bg-brand-700 text-white text-lg font-bold shadow-cta transition">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span data-i18n="hero.bookWhatsApp">Book via WhatsApp</span>
+      </a>
+      <a href="#passeios" class="w-full sm:w-72 h-14 inline-flex items-center justify-center rounded-full border-2 border-white text-white text-lg font-bold hover:bg-white/10 transition" data-i18n="hero.seeTours">See Tours</a>
+    </div>
+  </div>
+  <a href="#passeios" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 gentle-bounce" aria-label="See tours">
+    <svg class="h-10 w-10 text-white/85" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
+
+<!-- GOOGLE REVIEWS PLACEHOLDER -->
+<section class="py-16 bg-white">
+  <div class="section">
+    <div class="max-w-4xl mx-auto rounded-2xl border border-border bg-surface/40 p-8 md:p-10 text-center">
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <svg viewBox="0 0 24 24" class="h-6 w-6"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.43.34-2.1V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.46 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+        <span class="font-semibold text-ink">Google Reviews</span>
+        <span class="flex items-center gap-1 text-amber-500 ml-2">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </span>
+        <span class="text-sm text-muted">5.0</span>
+      </div>
+      <p class="text-muted text-sm">Trustindex widget will load here in production.</p>
+      <div id="trustindex-container" class="mt-2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS -->
+<section id="passeios" class="py-24 bg-white">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="tours.title" class="text-3xl md:text-4xl font-bold mb-4">Our Tours</h2>
+      <p data-i18n="tours.subtitle" class="text-lg text-muted max-w-2xl mx-auto">Choose the perfect tour to discover Lisbon or create your own custom itinerary.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="tours-grid"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona" class="py-24 bg-surface">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="howItWorks.title" class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+      <p data-i18n="howItWorks.subtitle" class="text-lg text-muted max-w-2xl mx-auto">Booking your tour is simple and fast.</p>
+    </div>
+    <div class="max-w-4xl mx-auto space-y-6" id="steps"></div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="py-24 bg-white">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="advantages.title" class="text-3xl md:text-4xl font-bold mb-4">Why Choose Us</h2>
+      <p data-i18n="advantages.subtitle" class="text-lg text-muted max-w-2xl mx-auto">What makes us different and special.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="advantages"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-24 bg-white">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="gallery.title" class="text-3xl md:text-4xl font-bold mb-4">Gallery</h2>
+      <p data-i18n="gallery.subtitle" class="text-lg text-muted max-w-2xl mx-auto">See Lisbon through our eyes.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" id="gallery"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-24 bg-surface">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="faq.title" class="text-3xl md:text-4xl font-bold mb-4">FAQ</h2>
+      <p data-i18n="faq.subtitle" class="text-lg text-muted max-w-2xl mx-auto">Answers to common questions.</p>
+    </div>
+    <div class="max-w-3xl mx-auto space-y-4" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto" class="py-24 bg-white">
+  <div class="section">
+    <div class="text-center mb-16 reveal">
+      <h2 data-i18n="contact.title" class="text-3xl md:text-4xl font-bold mb-4">Book Your Tour</h2>
+      <p data-i18n="contact.subtitle" class="text-lg text-muted max-w-2xl mx-auto">Fill out the form and we will contact you via WhatsApp.</p>
+    </div>
+    <div class="max-w-2xl mx-auto rounded-2xl border border-border shadow-card overflow-hidden bg-white">
+      <div class="bg-surface/60 border-b border-border px-8 py-6">
+        <h3 data-i18n="contact.formTitle" class="text-2xl font-bold">Booking Form</h3>
+        <p data-i18n="contact.formDesc" class="text-muted">All fields marked with * are required.</p>
+      </div>
+      <form id="booking-form" class="p-8 space-y-6">
+        <div class="space-y-2">
+          <label class="text-sm font-bold"><span data-i18n="contact.form.name">Name</span> *</label>
+          <input id="f-name" type="text" required data-i18n-placeholder="contact.form.namePlaceholder" placeholder="Your full name" class="w-full h-12 rounded-md border border-border bg-white px-3 focus:outline-none focus:ring-2 focus:ring-brand-600/40" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-bold"><span data-i18n="contact.form.phone">Phone</span> *</label>
+          <input id="f-phone" type="tel" required data-i18n-placeholder="contact.form.phonePlaceholder" placeholder="+351 967 315 921" class="w-full h-12 rounded-md border border-border bg-white px-3 focus:outline-none focus:ring-2 focus:ring-brand-600/40" />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label data-i18n="contact.form.date" class="text-sm font-bold">Preferred Date</label>
+            <input id="f-date" type="date" class="w-full h-12 rounded-md border border-border bg-white px-3 focus:outline-none focus:ring-2 focus:ring-brand-600/40" />
+          </div>
+          <div class="space-y-2">
+            <label data-i18n="contact.form.people" class="text-sm font-bold">Number of People</label>
+            <input id="f-people" type="number" min="1" max="6" data-i18n-placeholder="contact.form.peoplePlaceholder" placeholder="Ex: 2" class="w-full h-12 rounded-md border border-border bg-white px-3 focus:outline-none focus:ring-2 focus:ring-brand-600/40" />
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label data-i18n="contact.form.tour" class="text-sm font-bold">Tour of Interest</label>
+          <select id="f-tour" class="w-full h-12 rounded-md border border-border bg-white px-3 focus:outline-none focus:ring-2 focus:ring-brand-600/40">
+            <option value="" data-i18n="contact.form.tourPlaceholder">Select a tour</option>
+            <option value="miradouros" data-tour-key="miradouros">Viewpoints + Alfama</option>
+            <option value="centro-historico" data-tour-key="centro-historico">Historical Center</option>
+            <option value="belem" data-tour-key="belem">Belém</option>
+            <option value="personalizado" data-tour-key="personalizado">Custom Tour</option>
+          </select>
+        </div>
+        <div class="space-y-2">
+          <label data-i18n="contact.form.obs" class="text-sm font-bold">Observations</label>
+          <textarea id="f-obs" rows="4" data-i18n-placeholder="contact.form.obsPlaceholder" placeholder="Any preference or special request?" class="w-full rounded-md border border-border bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-600/40 resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full h-14 inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-bold text-base transition shadow-cta">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span data-i18n="contact.form.submit">Send Request via WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-brand-800 text-white/90 py-16">
+  <div class="section">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div>
+        <span class="text-2xl font-extrabold mb-4 block tracking-tight text-white">Tuk Tuk Lisbon</span>
+        <p data-i18n="footer.desc" class="text-white/70 leading-relaxed text-sm md:text-base">Discover Lisbon in an authentic and comfortable way.</p>
+      </div>
+      <div>
+        <span data-i18n="footer.contact" class="text-sm font-bold mb-4 block tracking-wide uppercase text-white">Contact</span>
+        <ul class="space-y-3 text-white/70">
+          <li class="flex items-center gap-2"><span class="text-brand-300">📞</span> +351 967 315 921</li>
+          <li class="flex items-center gap-2"><span class="text-brand-300">✉️</span> contact@tuktuklisbon.tours</li>
+          <li class="flex items-center gap-2"><span class="text-brand-300">📍</span> Lisbon, Portugal</li>
+        </ul>
+      </div>
+      <div>
+        <span data-i18n="footer.zones" class="text-sm font-bold mb-4 block tracking-wide uppercase text-white">Operating Zones</span>
+        <ul class="space-y-2 text-white/70">
+          <li>Historical Center</li><li>Belém</li><li>Viewpoints</li>
+          <li>Alcântara</li><li>Alfama</li><li>Bairro Alto</li>
+        </ul>
+      </div>
+      <div>
+        <span data-i18n="footer.hoursTitle" class="text-sm font-bold mb-4 block tracking-wide uppercase text-white">Hours</span>
+        <p data-i18n="footer.hoursText" class="text-white/70 mb-6 leading-relaxed whitespace-pre-line">08:00 – 22:00\nEvery day</p>
+        <span data-i18n="footer.social" class="text-sm font-bold mb-3 block tracking-wide uppercase text-white">Social</span>
+        <div class="flex gap-3">
+          <a href="https://www.instagram.com/tuk_tuk_lisbon_tours" target="_blank" rel="noopener" class="h-10 w-10 rounded-full bg-white/10 hover:bg-brand-600 flex items-center justify-center transition" aria-label="Instagram">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="h-10 w-10 rounded-full bg-white/10 hover:bg-brand-600 flex items-center justify-center transition" aria-label="Facebook">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/15 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/65">
+      <p data-i18n="footer.rights">© 2026 Tuk Tuk Lisbon. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" data-i18n="footer.privacy" class="hover:text-white">Privacy Policy</a>
+        <a href="#" data-i18n="footer.terms" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<button onclick="openWa()" class="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#1EBE5C] text-white shadow-lg flex items-center justify-center transition active:scale-95" aria-label="WhatsApp">
+  <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
