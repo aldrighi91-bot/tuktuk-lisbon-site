@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ads Automation Tool — Tuk Tuk Lisbon</title>
+  <meta name="description" content="Internal Google Ads API automation tool used by Tuk Tuk Lisbon to manage, optimize and report on paid advertising campaigns." />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: #faf9f7;
+      color: #1a1a1a;
+      line-height: 1.8;
+    }
+    header {
+      background: #1a1a1a;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header a {
+      color: #e8c97a;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    header nav a {
+      color: #fff;
+      font-size: 0.9rem;
+      margin-left: 24px;
+      text-decoration: none;
+      opacity: 0.8;
+    }
+    header nav a:hover { opacity: 1; }
+
+    .hero {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .hero .tag {
+      display: inline-block;
+      background: #e8c97a;
+      color: #1a1a1a;
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      margin-bottom: 16px;
+      font-weight: normal;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.75;
+      max-width: 600px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+
+    .section { margin-bottom: 60px; }
+
+    h2 {
+      font-size: 1.3rem;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e8c97a;
+      display: inline-block;
+    }
+
+    p { color: #333; margin-bottom: 16px; font-size: 1rem; }
+    ul { margin: 12px 0 16px 24px; }
+    ul li { margin-bottom: 10px; color: #333; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e8e4dc;
+      border-radius: 6px;
+      padding: 28px 24px;
+    }
+    .card .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+
+    .flow {
+      background: #fff;
+      border: 1px solid #e8e4dc;
+      border-radius: 6px;
+      padding: 32px;
+      margin-top: 24px;
+    }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .flow-step:last-child { margin-bottom: 0; }
+    .step-num {
+      background: #e8c97a;
+      color: #1a1a1a;
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content h4 {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .tech-table th {
+      background: #1a1a1a;
+      color: #e8c97a;
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: bold;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tech-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e8e4dc;
+      color: #333;
+    }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-table tr:nth-child(even) td { background: #faf9f7; }
+
+    .notice {
+      background: #fff8e8;
+      border-left: 4px solid #e8c97a;
+      padding: 20px 24px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 24px;
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+      color: #555;
+    }
+    .notice strong { color: #1a1a1a; }
+
+    a { color: #b8952a; }
+
+    footer {
+      background: #1a1a1a;
+      color: #888;
+      text-align: center;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+    }
+    footer a { color: #e8c97a; text-decoration: none; margin: 0 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/">Tuk Tuk Lisbon</a>
+  <nav>
+    <a href="/#passeios">Tours</a>
+    <a href="/#contacto">Contact</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="tag">Internal Tool</div>
+  <h1>Google Ads Automation Tool</h1>
+  <p>How Tuk Tuk Lisbon uses the Google Ads API to manage and optimize its advertising campaigns</p>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>
+      Tuk Tuk Lisbon has developed an internal automation tool — <strong>tuk-tuk-ads-automation</strong> — that integrates with the <strong>Google Ads API</strong> to streamline the creation, management, and performance monitoring of paid search and display campaigns.
+    </p>
+    <p>
+      This tool is used exclusively for managing Tuk Tuk Lisbon's own advertising account. It is <strong>not a service offered to third parties</strong> and does not manage any accounts other than our own Google Ads account (<em>Customer ID: 732-965-3303</em>).
+    </p>
+    <div class="notice">
+      <strong>Scope of API usage:</strong> This developer token is used solely for managing Tuk Tuk Lisbon's own Google Ads campaigns. No client accounts are managed. No data is sold or shared beyond what is described in our <a href="/privacy-policy">Privacy Policy</a>.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What the Tool Does</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Campaign Management</h3>
+        <p>Creates and updates search campaigns, ad groups, keywords, and ad copy via the Google Ads API.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Budget Automation</h3>
+        <p>Automatically adjusts daily budgets and bids based on campaign performance metrics and seasonal demand.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📈</div>
+        <h3>Performance Reporting</h3>
+        <p>Pulls campaign metrics (impressions, clicks, conversions, cost) and stores them for analysis and decisions.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔄</div>
+        <h3>Workflow Integration</h3>
+        <p>Connects with our n8n automation workflows to create a unified booking and marketing pipeline.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How It Works</h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>API Authentication</h4>
+          <p>The tool authenticates with Google Ads API using OAuth 2.0 credentials linked to our Google Cloud Project (tuk-tuk-ads-automation).</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Campaign Sync</h4>
+          <p>Existing campaigns are fetched and synced to our internal database (Supabase) for tracking and history.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Automated Actions</h4>
+          <p>Scheduled scripts create new campaigns, update bids, pause underperforming ads, and push new seasonal promotions.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Reporting & Decisions</h4>
+          <p>Performance data is collected via the Google Ads Reporting API and used to make budget and strategy decisions.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Booking Pipeline Integration</h4>
+          <p>Ad conversion data connects to our WhatsApp booking agent (Lisa), helping attribute bookings to specific campaigns.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Technical Stack</h2>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ads API Integration</td>
+          <td>Google Ads API v17+</td>
+          <td>Campaign creation, management, reporting</td>
+        </tr>
+        <tr>
+          <td>Automation Engine</td>
+          <td>n8n (self-hosted)</td>
+          <td>Workflow orchestration and scheduling</td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Supabase (PostgreSQL)</td>
+          <td>Campaign data storage and booking records</td>
+        </tr>
+        <tr>
+          <td>Cloud Project</td>
+          <td>Google Cloud Platform</td>
+          <td>OAuth credentials and API access</td>
+        </tr>
+        <tr>
+          <td>Authentication</td>
+          <td>OAuth 2.0</td>
+          <td>Secure API access without storing passwords</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Compliance & Data Handling</h2>
+    <p>Our use of the Google Ads API strictly follows <a href="https://developers.google.com/google-ads/api/docs/policies" target="_blank">Google Ads API policies</a>:</p>
+    <ul>
+      <li>We only access our own Google Ads account — no third-party account management</li>
+      <li>We do not scrape, resell, or redistribute any data obtained via the API</li>
+      <li>We do not use the API for any purpose other than managing Tuk Tuk Lisbon's own campaigns</li>
+      <li>All credentials are stored securely and never exposed publicly</li>
+      <li>User data collected via advertising (conversion tracking) is handled according to our <a href="/privacy-policy">Privacy Policy</a></li>
+      <li>We comply with GDPR requirements for EU-based user data</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <p>For any questions regarding our use of Google Ads API or this tool:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:contact@tuktuklisbon.tours">contact@tuktuklisbon.tours</a></li>
+      <li><strong>Business:</strong> Tuk Tuk Lisbon Tours</li>
+      <li><strong>Location:</strong> Lisbon, Portugal</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Tuk Tuk Lisbon. All rights reserved.</p>
+  <p style="margin-top:8px;">
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/ads-tool">Ads Tool</a>
+  </p>
+</footer>
+
+</body>
+</html>
