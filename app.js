@@ -5,28 +5,28 @@
   const TOUR_IDS = ['miradouros', 'centro-historico', 'belem', 'personalizado'];
   const TOUR_IMAGES = {
     miradouros: [
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/cd84fdd5cfaefb01bbeb9a824c9f9e8b.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/c0725746179e5a516fd12d7da5b17076.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/8d282da2a037d70fff5e9f5ac1419b90.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/5030eb32b74eec6fa1c4b69c557a44f6.png',
+      '/images/miradouros-1.jpg',
+      '/images/miradouros-2.jpg',
+      '/images/miradouros-3.jpg',
+      '/images/miradouros-4.jpg',
     ],
     'centro-historico': [
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/c164fa721476d37479496331ff749cfb.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/7e2784cf6347b157a44c81e02e3b7160.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/62e401ad457e7d9ecf6862f1a5ad48d4.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/e2f5dda8d9e078d6a50b9274da99c356.png',
+      '/images/centro-1.jpg',
+      '/images/centro-2.jpg',
+      '/images/centro-3.jpg',
+      '/images/centro-4.jpg',
     ],
     belem: [
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/466e7315d70d24e566f9b79dd87cb563.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/d8ed04a5f9d59c45971db36946cfcd4b.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/47165b31e622d45274bebd6e86a1857c.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/9e8e4f7acab2af688793ee87c72da238.png',
+      '/images/belem-1.jpg',
+      '/images/belem-2.jpg',
+      '/images/belem-3.jpg',
+      '/images/belem-4.jpg',
     ],
     personalizado: [
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/3fc0b06acec76e63fd6c60d9bc74a40f.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/99fce9fbb9204ac30b5061b3b54ea93c.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/bacdcc18fbfd93b53eb510090b841d06.png',
-      'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/8a55c18c578656805ed9266bda4edb9d.png',
+      '/images/fullcity-1.jpg',
+      '/images/fullcity-2.jpg',
+      '/images/fullcity-3.jpg',
+      '/images/fullcity-4.jpg',
     ],
   };
   const POPULAR_ID = 'miradouros';
@@ -47,12 +47,12 @@
   ];
 
   const GALLERY = [
-    'https://horizons-cdn.hostinger.com/20ead15c-72b0-4e94-94e0-7900bd734ab0/278ad318d2332554d0ec70e729838c41.jpg',
-    'https://images.unsplash.com/photo-1694595833397-c282bf7253b2?w=900&q=80',
-    'https://images.unsplash.com/photo-1682346556160-2bdcf317ba84?w=900&q=80',
-    'https://images.unsplash.com/photo-1612151768216-59f49cf481a0?w=900&q=80',
-    'https://images.unsplash.com/photo-1667984812556-c2e8ad5627cc?w=900&q=80',
-    'https://images.unsplash.com/photo-1565716130823-6959103dc3e3?w=900&q=80',
+    '/images/gallery-1.jpg',
+    '/images/gallery-2.jpg',
+    '/images/gallery-3.jpg',
+    '/images/gallery-4.jpg',
+    '/images/gallery-5.jpg',
+    '/images/gallery-6.jpg',
   ];
 
   /* ===== language ===== */
@@ -248,7 +248,7 @@
   /* ===== WhatsApp ===== */
   window.openWa = function () {
     const msg = encodeURIComponent(get('contact.whatsappMsg'));
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+    window.open('https://api.whatsapp.com/send/?phone=351967315921&text=Hello%21+I+would+like+to+book+a+tuk+tuk+tour+in+Lisbon.&type=phone_number&app_absent=0' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
   document.getElementById('booking-form').addEventListener('submit', function (e) {
@@ -270,7 +270,7 @@
       `${get('contact.form.tour')}: ${tourName}`,
       `${get('contact.form.obs')}: ${obs || none}`,
     ];
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+    window.open('https://api.whatsapp.com/send/?phone=351967315921&text=Hello%21+I+would+like+to+book+a+tuk+tuk+tour+in+Lisbon.&type=phone_number&app_absent=0' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
   });
 
   /* ===== boot ===== */
