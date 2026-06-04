@@ -97,7 +97,6 @@
             <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             ${tn.mostPopular}
           </div>` : ''}
-        <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-1.5 z-20 text-brand-600 font-extrabold text-lg border-2 border-brand-600/15 shadow-md">${t.price}</div>
         <button class="carousel-arrow" style="left:1rem" aria-label="Prev" data-prev>${svg('<polyline points="15 18 9 12 15 6"/>')}</button>
         <button class="carousel-arrow" style="right:1rem" aria-label="Next" data-next>${svg('<polyline points="9 18 15 12 9 6"/>')}</button>
       </div>
@@ -125,9 +124,15 @@
             </li>`).join('')}
         </ul>
       </div>
-      <div class="mt-auto p-6 border-t border-border/60 space-y-3">
+      <div class="mt-auto p-6 border-t border-border/60">
+        <p class="text-xs font-bold uppercase tracking-wider text-muted mb-1">Price per group</p>
+        <div class="flex items-end justify-between mb-4">
+          <p class="text-4xl font-extrabold text-brand-700">${t.price}</p>
+          <div class="text-right">
+            <p class="text-sm text-muted">⏱ ${t.duration} · up to 6 people</p>
+          </div>
+        </div>
         <button onclick="openWa()" class="w-full h-12 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-bold transition active:scale-[.98]">${tn.bookBtn}</button>
-        <p class="text-xs text-muted text-center bg-surface py-2 rounded-md">${tn.paymentNote}</p>
       </div>
     </article>`;
   }
