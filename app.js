@@ -9,6 +9,8 @@
       '/images/miradouros-2.jpg',
       '/images/miradouros-3.jpg',
       '/images/miradouros-4.jpg',
+      '/images/miradouros-5.jpg',
+      '/images/miradouros-6.jpg',
     ],
     'centro-historico': [
       '/images/centro-1.jpg',
@@ -132,7 +134,10 @@
             <p class="text-sm text-muted">⏱ ${t.duration} · up to 6 people</p>
           </div>
         </div>
-        <button onclick="openWa()" class="w-full h-12 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-bold transition active:scale-[.98]">${tn.bookBtn}</button>
+        <button onclick="openWa()" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Book via WhatsApp
+        </button>
       </div>
     </article>`;
   }
