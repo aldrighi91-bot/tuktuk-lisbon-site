@@ -248,7 +248,7 @@
   /* ===== WhatsApp ===== */
   window.openWa = function () {
     const msg = encodeURIComponent(get('contact.whatsappMsg'));
-    window.open('https://api.whatsapp.com/send/?phone=351967315921&text=Hello%21+I+would+like+to+book+a+tuk+tuk+tour+in+Lisbon.&type=phone_number&app_absent=0' + WHATSAPP + '?text=' + msg, '_blank');
+    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
   document.getElementById('booking-form').addEventListener('submit', function (e) {
@@ -270,7 +270,7 @@
       `${get('contact.form.tour')}: ${tourName}`,
       `${get('contact.form.obs')}: ${obs || none}`,
     ];
-    window.open('https://api.whatsapp.com/send/?phone=351967315921&text=Hello%21+I+would+like+to+book+a+tuk+tuk+tour+in+Lisbon.&type=phone_number&app_absent=0' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+    window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
   });
 
   /* ===== boot ===== */
