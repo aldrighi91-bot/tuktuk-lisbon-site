@@ -192,11 +192,7 @@
     });
 
     // Tour <option>s in the form
-    document.querySelectorAll('select#f-tour option[data-tour-key]').forEach(opt => {
-      const k = opt.dataset.tourKey;
-      const name = get('tours.items.' + k + '.name');
-      if (name) opt.textContent = name;
-    });
+;
 
     // Dynamic blocks
     $('#tours-grid').innerHTML = TOUR_IDS.map(tourCard).join('');
@@ -251,27 +247,7 @@
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
-  document.getElementById('booking-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const f = (id) => document.getElementById(id).value.trim();
-    const name = f('f-name'), phone = f('f-phone');
-    if (!name || !phone) { alert('!'); return; }
-    const date = f('f-date'), people = f('f-people'), tour = f('f-tour'), obs = f('f-obs');
-    const tbd = get('contact.form.toBeDefined');
-    const none = get('contact.form.none');
-    const tourName = tour ? get('tours.items.' + tour + '.name') : tbd;
-    const lines = [
-      get('contact.whatsappMsg'),
-      '',
-      `${get('contact.form.name')}: ${name}`,
-      `${get('contact.form.phone')}: ${phone}`,
-      `${get('contact.form.date')}: ${date || tbd}`,
-      `${get('contact.form.people')}: ${people || tbd}`,
-      `${get('contact.form.tour')}: ${tourName}`,
-      `${get('contact.form.obs')}: ${obs || none}`,
-    ];
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
-  });
+;
 
   /* ===== boot ===== */
   if (document.readyState === 'loading') {
