@@ -54,13 +54,22 @@
   details > summary { list-style:none; cursor:pointer; }
   details > summary::-webkit-details-marker{ display:none; }
 
-  /* Van Tour Carousel */
-  #van-carousel { position: relative; width: 100%; height: 320px; overflow: hidden; }
-  @media (min-width: 768px) { #van-carousel { height: 100%; min-height: 400px; } }
-  .van-slides { position: relative; width: 100%; height: 100%; }
-  .van-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; z-index: 1; }
-  .van-slide.active { opacity: 1; z-index: 2; }
-  .van-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+
+  [data-carousel-van] {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+  }
+  [data-carousel-van]::-webkit-scrollbar { display: none; }
+  [data-carousel-van] > div {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 100%;
+  }
   details[open] .chev { transform:rotate(180deg); }
   .lift { transition:transform .25s ease, box-shadow .25s ease; }
   .lift:hover { transform:translateY(-2px); box-shadow:0 16px 40px -16px rgb(0 0 0 / .18); }
@@ -162,71 +171,53 @@
       <p class="text-lg text-muted max-w-2xl mx-auto">Explore Portugal's most iconic destinations in comfort and style with a private van and local guide.</p>
     </div>
 
-    <!-- Destinations badges -->
-    <div class="flex flex-wrap justify-center gap-3 mb-16">
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Sintra</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Cascais</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Cabo da Roca</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Óbidos</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Nazaré</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Évora</span>
-      <span class="px-4 py-2 rounded-full bg-white border border-border text-sm font-semibold shadow-sm">📍 Santuário de Fátima</span>
-    </div>
+
 
     <!-- Tour Card -->
     <div class="max-w-4xl mx-auto">
       <div class="bg-white rounded-2xl border border-border shadow-card overflow-hidden lift">
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Image placeholder -->
-          <div class="relative h-64 md:h-full min-h-[320px] overflow-hidden" id="van-carousel">
-            <!-- Slides -->
-            <div class="van-slides w-full h-full">
-              <div class="van-slide active">
-                <img src="/images/van-sintra.jpg" alt="Sintra" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Sintra</span>
+          <div class="relative">
+            <div class="carousel" data-carousel-van>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-sintra.jpg" loading="lazy" alt="Sintra" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Sintra</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-cascais.jpg" alt="Cascais" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Cascais</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-cascais.jpg" loading="lazy" alt="Cascais" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Cascais</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-cabo.jpg" alt="Cabo da Roca" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Cabo da Roca</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-cabo.jpg" loading="lazy" alt="Cabo da Roca" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Cabo da Roca</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-obidos.jpg" alt="Óbidos" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Óbidos</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-obidos.jpg" loading="lazy" alt="Óbidos" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Óbidos</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-nazare.jpg" alt="Nazaré" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Nazaré</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-nazare.jpg" loading="lazy" alt="Nazaré" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Nazaré</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-evora.jpg" alt="Évora" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Évora</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-evora.jpg" loading="lazy" alt="Évora" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Évora</span>
               </div>
-              <div class="van-slide">
-                <img src="/images/van-fatima.jpg" alt="Santuário de Fátima" class="w-full h-full object-cover object-center" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-xl tracking-widest uppercase drop-shadow-lg">Santuário de Fátima</span>
+              <div class="relative aspect-video flex-shrink-0 w-full">
+                <img src="/images/van-fatima.jpg" loading="lazy" alt="Santuário de Fátima" class="w-full h-full object-cover object-center"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span class="absolute bottom-4 left-0 right-0 text-center text-white font-bold text-lg tracking-widest uppercase drop-shadow-lg">Santuário de Fátima</span>
               </div>
             </div>
-            <!-- Dots -->
-            <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-100 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-              <span class="van-dot w-2 h-2 rounded-full bg-white opacity-50 transition-all duration-300"></span>
-            </div>
+            <button class="carousel-arrow" style="left:1rem" aria-label="Prev" data-van-prev><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="carousel-arrow" style="right:1rem" aria-label="Next" data-van-next><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           </div>
           <!-- Content -->
           <div class="p-8 md:p-10 flex flex-col justify-between">
@@ -371,23 +362,6 @@
 <button onclick="openWa()" class="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#1EBE5C] text-white shadow-lg flex items-center justify-center transition active:scale-95" aria-label="WhatsApp">
   <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
 </button>
-
-
-  /* Van Tour Auto-Carousel */
-  (function() {
-    var slides = document.querySelectorAll('.van-slide');
-    var dots = document.querySelectorAll('.van-dot');
-    var current = 0;
-    if (!slides.length) return;
-    function goTo(n) {
-      slides[current].classList.remove('active');
-      dots[current].style.opacity = '0.5';
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      dots[current].style.opacity = '1';
-    }
-    setInterval(function() { goTo(current + 1); }, 2000);
-  })();
 
 <script src="i18n.js"></script>
 <script src="app.js"></script>
