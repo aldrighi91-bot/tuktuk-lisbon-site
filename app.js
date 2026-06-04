@@ -25,6 +25,8 @@
       '/images/belem-2.jpg',
       '/images/belem-3.jpg',
       '/images/belem-4.jpg',
+      '/images/belem-5.jpg',
+      '/images/belem-6.jpg',
     ],
     personalizado: [
       '/images/fullcity-1.jpg',
