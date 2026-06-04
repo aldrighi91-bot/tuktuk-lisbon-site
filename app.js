@@ -33,6 +33,8 @@
       '/images/fullcity-2.jpg',
       '/images/fullcity-3.jpg',
       '/images/fullcity-4.jpg',
+      '/images/fullcity-5.jpg',
+      '/images/fullcity-6.jpg',
     ],
   };
   const POPULAR_ID = 'miradouros';
