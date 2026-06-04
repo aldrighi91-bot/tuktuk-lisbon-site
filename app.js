@@ -60,8 +60,7 @@
   function detectLang() {
     const saved = localStorage.getItem('language');
     if (supported.includes(saved)) return saved;
-    const b = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    return supported.includes(b) ? b : 'en';
+    return 'en';
   }
   let lang = detectLang();
   function get(path, fallback) {
