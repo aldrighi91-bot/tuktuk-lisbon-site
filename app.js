@@ -17,6 +17,8 @@
       '/images/centro-2.jpg',
       '/images/centro-3.jpg',
       '/images/centro-4.jpg',
+      '/images/centro-5.jpg',
+      '/images/centro-6.jpg',
     ],
     belem: [
       '/images/belem-1.jpg',
