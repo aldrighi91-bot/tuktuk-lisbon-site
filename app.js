@@ -223,17 +223,19 @@
     if (vanCar) {
       const vanWrap = vanCar.parentElement;
       const vsw = () => vanCar.clientWidth;
-      vanWrap.querySelector('[data-van-prev]').addEventListener('click', () => vanCar.scrollBy({ left: -vsw(), behavior: 'smooth' }));
-      vanWrap.querySelector('[data-van-next]').addEventListener('click', () => vanCar.scrollBy({ left:  vsw(), behavior: 'smooth' }));
-      let vanTimer = setInterval(vanAutoplay, 2000);
+      const vanPrev = vanWrap.querySelector('[data-van-prev]');
+      const vanNext = vanWrap.querySelector('[data-van-next]');
+      if (vanPrev) vanPrev.addEventListener('click', () => { vanCar.scrollBy({ left: -vsw(), behavior: 'smooth' }); });
+      if (vanNext) vanNext.addEventListener('click', () => { vanCar.scrollBy({ left: vsw(), behavior: 'smooth' }); });
       function vanAutoplay() {
         if (document.hidden) return;
         const max = vanCar.scrollWidth - vanCar.clientWidth - 4;
         if (vanCar.scrollLeft >= max) vanCar.scrollTo({ left: 0, behavior: 'smooth' });
         else vanCar.scrollBy({ left: vsw(), behavior: 'smooth' });
       }
+      let vanTimer = setInterval(vanAutoplay, 2000);
       vanWrap.addEventListener('mouseenter', () => clearInterval(vanTimer));
-      vanWrap.addEventListener('mouseleave', () => vanTimer = setInterval(vanAutoplay, 2000));
+      vanWrap.addEventListener('mouseleave', () => { vanTimer = setInterval(vanAutoplay, 2000); });
     }
 
     // Reveal-on-scroll
