@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="facebook-domain-verification" content="eau25damrfkxfjfmizr6ld9k18vuq3" />
-<title>Tuk Tuk Lisbon — Discover Lisbon by Tuk Tuk</title>
-<meta name="description" content="Discover Lisbon by Tuk Tuk with a Local Guide. Private and unforgettable tuk tuk tours through Lisbon's most iconic spots." />
-<meta property="og:title" content="Tuk Tuk Lisbon — Discover Lisbon by Tuk Tuk" />
-<meta property="og:description" content="Private and unforgettable tuk tuk tours through Lisbon's most iconic spots." />
+<title>Private Tuk Tuk Tours in Lisbon | Tuk Tuk Lisbon</title>
+<meta name="description" content="Private tuk tuk tours in Lisbon with a local guide. Flexible pickup, English/Spanish/Portuguese guides, and payment only at the end of the tour." />
+<meta property="og:title" content="Private Tuk Tuk Tours in Lisbon | Tuk Tuk Lisbon" />
+<meta property="og:description" content="Book a private tuk tuk tour in Lisbon. Flexible pickup, local guide, and WhatsApp availability." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="/images/hero.jpg" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E" />
@@ -50,7 +50,7 @@
     background:rgba(255,255,255,.92); color:#222; box-shadow:0 2px 8px rgba(0,0,0,.15);
     display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .2s, background .2s; z-index:10; }
   .carousel-arrow:hover { background:#fff; transform:translateY(-50%) scale(1.08); }
-  .hero-overlay { background: linear-gradient(180deg, rgba(8,15,40,.55) 0%, rgba(8,15,40,.35) 40%, rgba(8,15,40,.65) 100%); }
+  .hero-overlay { background: linear-gradient(180deg, rgba(8,15,40,.68) 0%, rgba(8,15,40,.42) 42%, rgba(8,15,40,.72) 100%); }
   details > summary { list-style:none; cursor:pointer; }
   details > summary::-webkit-details-marker{ display:none; }
 
@@ -77,22 +77,40 @@
   .reveal { opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity:1; transform:translateY(0); }
   .lang-btn[aria-current="true"]{ color:#fff; background: rgba(255,255,255,.15); }
+  .proof-pill { display:inline-flex; align-items:center; gap:.4rem; border:1px solid rgba(255,255,255,.24); background:rgba(255,255,255,.12); color:#fff; border-radius:.5rem; padding:.45rem .7rem; font-size:.875rem; font-weight:700; backdrop-filter:blur(8px); }
+  .cta-whatsapp { background:#128C4A; }
+  .cta-whatsapp:hover { background:#0f7a40; }
+  .notify-pulse { animation: notify-pulse 3.5s ease-in-out infinite; }
+  @keyframes notify-pulse {
+    0%, 72%, 100% { transform: translate3d(0,0,0); }
+    76% { transform: translate3d(-1px,0,0) rotate(-.6deg); }
+    80% { transform: translate3d(2px,0,0) rotate(.8deg); }
+    84% { transform: translate3d(-2px,0,0) rotate(-.8deg); }
+    88% { transform: translate3d(1px,0,0) rotate(.5deg); }
+    92% { transform: translate3d(0,0,0); }
+  }
+  @media (max-width: 767px) {
+    body { padding-bottom: 5rem; }
+    .section { padding-left: 1rem; padding-right: 1rem; }
+    #hero-proof .proof-pill { font-size: .8125rem; padding: .4rem .6rem; }
+    #hero-proof .proof-pill:nth-child(n+4) { display: none; }
+  }
 </style>
 </head>
 <body class="bg-white text-ink">
 
 <!-- HEADER -->
 <header class="absolute top-0 left-0 right-0 z-40">
-  <div class="section flex items-center justify-between h-24">
-    <a href="#home" class="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow">Tuk Tuk Lisbon</a>
+  <div class="section flex items-center justify-between h-16 md:h-24">
+    <a href="#home" class="text-lg md:text-3xl font-extrabold text-white tracking-tight drop-shadow leading-tight">Tuk Tuk Lisbon</a>
     <div class="flex items-center gap-4 md:gap-6">
       <nav class="hidden md:flex items-center gap-8 text-white/90 font-medium">
         <a href="#passeios" class="hover:text-white" data-i18n="nav.tours">Tours</a>
         <a href="#como-funciona" class="hover:text-white" data-i18n="nav.howItWorks">How It Works</a>
-        <a href="#contacto" class="hover:text-white" data-i18n="nav.contact">Contact</a>
+        <a href="#contacto" class="h-10 inline-flex items-center px-4 rounded-md cta-whatsapp text-white font-bold" data-i18n="nav.contact">WhatsApp</a>
       </nav>
       <div class="flex items-center gap-3 text-white/90">
-        <a href="https://www.instagram.com/tuk_tuk_lisbon_tours" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-white">
+        <a href="https://www.instagram.com/tuk_tuk_lisbon_tours" target="_blank" rel="noopener" aria-label="Instagram" class="hidden sm:inline-flex hover:text-white">
           <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
         <div class="flex items-center gap-1 text-sm font-semibold" id="lang-switcher">
@@ -106,32 +124,37 @@
 </header>
 
 <!-- HERO -->
-<section id="home" class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+<section id="home" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
   <div class="absolute inset-0 z-0">
     <img src="/images/hero.jpg"
          alt="Tuk Tuk in Lisbon" class="w-full h-full object-cover object-center" />
     <div class="absolute inset-0 hero-overlay"></div>
   </div>
-  <div class="relative z-10 section text-center w-full max-w-4xl flex flex-col items-center mt-12">
-    <h1 data-i18n="hero.title" class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6 drop-shadow-lg">Discover Lisbon by Tuk Tuk with a Local Guide</h1>
-    <p data-i18n="hero.subtitle" class="text-lg md:text-2xl text-white/90 leading-relaxed mb-10 max-w-2xl drop-shadow font-medium">Private and unforgettable tuk tuk tours through Lisbon's most iconic spots.</p>
+  <div class="relative z-10 section text-center w-full max-w-5xl flex flex-col items-center pt-20 pb-24 md:mt-12 md:pt-0 md:pb-0">
+    <h1 data-i18n="hero.title" class="text-[2.65rem] md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.02] mb-5 drop-shadow-lg">Discover Lisbon by Tuk Tuk with a Local Guide</h1>
+    <p data-i18n="hero.subtitle" class="text-base md:text-2xl text-white/90 leading-relaxed mb-6 max-w-3xl drop-shadow font-medium">Private and unforgettable tuk tuk tours through Lisbon's most iconic spots.</p>
+    <div class="flex flex-wrap justify-center gap-2 mb-6" id="hero-proof"></div>
+    <a href="https://www.instagram.com/tuk_tuk_lisbon_tours" target="_blank" rel="noopener" class="mb-5 inline-flex items-center gap-2 text-white/90 hover:text-white font-bold" aria-label="Instagram Tuk Tuk Lisbon">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      <span>@tuk_tuk_lisbon_tours</span>
+    </a>
     <div class="flex flex-col items-center gap-4 w-full sm:w-auto">
-      <a href="#contacto" onclick="event.preventDefault(); openWa();" class="w-full sm:w-72 h-14 inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 hover:bg-brand-700 text-white text-lg font-bold shadow-cta transition">
+      <a href="#contacto" onclick="event.preventDefault(); openWa();" class="w-full sm:w-80 h-14 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white text-lg font-bold shadow-cta transition">
         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         <span data-i18n="hero.bookWhatsApp">Book via WhatsApp</span>
       </a>
-      <a href="#passeios" class="w-full sm:w-72 h-14 inline-flex items-center justify-center rounded-full border-2 border-white text-white text-lg font-bold hover:bg-white/10 transition" data-i18n="hero.seeTours">See Tours</a>
+      <a href="#passeios" class="w-full sm:w-80 h-14 inline-flex items-center justify-center rounded-md border-2 border-white text-white text-lg font-bold hover:bg-white/10 transition" data-i18n="hero.seeTours">See Tours</a>
     </div>
   </div>
-  <a href="#passeios" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 gentle-bounce" aria-label="See tours">
+  <a href="#passeios" class="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 z-20 gentle-bounce" aria-label="See tours">
     <svg class="h-10 w-10 text-white/85" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </a>
 </section>
 
 <!-- GOOGLE REVIEWS PLACEHOLDER -->
-<section class="py-16 bg-white">
+<section class="py-10 bg-white">
   <div class="section">
-    <div class="max-w-4xl mx-auto rounded-2xl border border-border bg-surface/40 p-8 md:p-10 text-center">
+    <div class="max-w-4xl mx-auto rounded-lg border border-border bg-surface/40 p-6 md:p-8 text-center">
       <div class="flex items-center justify-center gap-2 mb-2">
         <svg viewBox="0 0 24 24" class="h-6 w-6"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.43.34-2.1V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.46 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
         <span class="font-semibold text-ink">Google Reviews</span>
@@ -152,7 +175,7 @@
 </section>
 
 <!-- TOURS -->
-<section id="passeios" class="py-24 bg-white">
+<section id="passeios" class="py-20 bg-white">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="tours.title" class="text-3xl md:text-4xl font-bold mb-4">Our Tours</h2>
@@ -164,7 +187,7 @@
 
 
 <!-- VAN TOURS -->
-<section id="van-tours" class="py-24 bg-surface">
+<section id="van-tours" class="py-20 bg-surface">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Private Van Tours — Beyond Lisbon</h2>
@@ -175,7 +198,7 @@
 
     <!-- Tour Card -->
     <div class="max-w-4xl mx-auto">
-      <div class="bg-white rounded-2xl border border-border shadow-card overflow-hidden lift">
+      <article class="bg-white rounded-lg border border-border/60 shadow-card overflow-hidden lift">
         <div class="grid grid-cols-1 md:grid-cols-2">
           <!-- Image placeholder -->
           <div class="relative">
@@ -220,50 +243,55 @@
             <button class="carousel-arrow" style="right:1rem" aria-label="Next" data-van-next><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           </div>
           <!-- Content -->
-          <div class="p-8 md:p-10 flex flex-col justify-between">
+          <div class="p-6 md:p-8 flex flex-col justify-between">
             <div>
 
               <h3 class="text-2xl font-bold mb-3">Full Day Private Van Tour</h3>
-              <p class="text-muted leading-relaxed mb-6">Discover Portugal beyond Lisbon. Choose your destination and we'll take care of everything — private van, expert local guide, and an unforgettable day trip tailored just for you and your group.</p>
+              <p class="text-ink/80 leading-relaxed mb-6">Discover Portugal beyond Lisbon. Choose your destination and we'll take care of everything: private van, expert local guide, and a full-day trip tailored to your group.</p>
 
-              <ul class="space-y-2 mb-8">
-                <li class="flex items-center gap-2 text-sm text-muted"><span class="text-green-500 font-bold">✓</span> Private van — up to 8 passengers</li>
-                <li class="flex items-center gap-2 text-sm text-muted"><span class="text-green-500 font-bold">✓</span> Local expert guide included</li>
-                <li class="flex items-center gap-2 text-sm text-muted"><span class="text-green-500 font-bold">✓</span> Pick-up & drop-off in Lisbon center</li>
-                <li class="flex items-center gap-2 text-sm text-muted"><span class="text-green-500 font-bold">✓</span> Flexible itinerary — your choice of stops</li>
-                <li class="flex items-center gap-2 text-sm text-muted"><span class="text-green-500 font-bold">✓</span> 8 hours of exploration</li>
+              <span class="text-sm font-bold uppercase tracking-wider text-ink">Included</span>
+              <ul class="mt-3 space-y-2 mb-8">
+                <li class="flex items-start gap-2 text-sm text-ink/75"><svg class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Private van for up to 8 passengers</span></li>
+                <li class="flex items-start gap-2 text-sm text-ink/75"><svg class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Local expert guide included</span></li>
+                <li class="flex items-start gap-2 text-sm text-ink/75"><svg class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Pickup and drop-off in Lisbon center</span></li>
+                <li class="flex items-start gap-2 text-sm text-ink/75"><svg class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Flexible itinerary with your choice of stops</span></li>
+                <li class="flex items-start gap-2 text-sm text-ink/75"><svg class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>8 hours of exploration</span></li>
               </ul>
             </div>
 
             <div class="border-t border-border pt-6">
-              <div class="flex items-end justify-between mb-4">
+              <div class="flex items-end justify-between gap-4 mb-4">
                 <div>
-                  <p class="text-sm text-muted mb-1">Price per group</p>
-                  <p class="text-4xl font-extrabold text-brand-700">€600</p>
-                  <p class="text-sm text-muted mt-1">⏱ 8 hours · up to 8 people</p>
+                  <div class="text-xs font-bold uppercase text-muted mb-1">Price per group</div>
+                  <div class="text-brand-700 font-extrabold text-3xl leading-none">€600</div>
+                  <div class="inline-flex items-center gap-1.5 bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md text-sm font-medium mt-2">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    8 hours · up to 8 people
+                  </div>
                 </div>
                 <div class="text-right">
                   <p class="text-xs text-muted">That's only</p>
-                  <p class="text-lg font-bold text-green-600">€75/person</p>
+                  <p class="text-lg font-bold text-brand-700">€75/person</p>
                   <p class="text-xs text-muted">for a group of 8</p>
                 </div>
               </div>
               <a href="https://api.whatsapp.com/send/?phone=351967315921&text=Hello%21+I+would+like+to+book+a+Full+Day+Private+Van+Tour.&type=phone_number&app_absent=0"
                  target="_blank" rel="noopener"
-                 class="w-full h-14 inline-flex items-center justify-center gap-2 rounded-md bg-[#25D366] hover:bg-[#1EBE5C] text-white font-bold text-base transition shadow-cta">
+                 class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold text-base transition shadow-cta">
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                Book on WhatsApp
+                Check availability for Van Tour
               </a>
+              <p class="text-xs text-muted text-center bg-surface py-2 rounded-md mt-3">Full payment only at the end of the tour.</p>
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="como-funciona" class="py-24 bg-surface">
+<section id="como-funciona" class="py-20 bg-surface">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="howItWorks.title" class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
@@ -274,7 +302,7 @@
 </section>
 
 <!-- ADVANTAGES -->
-<section class="py-24 bg-white">
+<section class="py-20 bg-white">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="advantages.title" class="text-3xl md:text-4xl font-bold mb-4">Why Choose Us</h2>
@@ -285,7 +313,7 @@
 </section>
 
 <!-- GALLERY -->
-<section class="py-24 bg-white">
+<section class="py-20 bg-white">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="gallery.title" class="text-3xl md:text-4xl font-bold mb-4">Gallery</h2>
@@ -296,7 +324,7 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="py-24 bg-surface">
+<section id="faq" class="py-20 bg-surface">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="faq.title" class="text-3xl md:text-4xl font-bold mb-4">FAQ</h2>
@@ -306,7 +334,18 @@
   </div>
 </section>
 
-
+<!-- FINAL CTA -->
+<section id="contacto" class="py-20 bg-white">
+  <div class="section">
+    <div class="max-w-4xl mx-auto rounded-lg bg-brand-800 text-white p-8 md:p-12 text-center">
+      <h2 data-i18n="contact.title" class="text-3xl md:text-4xl font-extrabold mb-4">Ready to book your Lisbon tour?</h2>
+      <p data-i18n="contact.subtitle" class="text-lg text-white/80 max-w-2xl mx-auto mb-8">Message us on WhatsApp to confirm availability for today, tomorrow, or your travel date.</p>
+      <button onclick="openWa()" data-i18n="contact.finalCta" class="w-full sm:w-auto h-14 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp px-8 text-white font-bold text-lg transition shadow-cta">
+        Check availability on WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer class="bg-brand-800 text-white/90 py-16">
@@ -356,8 +395,11 @@
 </footer>
 
 <!-- Floating WhatsApp -->
-<button onclick="openWa()" class="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#1EBE5C] text-white shadow-lg flex items-center justify-center transition active:scale-95" aria-label="WhatsApp">
+<button onclick="openWa()" class="hidden md:flex fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full cta-whatsapp text-white shadow-lg items-center justify-center transition active:scale-95" aria-label="WhatsApp">
   <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<button onclick="openWa()" data-i18n="contact.stickyCta" class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 h-12 w-[80vw] max-w-xs rounded-full cta-whatsapp text-white font-extrabold text-sm shadow-lg notify-pulse">
+  WhatsApp - Check availability
 </button>
 
 <script src="i18n.js"></script>
