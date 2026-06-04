@@ -218,6 +218,24 @@
       wrap.addEventListener('mouseleave', () => timer = setInterval(autoplay, 3500));
     });
 
+    /* Van Tour Carousel — 2s auto-play */
+    const vanCar = document.querySelector('[data-carousel-van]');
+    if (vanCar) {
+      const vanWrap = vanCar.parentElement;
+      const vsw = () => vanCar.clientWidth;
+      vanWrap.querySelector('[data-van-prev]').addEventListener('click', () => vanCar.scrollBy({ left: -vsw(), behavior: 'smooth' }));
+      vanWrap.querySelector('[data-van-next]').addEventListener('click', () => vanCar.scrollBy({ left:  vsw(), behavior: 'smooth' }));
+      let vanTimer = setInterval(vanAutoplay, 2000);
+      function vanAutoplay() {
+        if (document.hidden) return;
+        const max = vanCar.scrollWidth - vanCar.clientWidth - 4;
+        if (vanCar.scrollLeft >= max) vanCar.scrollTo({ left: 0, behavior: 'smooth' });
+        else vanCar.scrollBy({ left: vsw(), behavior: 'smooth' });
+      }
+      vanWrap.addEventListener('mouseenter', () => clearInterval(vanTimer));
+      vanWrap.addEventListener('mouseleave', () => vanTimer = setInterval(vanAutoplay, 2000));
+    }
+
     // Reveal-on-scroll
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
