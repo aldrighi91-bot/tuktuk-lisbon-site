@@ -301,6 +301,10 @@
   /* ===== WhatsApp ===== */
   window.openWa = function () {
     const msg = encodeURIComponent(get('contact.whatsappMsg'));
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {'send_to': 'AW-17831839287/nrwwCOGk8aYcELeM8bZC'});
+    }
+    gtag('event', 'whatsapp_click', {'event_category': 'engagement', 'event_label': 'generic'});
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
@@ -308,6 +312,10 @@
     const lang = detectLang();
     const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
     const msg = encodeURIComponent(msgs[tourId] || get('contact.whatsappMsg'));
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {'send_to': 'AW-17831839287/nrwwCOGk8aYcELeM8bZC'});
+    }
+    gtag('event', 'whatsapp_click', {'event_category': 'engagement', 'event_label': tourId});
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
