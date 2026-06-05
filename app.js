@@ -39,6 +39,27 @@
   };
   const POPULAR_ID = 'miradouros';
 
+  const TOUR_WA_MESSAGES = {
+    en: {
+      miradouros:       "Hello! I'm interested in booking the *Viewpoints + Alfama Tour* (1.5h — €130 per group). Could you check availability for me? 😊",
+      'centro-historico': "Hello! I'm interested in booking the *Historic Centre Tour* (2h — €190 per group). Could you check availability for me? 😊",
+      belem:            "Hello! I'm interested in booking the *Belém Tour* (2h — €190 per group). Could you check availability for me? 😊",
+      personalizado:    "Hello! I'm interested in booking the *Full City Tour* (4h — €360 per group). Could you check availability for me? 😊",
+    },
+    pt: {
+      miradouros:       "Olá! Tenho interesse em reservar o *Tour Miradouros + Alfama* (1.5h — €130 por grupo). Podem verificar disponibilidade? 😊",
+      'centro-historico': "Olá! Tenho interesse em reservar o *Tour Centro Histórico* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
+      belem:            "Olá! Tenho interesse em reservar o *Tour Belém* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
+      personalizado:    "Olá! Tenho interesse em reservar o *Full City Tour* (4h — €360 por grupo). Podem verificar disponibilidade? 😊",
+    },
+    es: {
+      miradouros:       "¡Hola! Me interesa reservar el *Tour Miradores + Alfama* (1.5h — €130 por grupo). ¿Pueden verificar disponibilidad? 😊",
+      'centro-historico': "¡Hola! Me interesa reservar el *Tour Centro Histórico* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
+      belem:            "¡Hola! Me interesa reservar el *Tour Belém* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
+      personalizado:    "¡Hola! Me interesa reservar el *Tour Ciudad Completa* (4h — €360 por grupo). ¿Pueden verificar disponibilidad? 😊",
+    },
+  };
+
   const STEP_ICONS = [
     '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
     '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
@@ -140,7 +161,7 @@
             <p class="text-sm text-muted">⏱ ${t.duration} · up to 6 people</p>
           </div>
         </div>
-        <button onclick="openWa()" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
+        <button onclick="openWaTour('${id}')" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           Book via WhatsApp
         </button>
@@ -280,6 +301,13 @@
   /* ===== WhatsApp ===== */
   window.openWa = function () {
     const msg = encodeURIComponent(get('contact.whatsappMsg'));
+    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+  };
+
+  window.openWaTour = function (tourId) {
+    const lang = detectLang();
+    const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
+    const msg = encodeURIComponent(msgs[tourId] || get('contact.whatsappMsg'));
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
