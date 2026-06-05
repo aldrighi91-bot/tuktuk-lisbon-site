@@ -42,7 +42,16 @@
 </script>
 <style>
   html { scroll-behavior:smooth; }
-  body { font-family:'DM Sans', sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  body {
+    font-family:'DM Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background-image: url('/images/bg-azulejos.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   h1,h2,h3,h4 { text-wrap:balance; letter-spacing:-.02em; }
   p { text-wrap:pretty; }
   .section { max-width:1280px; margin:0 auto; padding:0 1.25rem; }
@@ -176,7 +185,7 @@
 
 
 <!-- TOURS -->
-<section id="passeios" class="py-20 bg-white">
+<section id="passeios" class="py-20 section-wrap">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="tours.title" class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">Our Tours</h2>
@@ -188,7 +197,7 @@
 
 
 <!-- VAN TOURS -->
-<section id="van-tours" class="py-20 bg-surface">
+<section id="van-tours" class="py-20 section-wrap-alt">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">Private Van Tours — Beyond Lisbon</h2>
@@ -292,7 +301,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="como-funciona" class="py-20 bg-surface">
+<section id="como-funciona" class="py-20 section-wrap">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="howItWorks.title" class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">How It Works</h2>
@@ -303,7 +312,7 @@
 </section>
 
 <!-- ADVANTAGES -->
-<section class="py-20 bg-white">
+<section class="py-20 section-wrap">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="advantages.title" class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">Why Choose Us</h2>
@@ -314,7 +323,7 @@
 </section>
 
 <!-- GALLERY -->
-<section class="py-20 bg-white">
+<section class="py-20 section-wrap">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="gallery.title" class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">Gallery</h2>
@@ -325,7 +334,7 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="py-20 bg-surface">
+<section id="faq" class="py-20 section-wrap-alt">
   <div class="section">
     <div class="text-center mb-16 reveal">
       <h2 data-i18n="faq.title" class="text-3xl md:text-4xl font-bold mb-4 text-brand-700">FAQ</h2>
@@ -336,7 +345,7 @@
 </section>
 
 <!-- FINAL CTA -->
-<section id="contacto" class="py-20 bg-white">
+<section id="contacto" class="py-20 section-wrap">
   <div class="section">
     <div class="max-w-4xl mx-auto rounded-lg bg-brand-800 text-white p-8 md:p-12 text-center">
       <h2 data-i18n="contact.title" class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-700">Ready to book your Lisbon tour?</h2>
