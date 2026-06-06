@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Chiado & Bairro Alto Tour · Tuk Tuk Lisbon</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue:   hsl(221 83% 53%);
+  --ink:    hsl(222 47% 11%);
+  --muted:  hsl(215 16% 47%);
+  --border: hsl(214 32% 91%);
+  --bg:     #fff;
+  --surf:   hsl(210 40% 97%);
+  --green:  #128C4A;
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg); color: var(--ink);
+  max-width: 480px; margin: 0 auto;
+}
+.title { padding: 22px 18px 14px; animation: up .4s ease both; }
+.title h1 { font-size: 24px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+.title p  { margin-top: 4px; font-size: 13px; color: var(--muted); font-weight: 500; }
+.c-wrap { position: relative; animation: up .4s ease .08s both; }
+.c-track {
+  display: flex; overflow-x: auto;
+  scroll-snap-type: x mandatory; scrollbar-width: none;
+  -ms-overflow-style: none; scroll-behavior: smooth;
+}
+.c-track::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 100%; min-width: 100%; scroll-snap-align: start; }
+.s-photo {
+  position: relative; width: 100%;
+  aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink);
+}
+.s-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.s-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, rgba(8,15,40,.75) 100%);
+}
+.s-num {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  background: rgba(0,0,0,.36); backdrop-filter: blur(5px);
+  color: rgba(255,255,255,.88); font-size: 10px; font-weight: 700;
+  letter-spacing: .06em; padding: 3px 8px; border-radius: 8px;
+}
+.s-name {
+  position: absolute; bottom: 14px; left: 16px; right: 16px; z-index: 2;
+  font-size: 18px; font-weight: 800; color: #fff;
+  letter-spacing: -.02em; line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+.s-desc { padding: 12px 18px 16px; border-bottom: 1px solid var(--border); min-height: 70px; }
+.s-desc p { font-size: 13.5px; line-height: 1.65; color: var(--muted); }
+.map-slide { aspect-ratio: 4/5; background: #e8f0f7; position: relative; overflow: hidden; }
+.map-slide svg { width: 100%; height: 100%; display: block; }
+.map-desc { padding: 14px 18px 16px; border-bottom: 1px solid var(--border); }
+.map-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.stop-list { display: flex; flex-direction: column; gap: 7px; }
+.stop { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink); font-weight: 500; }
+.stop-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.dots { display: flex; justify-content: center; gap: 5px; padding: 12px 0; }
+.dot {
+  width: 6px; height: 6px; border-radius: 3px;
+  background: var(--border); border: none; padding: 0; cursor: pointer;
+  transition: all .22s; -webkit-tap-highlight-color: transparent;
+}
+.dot.on { background: var(--blue); width: 16px; }
+.arrows {
+  position: absolute; top: 40%; left: 0; right: 0;
+  display: flex; justify-content: space-between;
+  padding: 0 10px; pointer-events: none; z-index: 10; transform: translateY(-50%);
+}
+.arr {
+  pointer-events: all; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,.85); border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--ink);
+  -webkit-tap-highlight-color: transparent; transition: transform .14s;
+}
+.arr:active { transform: scale(.88); }
+.arr svg { width: 14px; height: 14px; }
+.info { padding: 18px 18px 0; animation: up .4s ease .16s both; }
+.price-row { display: flex; align-items: baseline; gap: 7px; margin-bottom: 14px; }
+.price { font-size: 40px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.price sup { font-size: 18px; font-weight: 700; color: var(--blue); vertical-align: super; }
+.price-sub { font-size: 12px; color: var(--muted); font-weight: 500; }
+.pills { display: flex; flex-wrap: wrap; gap: 7px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 20px; padding: 6px 12px;
+  font-size: 12px; font-weight: 600; color: var(--ink);
+}
+.pill svg { width: 13px; height: 13px; color: var(--blue); flex-shrink: 0; }
+.van-note {
+  margin: 14px 0 0;
+  padding: 11px 14px;
+  background: hsl(214 95% 93%);
+  border: 1px solid hsl(213 97% 87%);
+  border-radius: 8px;
+  font-size: 12px; color: hsl(221 83% 35%); font-weight: 500; line-height: 1.55;
+}
+.cta-wrap { padding: 20px 18px 40px; animation: up .4s ease .22s both; }
+.cta {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; padding: 15px; background: var(--green);
+  border: none; border-radius: 10px; color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background .14s, transform .12s;
+  box-shadow: 0 4px 16px -4px rgba(18,140,74,.4);
+}
+.cta:active { background: #0f7a40; transform: scale(.97); box-shadow: none; }
+.cta svg { width: 19px; height: 19px; flex-shrink: 0; }
+@keyframes up {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="title">
+  <h1>Chiado & Bairro Alto Tour</h1>
+  <p>Culture, art & bohemian streets · 1h30 · Central Lisbon</p>
+</div>
+
+<div class="c-wrap">
+  <div class="c-track" id="track">
+
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Praça do Comércio" loading="eager">
+        <div class="s-num">1 / 7</div>
+        <div class="s-name">Praça do Comércio</div>
+      </div>
+      <div class="s-desc"><p>Lisbon's grand riverside square, once the gateway to the Portuguese Empire. The triumphal arch opens onto the elegant streets of Baixa.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Rua Augusta" loading="lazy">
+        <div class="s-num">2 / 7</div>
+        <div class="s-name">Rua Augusta</div>
+      </div>
+      <div class="s-desc"><p>The heart of Baixa — a pedestrian street lined with mosaic cobblestones, street performers and the iconic triumphal arch framing the Tagus.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Chiado District" loading="lazy">
+        <div class="s-num">3 / 7</div>
+        <div class="s-name">Chiado District</div>
+      </div>
+      <div class="s-desc"><p>Lisbon's most cultured neighbourhood — home to the famous A Brasileira café, Fernando Pessoa's statue, theatres and independent bookshops since 1711.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Bairro Alto" loading="lazy">
+        <div class="s-num">4 / 7</div>
+        <div class="s-name">Bairro Alto</div>
+      </div>
+      <div class="s-desc"><p>By day a quiet hilltop neighbourhood of faded azulejo facades; by night the beating heart of Lisbon's nightlife and Fado music scene.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Elevador da Bica" loading="lazy">
+        <div class="s-num">5 / 7</div>
+        <div class="s-name">Elevador da Bica</div>
+      </div>
+      <div class="s-desc"><p>One of Lisbon's iconic yellow funiculars, climbing the steep hillside of Bica since 1892 — one of the most photographed spots in the city.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-6.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Miradouro de São Pedro de Alcântara" loading="lazy">
+        <div class="s-num">6 / 7</div>
+        <div class="s-name">Miradouro de São Pedro de Alcântara</div>
+      </div>
+      <div class="s-desc"><p>A terrace garden with one of the best panoramic views of Lisbon's skyline — from the castle on the hill to the rooftops of Alfama below.</p></div>
+    </div>
+
+    <div class="slide">
+      <div class="map-slide">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="500" fill="#e8f0f7"/>
+          <rect x="0" y="400" width="400" height="100" fill="#b8d4e8" opacity=".9"/>
+          <text x="200" y="450" text-anchor="middle" font-family="DM Sans,sans-serif"
+                font-size="13" font-weight="600" fill="#5a8aaa" opacity=".8">Rio Tejo — River Tagus</text>
+          <path d="M0,60 Q60,50 120,55 Q200,48 280,52 Q340,50 400,58 L400,400 L0,400 Z"
+                fill="#d6e4d0" opacity=".6"/>
+          <line x1="0" y1="150" x2="400" y2="150" stroke="#c5d5c0" stroke-width="1.2"/>
+          <line x1="0" y1="230" x2="400" y2="230" stroke="#c5d5c0" stroke-width="1.2"/>
+          <line x1="0" y1="310" x2="400" y2="310" stroke="#c5d5c0" stroke-width="1.2"/>
+          <line x1="0" y1="370" x2="400" y2="370" stroke="#c5d5c0" stroke-width="1.5"/>
+          <line x1="80"  y1="60" x2="80"  y2="400" stroke="#c5d5c0" stroke-width="1"/>
+          <line x1="160" y1="60" x2="160" y2="400" stroke="#c5d5c0" stroke-width="1"/>
+          <line x1="240" y1="60" x2="240" y2="400" stroke="#c5d5c0" stroke-width="1"/>
+          <line x1="320" y1="60" x2="320" y2="400" stroke="#c5d5c0" stroke-width="1"/>
+          <g transform="translate(358,82)">
+            <circle cx="0" cy="0" r="18" fill="white" opacity=".7"/>
+            <text x="0" y="-5" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="9" font-weight="800" fill="#334">N</text>
+            <line x1="0" y1="-2" x2="0" y2="-13" stroke="#334" stroke-width="1.5"/>
+            <polygon points="0,-13 -3,-6 3,-6" fill="#334"/>
+          </g>
+          <text x="200" y="88" text-anchor="middle" font-family="DM Sans,sans-serif"
+                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Chiado & Bairro Alto</text>
+          
+          <g transform="translate(120,220)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">1</text>
+          </g>
+          <g transform="translate(180,190)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">2</text>
+          </g>
+          <g transform="translate(150,260)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">3</text>
+          </g>
+          <g transform="translate(210,240)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">4</text>
+          </g>
+          <g transform="translate(170,300)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">5</text>
+          </g>
+          <g transform="translate(130,280)">
+            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
+            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
+            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
+                  font-size="10" font-weight="800" fill="white">6</text>
+          </g>
+          <rect x="344" y="14" width="40" height="18" rx="9" fill="rgba(0,0,0,.35)"/>
+          <text x="364" y="27" text-anchor="middle" font-family="DM Sans,sans-serif"
+                font-size="10" font-weight="700" fill="rgba(255,255,255,.88)">7 / 7</text>
+        </svg>
+      </div>
+      <div class="map-desc">
+        <div class="map-title">📍 Tour stops</div>
+        <div class="stop-list"><div class="stop"><div class="stop-num">1</div>Praça do Comércio</div>
+<div class="stop"><div class="stop-num">2</div>Rua Augusta & Baixa</div>
+<div class="stop"><div class="stop-num">3</div>Chiado District</div>
+<div class="stop"><div class="stop-num">4</div>Bairro Alto</div>
+<div class="stop"><div class="stop-num">5</div>Elevador da Bica</div>
+<div class="stop"><div class="stop-num">6</div>Miradouro São Pedro de Alcântara</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="arrows">
+    <button class="arr" id="prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="arr" id="next" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="dots" id="dots">
+<button class="dot  on" data-i="0"></button>
+<button class="dot" data-i="1"></button>
+<button class="dot" data-i="2"></button>
+<button class="dot" data-i="3"></button>
+<button class="dot" data-i="4"></button>
+<button class="dot" data-i="5"></button>
+<button class="dot" data-i="6"></button>
+</div>
+
+<div class="info">
+  <div class="price-row">
+    <div class="price"><sup>€</sup>190</div>
+    <div class="price-sub">private group · up to 6 people</div>
+  </div>
+  <div class="pills">
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      1h30
+    </span>
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Local guide
+    </span>
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Photo stops
+    </span>
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Pay at the end
+    </span>
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Private tour
+    </span>
+  </div>
+  
+</div>
+
+<div class="cta-wrap">
+  <button class="cta" onclick="goBack()">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Book via WhatsApp
+  </button>
+</div>
+
+<script>
+  const WA  = '351XXXXXXXXX';
+  const MSG = encodeURIComponent('Quero reservar o tour de Chiado! 🛺');
+  function goBack() {
+    if (window.history.length > 1) { window.history.back(); return; }
+    window.location.href = 'https://wa.me/' + WA + '?text=' + MSG;
+  }
+  const track = document.getElementById('track');
+  const allDots = document.querySelectorAll('.dot');
+  const N = 7; let cur = 0;
+  function go(n) {
+    cur = Math.max(0, Math.min(N-1, n));
+    track.scrollTo({ left: cur * track.offsetWidth, behavior: 'smooth' });
+    allDots.forEach((d,i) => d.classList.toggle('on', i===cur));
+  }
+  track.addEventListener('scroll', () => {
+    const i = Math.round(track.scrollLeft / track.offsetWidth);
+    if (i !== cur) { cur=i; allDots.forEach((d,j) => d.classList.toggle('on', j===cur)); }
+  }, { passive: true });
+  document.getElementById('prev').addEventListener('click', () => go(cur-1));
+  document.getElementById('next').addEventListener('click', () => go(cur+1));
+  allDots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+</script>
+</body>
+</html>
