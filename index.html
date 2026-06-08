@@ -116,8 +116,10 @@
     background: #128C4A;
     opacity: 0;
     animation: wa-ring 3s ease-out infinite;
+    pointer-events: none;
   }
   .wa-float-wrap::after { animation-delay: 1s; }
+  .wa-float-wrap > a { position: relative; z-index: 1; }
   @keyframes wa-ring {
     0%   { transform: scale(1);   opacity: .55; }
     70%  { transform: scale(1.75); opacity: 0; }
