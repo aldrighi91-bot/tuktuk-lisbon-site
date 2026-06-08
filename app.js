@@ -38,6 +38,11 @@
     ],
   };
   const POPULAR_ID = 'miradouros';
+  const HERO_PROOF = {
+    en: ['Private tours', 'Flexible pickup', 'From €130/group', 'Pay at the end'],
+    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', 'Pague no final'],
+    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', 'Pago al final'],
+  };
 
   const TOUR_WA_MESSAGES = {
     en: {
@@ -214,6 +219,26 @@
     </details>`;
   }
 
+  function renderHeroProof() {
+    const proof = HERO_PROOF[lang] || HERO_PROOF.en;
+    $('#hero-proof').innerHTML = proof
+      .map(item => `<span class="proof-pill">${item}</span>`)
+      .join('');
+  }
+
+  function trackWhatsApp(label) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'conversion', {
+      send_to: 'AW-17831839287/nrwwCOGk8aYcELeM8bZC',
+      event_category: 'lead',
+      event_label: label,
+    });
+    gtag('event', 'whatsapp_click', {
+      event_category: 'engagement',
+      event_label: label,
+    });
+  }
+
   /* ===== mount ===== */
   function renderAll() {
     document.documentElement.lang = lang;
@@ -232,6 +257,7 @@
 ;
 
     // Dynamic blocks
+    renderHeroProof();
     $('#tours-grid').innerHTML = TOUR_IDS.map(tourCard).join('');
     $('#steps').innerHTML       = get('howItWorks.steps').map(stepRow).join('');
     $('#advantages').innerHTML  = get('advantages.items').map(advCard).join('');
@@ -298,13 +324,16 @@
     renderAll();
   });
 
+  document.addEventListener('click', (e) => {
+    const waLink = e.target.closest('a[href*="wa.me/"]');
+    if (!waLink) return;
+    trackWhatsApp(waLink.dataset.whatsappLabel || 'whatsapp_link');
+  });
+
   /* ===== WhatsApp ===== */
   window.openWa = function () {
     const msg = encodeURIComponent(get('contact.whatsappMsg'));
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {'send_to': 'AW-17831839287/nrwwCOGk8aYcELeM8bZC'});
-      gtag('event', 'whatsapp_click', {'event_category': 'engagement', 'event_label': 'generic'});
-    }
+    trackWhatsApp('generic');
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 
@@ -312,10 +341,7 @@
     const lang = detectLang();
     const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
     const msg = encodeURIComponent(msgs[tourId] || get('contact.whatsappMsg'));
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {'send_to': 'AW-17831839287/nrwwCOGk8aYcELeM8bZC'});
-      gtag('event', 'whatsapp_click', {'event_category': 'engagement', 'event_label': tourId});
-    }
+    trackWhatsApp(tourId);
     window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
   };
 

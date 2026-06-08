@@ -7,6 +7,36 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.tuktuklisbon.tours/tours/alfama</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/tours/belem</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/tours/chiado</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/tours/fullcity</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/tours/van</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.tuktuklisbon.tours/terms</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>

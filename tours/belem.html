@@ -4,6 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Belém Tour · Tuk Tuk Lisbon</title>
+<meta name="description" content="Private Belem tuk tuk tour in Lisbon with monuments, river views and local guide. Book by WhatsApp.">
+<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/belem">
+<meta property="og:title" content="Belem Tour | Tuk Tuk Lisbon">
+<meta property="og:description" content="Private Belem tuk tuk tour in Lisbon with monuments, river views and local guide. Book by WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/belem">
+<meta property="og:image" content="https://www.tuktuklisbon.tours/images/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17831839287"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17831839287');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "Belem Tour",
+  "description": "Private Belem tuk tuk tour in Lisbon with monuments, river views and local guide. Book by WhatsApp.",
+  "url": "https://www.tuktuklisbon.tours/tours/belem",
+  "image": "https://www.tuktuklisbon.tours/images/hero.jpg",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Tuk Tuk Lisbon",
+    "telephone": "+351967315921",
+    "email": "contact@tuktuklisbon.tours",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lisbon",
+      "addressCountry": "PT"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "190",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.tuktuklisbon.tours/tours/belem"
+  }
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
@@ -314,8 +358,18 @@ body {
   const WA  = '351XXXXXXXXX';
   const MSG = encodeURIComponent('Quero reservar o tour de Belém! 🛺');
   function goBack() {
-    if (window.history.length > 1) { window.history.back(); return; }
-    window.location.href = 'https://wa.me/351967315921';
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-17831839287/nrwwCOGk8aYcELeM8bZC',
+        event_category: 'lead',
+        event_label: 'tour_belem'
+      });
+      gtag('event', 'whatsapp_click', {
+        event_category: 'engagement',
+        event_label: 'tour_belem'
+      });
+    }
+    window.location.href = 'https://wa.me/351967315921?text=Hello!%20I'm%20interested%20in%20booking%20the%20*Belem%20Tour*%20(2h%20-%20EUR%20190%20per%20group).%20Could%20you%20check%20availability%20for%20me%3F';
   }
   const track = document.getElementById('track');
   const allDots = document.querySelectorAll('.dot');
