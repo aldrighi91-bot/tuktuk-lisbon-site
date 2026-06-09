@@ -9,12 +9,91 @@ const APP_SECRET = process.env.META_APP_SECRET;
 const REQUIRE_SIGNATURE = process.env.META_REQUIRE_SIGNATURE === 'true';
 
 const TOURS = [
-  'Viewpoints + Alfama: 1.5h, EUR 130 per private group, up to 6 people.',
-  'Historical Center: 2h, EUR 190 per private group, up to 6 people.',
-  'Belem: 2h, EUR 190 per private group, up to 6 people.',
-  'Full City Tour: 4h, EUR 360 per private group, up to 6 people.',
-  'Private Van Tour: 8h, EUR 600 per group, up to 8 people.',
+  {
+    key: 'alfama',
+    name: 'Viewpoints + Alfama',
+    duration: '1.5h',
+    price: 'EUR 130',
+    capacity: 'up to 6 people',
+    url: 'https://www.tuktuklisbon.tours/tours/alfama',
+  },
+  {
+    key: 'center',
+    name: 'Historical Center',
+    duration: '2h',
+    price: 'EUR 190',
+    capacity: 'up to 6 people',
+    url: 'https://www.tuktuklisbon.tours/tours/chiado',
+  },
+  {
+    key: 'belem',
+    name: 'Belem',
+    duration: '2h',
+    price: 'EUR 190',
+    capacity: 'up to 6 people',
+    url: 'https://www.tuktuklisbon.tours/tours/belem',
+  },
+  {
+    key: 'fullcity',
+    name: 'Full City Tour',
+    duration: '4h',
+    price: 'EUR 360',
+    capacity: 'up to 6 people',
+    url: 'https://www.tuktuklisbon.tours/tours/fullcity',
+  },
+  {
+    key: 'van',
+    name: 'Private Van Tour',
+    duration: '8h',
+    price: 'EUR 600',
+    capacity: 'up to 8 people',
+    url: 'https://www.tuktuklisbon.tours/tours/van',
+  },
 ];
+
+function formatTourLine(tour, index) {
+  return `${index + 1}. ${tour.name} - ${tour.duration} - ${tour.price} private group (${tour.capacity})\n${tour.url}`;
+}
+
+function buildToursMenu() {
+  return [
+    'Hi, I am Lisa from Tuk Tuk Lisbon.',
+    '',
+    'Here are our private tour options:',
+    '',
+    ...TOURS.map(formatTourLine),
+    '',
+    'To check availability, send me:',
+    'Date + preferred time + number of people + pickup area.',
+    '',
+    'For faster booking on WhatsApp:',
+    'https://wa.me/351967315921',
+  ].join('\n');
+}
+
+function findTour(text) {
+  if (/alfama|viewpoint|miradouro|miradouros/.test(text)) return TOURS[0];
+  if (/historical|historic|center|centre|chiado|downtown|old town|centro/.test(text)) return TOURS[1];
+  if (/belem|belem|jeronimos|pasteis/.test(text)) return TOURS[2];
+  if (/full|city|complete|completo|cidade/.test(text)) return TOURS[3];
+  if (/van|sintra|cascais|fatima|nazare|evora|obidos|cabo/.test(text)) return TOURS[4];
+  return null;
+}
+
+function buildTourDetail(tour) {
+  return [
+    `${tour.name}`,
+    `${tour.duration} - ${tour.price} private group - ${tour.capacity}.`,
+    '',
+    `Tour page: ${tour.url}`,
+    '',
+    'To check availability, send me:',
+    'Date + preferred time + number of people + pickup area.',
+    '',
+    'WhatsApp for faster booking:',
+    'https://wa.me/351967315921',
+  ].join('\n');
+}
 
 function normalize(text = '') {
   return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -25,16 +104,14 @@ function buildReply(text = '') {
   const wantsPrice = /price|cost|how much|preco|valor|quanto|precio|cuanto|tour|tours|passeio/.test(msg);
   const wantsBooking = /book|booking|reserve|reservation|available|availability|reservar|reserva|disponivel|disponibilidade|horario|hora/.test(msg);
   const saysHello = /hello|hi|hey|ola|buenas|hola/.test(msg);
+  const selectedTour = findTour(msg);
+
+  if (selectedTour) {
+    return buildTourDetail(selectedTour);
+  }
 
   if (wantsPrice) {
-    return [
-      'Hi, I am Lisa from Tuk Tuk Lisbon. Here are our private tour options:',
-      '',
-      ...TOURS,
-      '',
-      'To check availability, please send the date, preferred time, number of people, and pickup area.',
-      'You can also book faster on WhatsApp: https://wa.me/351967315921',
-    ].join('\n');
+    return buildToursMenu();
   }
 
   if (wantsBooking) {
@@ -55,7 +132,8 @@ function buildReply(text = '') {
     return [
       'Hi, I am Lisa from Tuk Tuk Lisbon. We offer private tuk tuk tours in Lisbon with local guides.',
       '',
-      'Would you like prices, availability, or help choosing the best tour?',
+      'Would you like to see our tour options?',
+      'You can reply: tours, prices, availability, Alfama, Belem, Full City, or Van.',
     ].join('\n');
   }
 
