@@ -214,7 +214,7 @@ module.exports = async function handler(req, res) {
   const messages = collectMessages(body);
   const summary = summarizeWebhookBody(body);
   console.warn(
-    `IG_WEBHOOK sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'} object=${summary.object} entries=${summary.entries} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} messages=${messages.length}`
+    `IG_WEBHOOK messages=${messages.length} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} object=${summary.object} entries=${summary.entries} sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'}`
   );
 
   await Promise.all(
