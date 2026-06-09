@@ -88,6 +88,39 @@ async function sendInstagramMessage(recipientId, text) {
   }
 }
 
+async function readRawBody(req) {
+  if (req.rawBody) return req.rawBody;
+  if (Buffer.isBuffer(req.body) || typeof req.body === 'string') return req.body;
+
+  const chunks = [];
+  for await (const chunk of req) chunks.push(Buffer.from(chunk));
+  if (chunks.length) return Buffer.concat(chunks);
+
+  if (req.body && typeof req.body === 'object') {
+    return JSON.stringify(req.body);
+  }
+
+  return '';
+}
+
+function parseJsonBody(req, rawBody) {
+  if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
+    return req.body;
+  }
+
+  if (!rawBody) return {};
+
+  const text = Buffer.isBuffer(rawBody) ? rawBody.toString('utf8') : rawBody;
+  if (!text) return {};
+
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.error('Instagram webhook JSON parse failed', error.message);
+    return {};
+  }
+}
+
 function collectMessages(body) {
   const messages = [];
   for (const entry of body.entry || []) {
@@ -112,13 +145,12 @@ function collectMessages(body) {
   return messages;
 }
 
-function verifyMetaSignature(req) {
+function verifyMetaSignature(req, rawBody) {
   if (!APP_SECRET) return true;
 
   const signature = req.headers['x-hub-signature-256'];
   if (!signature || !signature.startsWith('sha256=')) return false;
 
-  const rawBody = req.rawBody || JSON.stringify(req.body || {});
   const expected = 'sha256=' + crypto
     .createHmac('sha256', APP_SECRET)
     .update(rawBody)
@@ -152,12 +184,15 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  if (!verifyMetaSignature(req)) {
+  const rawBody = await readRawBody(req);
+
+  if (!verifyMetaSignature(req, rawBody)) {
+    console.error('Instagram webhook signature validation failed');
     res.status(403).send('Invalid signature');
     return;
   }
 
-  const body = req.body || {};
+  const body = parseJsonBody(req, rawBody);
   const messages = collectMessages(body);
 
   await Promise.all(
@@ -165,4 +200,10 @@ module.exports = async function handler(req, res) {
   );
 
   res.status(200).json({ ok: true, received: messages.length });
+};
+
+module.exports.config = {
+  api: {
+    bodyParser: false,
+  },
 };
