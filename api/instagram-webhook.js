@@ -7,6 +7,8 @@ const PAGE_ACCESS_TOKEN = process.env.META_PAGE_ACCESS_TOKEN;
 const SEND_ENDPOINT_ID = process.env.META_SEND_ENDPOINT_ID || 'me';
 const APP_SECRET = process.env.META_APP_SECRET;
 const REQUIRE_SIGNATURE = process.env.META_REQUIRE_SIGNATURE === 'true';
+const PAUSED_CONVERSATIONS = new Map();
+const PAUSE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 const TOURS = [
   {
@@ -97,6 +99,36 @@ function buildTourDetail(tour) {
 
 function normalize(text = '') {
   return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function cleanupPausedConversations() {
+  const now = Date.now();
+  for (const [conversationId, state] of PAUSED_CONVERSATIONS.entries()) {
+    if (state.expiresAt <= now) PAUSED_CONVERSATIONS.delete(conversationId);
+  }
+}
+
+function getLisaCommand(text = '') {
+  const command = normalize(text).trim();
+  if (/^\/?lisa\s+off\b/.test(command)) return 'off';
+  if (/^\/?lisa\s+on\b/.test(command)) return 'on';
+  return null;
+}
+
+function pauseConversation(conversationId) {
+  PAUSED_CONVERSATIONS.set(conversationId, {
+    pausedAt: Date.now(),
+    expiresAt: Date.now() + PAUSE_TTL_MS,
+  });
+}
+
+function resumeConversation(conversationId) {
+  PAUSED_CONVERSATIONS.delete(conversationId);
+}
+
+function isConversationPaused(conversationId) {
+  cleanupPausedConversations();
+  return PAUSED_CONVERSATIONS.has(conversationId);
 }
 
 function buildReply(text = '') {
@@ -233,13 +265,21 @@ function parseJsonBody(req, rawBody) {
 }
 
 function collectMessages(body) {
-  const messages = [];
+  const customerMessages = [];
+  const commands = [];
   for (const entry of body.entry || []) {
     for (const event of entry.messaging || []) {
       const senderId = event.sender && event.sender.id;
+      const recipientId = event.recipient && event.recipient.id;
       const text = event.message && event.message.text;
       const isEcho = event.message && event.message.is_echo;
-      if (senderId && text && !isEcho) messages.push({ senderId, text });
+      const command = getLisaCommand(text);
+
+      if (isEcho && recipientId && command) {
+        commands.push({ conversationId: recipientId, command });
+      } else if (senderId && text && !isEcho) {
+        customerMessages.push({ senderId, text });
+      }
     }
 
     for (const change of entry.changes || []) {
@@ -247,13 +287,19 @@ function collectMessages(body) {
 
       const value = change.value || {};
       const senderId = value.sender && value.sender.id;
+      const recipientId = value.recipient && value.recipient.id;
       const text = value.message && value.message.text;
       const isEcho = value.message && value.message.is_echo;
+      const command = getLisaCommand(text);
 
-      if (senderId && text && !isEcho) messages.push({ senderId, text });
+      if (isEcho && recipientId && command) {
+        commands.push({ conversationId: recipientId, command });
+      } else if (senderId && text && !isEcho) {
+        customerMessages.push({ senderId, text });
+      }
     }
   }
-  return messages;
+  return { customerMessages, commands };
 }
 
 function summarizeWebhookBody(body) {
@@ -318,8 +364,16 @@ module.exports = async function handler(req, res) {
   }
 
   const body = parseJsonBody(req, rawBody);
-  const messages = collectMessages(body);
+  const { customerMessages, commands } = collectMessages(body);
   const summary = summarizeWebhookBody(body);
+
+  for (const { conversationId, command } of commands) {
+    if (command === 'off') pauseConversation(conversationId);
+    if (command === 'on') resumeConversation(conversationId);
+  }
+
+  const messages = customerMessages.filter(({ senderId }) => !isConversationPaused(senderId));
+  const pausedMessages = customerMessages.length - messages.length;
 
   const sendResults = await Promise.all(
     messages.map(({ senderId, text }) => sendInstagramMessage(senderId, buildReply(text)))
@@ -333,10 +387,10 @@ module.exports = async function handler(req, res) {
     : 'none';
 
   console.warn(
-    `IG send=${sendSummary} messages=${messages.length} fields=${summary.fields.join(',') || 'none'}`
+    `IG send=${sendSummary} messages=${messages.length} paused=${pausedMessages} commands=${commands.length} fields=${summary.fields.join(',') || 'none'}`
   );
 
-  res.status(200).json({ ok: true, received: messages.length });
+  res.status(200).json({ ok: true, received: customerMessages.length, replied: messages.length, paused: pausedMessages, commands: commands.length });
 };
 
 module.exports.config = {

@@ -35,4 +35,10 @@ Current Lisa behavior:
 - asks date, time, people and pickup area for booking/availability;
 - sends the WhatsApp link for faster confirmation.
 
+Human takeover commands:
+
+- Send `/lisa off` from the business Instagram account inside a DM to pause Lisa for that conversation.
+- Send `/lisa on` from the business Instagram account inside the same DM to resume Lisa.
+- Pauses expire automatically after 7 days.
+
 No secrets should be committed to GitHub.
