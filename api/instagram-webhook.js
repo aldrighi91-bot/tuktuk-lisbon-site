@@ -86,10 +86,14 @@ async function sendInstagramMessage(recipientId, text) {
   if (!response.ok) {
     const body = await response.text();
     console.error('Instagram send failed', response.status, body);
-    return;
+    return {
+      ok: false,
+      status: response.status,
+      body: body.replace(/\s+/g, ' ').slice(0, 180),
+    };
   }
 
-  console.warn('Instagram send succeeded', response.status);
+  return { ok: true, status: response.status };
 }
 
 async function readRawBody(req) {
@@ -213,12 +217,20 @@ module.exports = async function handler(req, res) {
   const body = parseJsonBody(req, rawBody);
   const messages = collectMessages(body);
   const summary = summarizeWebhookBody(body);
-  console.warn(
-    `IG_WEBHOOK messages=${messages.length} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} object=${summary.object} entries=${summary.entries} sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'}`
-  );
 
-  await Promise.all(
+  const sendResults = await Promise.all(
     messages.map(({ senderId, text }) => sendInstagramMessage(senderId, buildReply(text)))
+  );
+  const sendSummary = sendResults.length
+    ? sendResults.map((result) => {
+      if (!result) return 'skipped';
+      if (result.ok) return `ok:${result.status}`;
+      return `fail:${result.status}:${result.body}`;
+    }).join('|')
+    : 'none';
+
+  console.warn(
+    `IG_WEBHOOK messages=${messages.length} send=${sendSummary} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} object=${summary.object} entries=${summary.entries} sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'}`
   );
 
   res.status(200).json({ ok: true, received: messages.length });
