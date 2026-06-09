@@ -86,7 +86,10 @@ async function sendInstagramMessage(recipientId, text) {
   if (!response.ok) {
     const body = await response.text();
     console.error('Instagram send failed', response.status, body);
+    return;
   }
+
+  console.warn('Instagram send succeeded', response.status);
 }
 
 async function readRawBody(req) {
@@ -146,6 +149,19 @@ function collectMessages(body) {
   return messages;
 }
 
+function summarizeWebhookBody(body) {
+  const entries = body.entry || [];
+  const fields = entries.flatMap((entry) => (entry.changes || []).map((change) => change.field));
+  const messagingEvents = entries.reduce((total, entry) => total + (entry.messaging || []).length, 0);
+
+  return {
+    object: body.object || null,
+    entries: entries.length,
+    fields,
+    messagingEvents,
+  };
+}
+
 function verifyMetaSignature(req, rawBody) {
   if (!APP_SECRET) return true;
 
@@ -199,7 +215,10 @@ module.exports = async function handler(req, res) {
 
   const body = parseJsonBody(req, rawBody);
   const messages = collectMessages(body);
-  console.info('Instagram webhook received messages', messages.length);
+  console.warn('Instagram webhook parsed', {
+    ...summarizeWebhookBody(body),
+    messages: messages.length,
+  });
 
   await Promise.all(
     messages.map(({ senderId, text }) => sendInstagramMessage(senderId, buildReply(text)))
