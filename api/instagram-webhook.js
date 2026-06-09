@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v24.0';
+const GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v25.0';
 const VERIFY_TOKEN = process.env.META_VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.META_PAGE_ACCESS_TOKEN;
 const SEND_ENDPOINT_ID = process.env.META_SEND_ENDPOINT_ID || 'me';
@@ -95,6 +95,17 @@ function collectMessages(body) {
       const senderId = event.sender && event.sender.id;
       const text = event.message && event.message.text;
       const isEcho = event.message && event.message.is_echo;
+      if (senderId && text && !isEcho) messages.push({ senderId, text });
+    }
+
+    for (const change of entry.changes || []) {
+      if (change.field !== 'messages') continue;
+
+      const value = change.value || {};
+      const senderId = value.sender && value.sender.id;
+      const text = value.message && value.message.text;
+      const isEcho = value.message && value.message.is_echo;
+
       if (senderId && text && !isEcho) messages.push({ senderId, text });
     }
   }
