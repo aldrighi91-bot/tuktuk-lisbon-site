@@ -47,19 +47,19 @@
   const TOUR_WA_MESSAGES = {
     en: {
       miradouros:       "Hello! I'm interested in booking the *Viewpoints + Alfama Tour* (1.5h — €130 per group). Could you check availability for me? 😊",
-      'centro-historico': "Hello! I'm interested in booking the *Historic Centre Tour* (2h — €190 per group). Could you check availability for me? 😊",
+      'centro-historico': "Hello! I'm interested in booking the *Chiado & Bairro Alto Tour* (1.5h — €190 per group). Could you check availability for me? 😊",
       belem:            "Hello! I'm interested in booking the *Belém Tour* (2h — €190 per group). Could you check availability for me? 😊",
       personalizado:    "Hello! I'm interested in booking the *Full City Tour* (4h — €360 per group). Could you check availability for me? 😊",
     },
     pt: {
       miradouros:       "Olá! Tenho interesse em reservar o *Tour Miradouros + Alfama* (1.5h — €130 por grupo). Podem verificar disponibilidade? 😊",
-      'centro-historico': "Olá! Tenho interesse em reservar o *Tour Centro Histórico* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
+      'centro-historico': "Olá! Tenho interesse em reservar o *Tour Chiado & Bairro Alto* (1.5h — €190 por grupo). Podem verificar disponibilidade? 😊",
       belem:            "Olá! Tenho interesse em reservar o *Tour Belém* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
       personalizado:    "Olá! Tenho interesse em reservar o *Full City Tour* (4h — €360 por grupo). Podem verificar disponibilidade? 😊",
     },
     es: {
       miradouros:       "¡Hola! Me interesa reservar el *Tour Miradores + Alfama* (1.5h — €130 por grupo). ¿Pueden verificar disponibilidad? 😊",
-      'centro-historico': "¡Hola! Me interesa reservar el *Tour Centro Histórico* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
+      'centro-historico': "¡Hola! Me interesa reservar el *Tour Chiado & Bairro Alto* (1.5h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
       belem:            "¡Hola! Me interesa reservar el *Tour Belém* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
       personalizado:    "¡Hola! Me interesa reservar el *Tour Ciudad Completa* (4h — €360 por grupo). ¿Pueden verificar disponibilidad? 😊",
     },
