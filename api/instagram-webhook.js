@@ -212,11 +212,10 @@ module.exports = async function handler(req, res) {
 
   const body = parseJsonBody(req, rawBody);
   const messages = collectMessages(body);
-  console.warn('Instagram webhook received', {
-    signature: APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'not_configured',
-    ...summarizeWebhookBody(body),
-    messages: messages.length,
-  });
+  const summary = summarizeWebhookBody(body);
+  console.warn(
+    `IG_WEBHOOK sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'} object=${summary.object} entries=${summary.entries} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} messages=${messages.length}`
+  );
 
   await Promise.all(
     messages.map(({ senderId, text }) => sendInstagramMessage(senderId, buildReply(text)))
