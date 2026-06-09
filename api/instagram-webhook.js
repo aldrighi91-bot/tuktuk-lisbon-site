@@ -66,13 +66,8 @@ function buildReply(text = '') {
   ].join('\n');
 }
 
-async function sendInstagramMessage(recipientId, text) {
-  if (!PAGE_ACCESS_TOKEN) {
-    console.warn('META_PAGE_ACCESS_TOKEN is not configured');
-    return;
-  }
-
-  const url = `https://graph.facebook.com/${GRAPH_VERSION}/${SEND_ENDPOINT_ID}/messages?access_token=${encodeURIComponent(PAGE_ACCESS_TOKEN)}`;
+async function postInstagramMessage(endpointId, recipientId, text) {
+  const url = `https://graph.facebook.com/${GRAPH_VERSION}/${endpointId}/messages?access_token=${encodeURIComponent(PAGE_ACCESS_TOKEN)}`;
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -85,14 +80,41 @@ async function sendInstagramMessage(recipientId, text) {
 
   if (!response.ok) {
     const body = await response.text();
+    let error = {};
+    try {
+      error = JSON.parse(body).error || {};
+    } catch {
+      error = { message: body };
+    }
+
     return {
       ok: false,
+      endpointId,
       status: response.status,
-      body: body.replace(/\s+/g, ' ').slice(0, 180),
+      code: error.code || 'none',
+      subcode: error.error_subcode || 'none',
+      message: (error.message || '').replace(/\s+/g, ' ').slice(0, 80),
     };
   }
 
-  return { ok: true, status: response.status };
+  return { ok: true, endpointId, status: response.status };
+}
+
+async function sendInstagramMessage(recipientId, text) {
+  if (!PAGE_ACCESS_TOKEN) {
+    console.warn('META_PAGE_ACCESS_TOKEN is not configured');
+    return;
+  }
+
+  const primary = await postInstagramMessage(SEND_ENDPOINT_ID, recipientId, text);
+  if (primary.ok || SEND_ENDPOINT_ID === 'me') return primary;
+
+  const fallback = await postInstagramMessage('me', recipientId, text);
+  if (fallback.ok) {
+    return { ...fallback, fallbackFrom: SEND_ENDPOINT_ID };
+  }
+
+  return primary;
 }
 
 async function readRawBody(req) {
@@ -223,13 +245,13 @@ module.exports = async function handler(req, res) {
   const sendSummary = sendResults.length
     ? sendResults.map((result) => {
       if (!result) return 'skipped';
-      if (result.ok) return `ok:${result.status}`;
-      return `fail:${result.status}:${result.body}`;
+      if (result.ok) return `ok:${result.status}:endpoint=${result.endpointId}${result.fallbackFrom ? `:fallback_from=${result.fallbackFrom}` : ''}`;
+      return `fail:${result.status}:code=${result.code}:sub=${result.subcode}:msg=${result.message}`;
     }).join('|')
     : 'none';
 
   console.warn(
-    `IG_WEBHOOK messages=${messages.length} send=${sendSummary} fields=${summary.fields.join(',') || 'none'} messaging=${summary.messagingEvents} object=${summary.object} entries=${summary.entries} sig=${APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'none'}`
+    `IG send=${sendSummary} messages=${messages.length} fields=${summary.fields.join(',') || 'none'}`
   );
 
   res.status(200).json({ ok: true, received: messages.length });
