@@ -209,13 +209,11 @@ module.exports = async function handler(req, res) {
     res.status(403).send('Invalid signature');
     return;
   }
-  if (APP_SECRET && !hasValidSignature) {
-    console.warn('Instagram webhook signature validation skipped');
-  }
 
   const body = parseJsonBody(req, rawBody);
   const messages = collectMessages(body);
-  console.warn('Instagram webhook parsed', {
+  console.warn('Instagram webhook received', {
+    signature: APP_SECRET ? (hasValidSignature ? 'valid' : 'skipped') : 'not_configured',
     ...summarizeWebhookBody(body),
     messages: messages.length,
   });
