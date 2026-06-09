@@ -85,7 +85,6 @@ async function sendInstagramMessage(recipientId, text) {
 
   if (!response.ok) {
     const body = await response.text();
-    console.error('Instagram send failed', response.status, body);
     return {
       ok: false,
       status: response.status,
