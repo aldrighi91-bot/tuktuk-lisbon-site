@@ -13,6 +13,7 @@ META_VERIFY_TOKEN=choose-a-long-random-token
 META_PAGE_ACCESS_TOKEN=page-or-instagram-messaging-access-token
 META_SEND_ENDPOINT_ID=me
 META_GRAPH_VERSION=v25.0
+META_GRAPH_BASE_URL=https://graph.instagram.com
 META_APP_SECRET=your-meta-app-secret
 ```
 

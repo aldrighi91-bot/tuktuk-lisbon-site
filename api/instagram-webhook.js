@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 
 const GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v25.0';
+const GRAPH_BASE_URL = process.env.META_GRAPH_BASE_URL || 'https://graph.instagram.com';
 const VERIFY_TOKEN = process.env.META_VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.META_PAGE_ACCESS_TOKEN;
 const SEND_ENDPOINT_ID = process.env.META_SEND_ENDPOINT_ID || 'me';
@@ -67,10 +68,13 @@ function buildReply(text = '') {
 }
 
 async function postInstagramMessage(endpointId, recipientId, text) {
-  const url = `https://graph.facebook.com/${GRAPH_VERSION}/${endpointId}/messages?access_token=${encodeURIComponent(PAGE_ACCESS_TOKEN)}`;
+  const url = `${GRAPH_BASE_URL}/${GRAPH_VERSION}/${endpointId}/messages`;
   const response = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${PAGE_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       recipient: { id: recipientId },
       message: { text },
