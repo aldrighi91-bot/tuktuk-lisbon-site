@@ -229,7 +229,7 @@
   function trackWhatsApp(label) {
     if (typeof gtag !== 'function') return;
     gtag('event', 'conversion', {
-      send_to: 'AW-17831839287/nrwwCOGk8aYcELeM8bZC',
+      send_to: 'AW-18234798096/8PsbCJb48L0cEJDgg_dD',
       event_category: 'lead',
       event_label: label,
     });
