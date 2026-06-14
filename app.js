@@ -11,6 +11,7 @@
       '/images/miradouros-4.jpg',
       '/images/miradouros-5.jpg',
       '/images/miradouros-6.jpg',
+      '/images/miradouros-7.jpg',
     ],
     'centro-historico': [
       '/images/centro-1.jpg',
@@ -35,6 +36,7 @@
       '/images/fullcity-4.jpg',
       '/images/fullcity-5.jpg',
       '/images/fullcity-6.jpg',
+      '/images/fullcity-7.jpg',
     ],
   };
   const POPULAR_ID = 'miradouros';
@@ -240,6 +242,8 @@
   }
 
   /* ===== mount ===== */
+  let activeTourTimers = [];
+
   function renderAll() {
     document.documentElement.lang = lang;
 
@@ -264,41 +268,67 @@
     $('#gallery').innerHTML     = GALLERY.map(galTile).join('');
     $('#faq-list').innerHTML    = get('faq.items').map(faqItem).join('');
 
-    // Carousel arrows + autoplay
+    // ===== Carrosséis em LOOP INFINITO — sempre pra frente, nunca regressa =====
+    // Clona o 1º slide no fim: ao chegar no clone, volta pro início sem animação,
+    // criando um fluxo contínuo. Suporta adicionar quantas fotos quiser (auto-adapta).
+    function initInfiniteCarousel(car, prevBtn, nextBtn, interval) {
+      if (!car || !car.children.length) return null;
+      if (!car.querySelector('[data-clone]')) {
+        const clone = car.children[0].cloneNode(true);
+        clone.setAttribute('data-clone', '');
+        car.appendChild(clone);
+      }
+      const realCount = car.children.length - 1; // slides reais (sem contar o clone)
+      const sw = () => car.clientWidth;
+      const indexNow = () => Math.round(car.scrollLeft / sw());
+
+      function goNext() {
+        const target = indexNow() + 1;
+        car.scrollTo({ left: target * sw(), behavior: 'smooth' });
+        if (target >= realCount) {
+          // chegou no clone (cópia do 1º) -> reseta pro início sem animação (invisível)
+          setTimeout(() => car.scrollTo({ left: 0, behavior: 'auto' }), 600);
+        }
+      }
+      function goPrev() {
+        const cur = indexNow();
+        if (cur <= 0) {
+          car.scrollTo({ left: realCount * sw(), behavior: 'auto' });
+          requestAnimationFrame(() => car.scrollTo({ left: (realCount - 1) * sw(), behavior: 'smooth' }));
+        } else {
+          car.scrollTo({ left: (cur - 1) * sw(), behavior: 'smooth' });
+        }
+      }
+
+      if (prevBtn && !prevBtn.dataset.bound) { prevBtn.addEventListener('click', goPrev); prevBtn.dataset.bound = '1'; }
+      if (nextBtn && !nextBtn.dataset.bound) { nextBtn.addEventListener('click', goNext); nextBtn.dataset.bound = '1'; }
+
+      const tick = () => { if (!document.hidden) goNext(); };
+      let timer = setInterval(tick, interval);
+      const wrap = car.parentElement;
+      if (!wrap.dataset.hoverBound) {
+        wrap.addEventListener('mouseenter', () => clearInterval(timer));
+        wrap.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(tick, interval); });
+        wrap.dataset.hoverBound = '1';
+      }
+      return timer;
+    }
+
+    // Carrosséis dos tours (DOM recriado a cada render -> limpa timers antigos antes)
+    activeTourTimers.forEach(clearInterval);
+    activeTourTimers = [];
     document.querySelectorAll('[data-carousel]').forEach(car => {
       const wrap = car.parentElement;
-      const sw = () => car.clientWidth;
-      wrap.querySelector('[data-prev]').addEventListener('click', () => car.scrollBy({ left: -sw(), behavior: 'smooth' }));
-      wrap.querySelector('[data-next]').addEventListener('click', () => car.scrollBy({ left:  sw(), behavior: 'smooth' }));
-      let timer = setInterval(autoplay, 3500);
-      function autoplay() {
-        if (document.hidden) return;
-        const max = car.scrollWidth - car.clientWidth - 4;
-        if (car.scrollLeft >= max) car.scrollTo({ left: 0, behavior: 'smooth' });
-        else car.scrollBy({ left: sw(), behavior: 'smooth' });
-      }
-      wrap.addEventListener('mouseenter', () => clearInterval(timer));
-      wrap.addEventListener('mouseleave', () => timer = setInterval(autoplay, 3500));
+      const t = initInfiniteCarousel(car, wrap.querySelector('[data-prev]'), wrap.querySelector('[data-next]'), 3500);
+      if (t) activeTourTimers.push(t);
     });
 
-    /* Van Tour Carousel — 2s auto-play */
+    // Carrossel do Van Tour (DOM estático -> inicializa só uma vez)
     const vanCar = document.querySelector('[data-carousel-van]');
-    if (vanCar) {
+    if (vanCar && !vanCar.dataset.infInit) {
+      vanCar.dataset.infInit = '1';
       const vanWrap = vanCar.parentElement;
-      const vsw = () => vanCar.clientWidth;
-      const vanPrev = vanWrap.querySelector('[data-van-prev]');
-      const vanNext = vanWrap.querySelector('[data-van-next]');
-      if (vanPrev) vanPrev.addEventListener('click', () => { vanCar.scrollBy({ left: -vsw(), behavior: 'smooth' }); });
-      if (vanNext) vanNext.addEventListener('click', () => { vanCar.scrollBy({ left: vsw(), behavior: 'smooth' }); });
-      function vanAutoplay() {
-        if (document.hidden) return;
-        const max = vanCar.scrollWidth - vanCar.clientWidth - 4;
-        if (vanCar.scrollLeft >= max) vanCar.scrollTo({ left: 0, behavior: 'smooth' });
-        else vanCar.scrollBy({ left: vsw(), behavior: 'smooth' });
-      }
-      let vanTimer = setInterval(vanAutoplay, 2000);
-      vanWrap.addEventListener('mouseenter', () => clearInterval(vanTimer));
-      vanWrap.addEventListener('mouseleave', () => { vanTimer = setInterval(vanAutoplay, 2000); });
+      initInfiniteCarousel(vanCar, vanWrap.querySelector('[data-van-prev]'), vanWrap.querySelector('[data-van-next]'), 2000);
     }
 
     // Reveal-on-scroll
