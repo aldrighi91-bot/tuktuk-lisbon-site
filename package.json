@@ -1,6 +1,9 @@
 {
+  "name": "tuktuk-lisbon-site",
   "scripts": {
-    "build:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --minify"
+    "build:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --minify",
+    "lint": "node --check app.js && node --check i18n.js && node --check concierge.js && node --check api/instagram-webhook.js && node --check api/concierge.js && node --check api/concierge-lead.js && node --check lib/concierge/assistant.js && node --check lib/concierge/lead-store.js && node --check lib/concierge/rate-limit.js",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
