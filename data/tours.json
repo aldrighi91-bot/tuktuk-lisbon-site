@@ -17,7 +17,7 @@
     "availability": "Availability is checked manually with Natanael. Do not state that a date or time is available until confirmed.",
     "payment": "Tour pages mention payment at the end and no deposit. The Terms page also says a deposit may be required to confirm some bookings, so payment details should be confirmed by Natanael.",
     "pickup": "Pickup is flexible in Lisbon unless a tour page says otherwise.",
-    "privacy": "Collect only the details needed to reply to a tour request: name, email, desired date, preferred time, number of guests, tour of interest, and message. Phone or WhatsApp is optional."
+    "privacy": "Collect only the details needed to reply to a tour request: name, email, desired date, preferred time, number of guests, pickup area, tour of interest, and message. Phone or WhatsApp is optional."
   },
   "tours": [
     {

@@ -167,6 +167,13 @@
   border-color: #0f4fa8;
 }
 
+.tlc-root[data-busy="true"] .tlc-chip,
+.tlc-root[data-busy="true"] .tlc-cta,
+.tlc-root[data-busy="true"] .tlc-send {
+  opacity: .65;
+  pointer-events: none;
+}
+
 .tlc-ctas {
   display: flex;
   gap: 8px;

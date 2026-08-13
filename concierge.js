@@ -15,6 +15,7 @@
     finder: {},
     expectedField: '',
     started: false,
+    leadStartedTracked: false,
     qualification: 'INFORMATIONAL',
     lastRecommendedTour: '',
   };
@@ -42,6 +43,7 @@
       finder: state.finder,
       expectedField: state.expectedField,
       started: state.started,
+      leadStartedTracked: state.leadStartedTracked,
       qualification: state.qualification,
       lastRecommendedTour: state.lastRecommendedTour,
     }));
@@ -110,6 +112,7 @@
       sessionStorage.setItem('tlc_teaser_closed', '1');
     });
     root.addEventListener('click', (event) => {
+      if (root.dataset.busy === 'true') return;
       const actionButton = event.target.closest('[data-action]');
       if (actionButton) {
         openChat();
@@ -132,11 +135,12 @@
   }
 
   function openChat() {
+    const wasOpen = root.dataset.open === 'true';
     root.dataset.open = 'true';
     root.dataset.teaser = 'hidden';
     sessionStorage.setItem('tlc_teaser_closed', '1');
     inputEl.focus({ preventScroll: true });
-    track('concierge_open');
+    if (!wasOpen) track('concierge_open');
     if (!state.messages.length) {
       callConcierge('', 'intro');
     } else {
@@ -160,6 +164,15 @@
     state.messages = state.messages.slice(-30);
     saveState();
     renderMessages();
+  }
+
+  function addAssistantOnce(text) {
+    const last = state.messages[state.messages.length - 1];
+    if (last && last.role === 'assistant' && last.text === text) {
+      renderMessages();
+      return;
+    }
+    addMessage('assistant', text);
   }
 
   function renderMessages() {
@@ -187,6 +200,14 @@
       const kind = index === 0 || cta.action === 'submit_lead' ? 'primary' : 'secondary';
       return `<button class="tlc-cta" data-kind="${kind}" data-cta="${escapeHtml(cta.action)}" data-href="${escapeHtml(cta.href || '')}" data-tour-id="${escapeHtml(cta.tourId || '')}">${escapeHtml(cta.label)}</button>`;
     }).join('');
+  }
+
+  function setActionOptions(quickReplies, ctas) {
+    state.quickReplies = quickReplies || [];
+    state.ctas = ctas || [];
+    saveState();
+    renderQuickReplies(state.quickReplies);
+    renderCtas(state.ctas);
   }
 
   function render() {
@@ -254,8 +275,6 @@
       state.started = true;
       track('concierge_started');
     }
-    if (action === 'tour_finder_started' || action === 'find_tour') track('tour_finder_started');
-    if (action === 'check_availability') track('availability_requested', { tour_id: tourId || state.lead.tourId || '' });
 
     setBusy(true);
     try {
@@ -301,10 +320,17 @@
     renderCtas(state.ctas);
 
     if (Array.isArray(data.analytics)) {
-      data.analytics.forEach((eventName) => track(eventName, {
-        tour_id: data.recommendedTour || state.lead.tourId || '',
-        qualification: state.qualification,
-      }));
+      data.analytics.forEach((eventName) => {
+        const params = {
+          tour_id: data.recommendedTour || state.lead.tourId || '',
+          qualification: state.qualification,
+        };
+        if (eventName === 'lead_started') {
+          trackLeadStarted(params);
+          return;
+        }
+        track(eventName, params);
+      });
     }
     if (data.recommendedTour && !(Array.isArray(data.analytics) && data.analytics.includes('tour_recommended'))) {
       track('tour_recommended', {
@@ -315,7 +341,7 @@
   }
 
   async function submitLead() {
-    track('lead_started', { qualification: state.qualification, tour_id: state.lead.tourId || '' });
+    trackLeadStarted({ qualification: state.qualification, tour_id: state.lead.tourId || '' });
     setBusy(true);
     try {
       const response = await fetch('/api/concierge-lead', {
@@ -329,11 +355,11 @@
       });
       const data = await response.json();
       if (!response.ok || data.ok === false) {
-        const missing = Array.isArray(data.fields) && data.fields.length ? data.fields.join(', ') : '';
-        addMessage('assistant', missing
+        const missing = Array.isArray(data.fields) && data.fields.length ? formatMissingFields(data.fields) : '';
+        addAssistantOnce(missing
           ? `I still need: ${missing}. Send that here and I can prepare the request.`
-          : `I could not submit the request right now. You can email Natanael directly at ${CONTACT_EMAIL}.`);
-        renderCtas([{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
+          : `The request is prepared, but automatic delivery is not connected on this preview yet. You can email Natanael directly at ${CONTACT_EMAIL}.`);
+        setActionOptions(['Add a question'], [{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
         return;
       }
 
@@ -343,11 +369,10 @@
         lead_id: data.leadId,
       });
       addMessage('assistant', 'Thanks. Your request was sent to Natanael. He will reply personally to confirm availability and next steps.');
-      renderQuickReplies(['Ask a question', 'WhatsApp']);
-      renderCtas([{ label: 'WhatsApp as backup', action: 'whatsapp', tourId: state.lead.tourId || '' }]);
+      setActionOptions(['Ask a question', 'WhatsApp'], [{ label: 'WhatsApp as backup', action: 'whatsapp', tourId: state.lead.tourId || '' }]);
     } catch {
-      addMessage('assistant', `I could not submit the request right now. You can email Natanael directly at ${CONTACT_EMAIL}.`);
-      renderCtas([{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
+      addAssistantOnce(`I could not submit the request right now. You can email Natanael directly at ${CONTACT_EMAIL}.`);
+      setActionOptions(['Add a question'], [{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
     } finally {
       setBusy(false);
     }
@@ -378,6 +403,7 @@
       lead.desiredDate ? `Date: ${lead.desiredDate}` : '',
       lead.preferredTime ? `Time: ${lead.preferredTime}` : '',
       lead.guests ? `Guests: ${lead.guests}` : '',
+      lead.pickupArea ? `Pickup: ${lead.pickupArea}` : '',
       lead.name ? `Name: ${lead.name}` : '',
       lead.email ? `Email: ${lead.email}` : '',
       lead.message ? `Message: ${lead.message}` : '',
@@ -394,6 +420,24 @@
   function setBusy(isBusy) {
     root.dataset.busy = isBusy ? 'true' : 'false';
     root.querySelector('.tlc-send').disabled = isBusy;
+  }
+
+  function trackLeadStarted(params) {
+    if (state.leadStartedTracked) return;
+    state.leadStartedTracked = true;
+    saveState();
+    track('lead_started', params);
+  }
+
+  function formatMissingFields(fields) {
+    const labels = {
+      desiredDate: 'desired date',
+      preferredTime: 'preferred time',
+      pickupArea: 'pickup area',
+      tourId: 'tour of interest',
+      guests: 'number of guests',
+    };
+    return fields.map((field) => labels[field] || field).join(', ');
   }
 
   function escapeHtml(value) {

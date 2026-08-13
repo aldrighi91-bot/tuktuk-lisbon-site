@@ -53,6 +53,7 @@ test('lead validation requires email, date, guests and tour but not phone', () =
     desiredDate: 'tomorrow',
     preferredTime: '10 am',
     guests: 2,
+    pickupArea: 'Hotel Mundial',
     tourId: 'alfama',
   });
   assert.deepEqual(validateLead(lead), []);
@@ -60,7 +61,10 @@ test('lead validation requires email, date, guests and tour but not phone', () =
 });
 
 test('missing lead fields are progressive', () => {
-  assert.deepEqual(missingLeadFields({ tourId: 'belem', desiredDate: 'Friday', guests: 3 }), ['name', 'email', 'preferred time']);
+  assert.deepEqual(
+    missingLeadFields({ tourId: 'belem', desiredDate: 'Friday', guests: 3 }),
+    ['preferred time', 'pickup area', 'name', 'email']
+  );
 });
 
 test('availability flow expects preferred time before name', () => {
@@ -72,8 +76,8 @@ test('availability flow expects preferred time before name', () => {
   assert.match(response.reply, /preferred time/i);
 });
 
-test('lead capture continues after a short expected-field answer', () => {
-  const timeResponse = handleConciergeMessage({
+test('lead capture asks pickup before name', () => {
+  const response = handleConciergeMessage({
     message: '10 am',
     state: {
       expectedField: 'preferredTime',
@@ -86,7 +90,27 @@ test('lead capture continues after a short expected-field answer', () => {
       },
     },
   });
+  assert.equal(response.nextExpectedField, 'pickupArea');
+  assert.match(response.reply, /pickup/i);
+});
+
+test('lead capture continues after pickup and name answers', () => {
+  const timeResponse = handleConciergeMessage({
+    message: 'Hotel Mundial',
+    state: {
+      expectedField: 'pickupArea',
+      qualification: 'HOT',
+      lead: {
+        tourId: 'alfama',
+        desiredDate: 'tomorrow',
+        preferredTime: '10 am',
+        guests: 2,
+        email: 'alex@example.com',
+      },
+    },
+  });
   assert.equal(timeResponse.nextExpectedField, 'name');
+  assert.equal(timeResponse.leadPatch.pickupArea, 'Hotel Mundial');
   assert.match(timeResponse.reply, /name/i);
 
   const nameResponse = handleConciergeMessage({
@@ -99,10 +123,30 @@ test('lead capture continues after a short expected-field answer', () => {
         desiredDate: 'tomorrow',
         preferredTime: '10 am',
         guests: 2,
+        pickupArea: 'Hotel Mundial',
         email: 'alex@example.com',
       },
     },
   });
   assert.equal(nameResponse.leadReady, true);
   assert.equal(nameResponse.ctas[0].action, 'submit_lead');
+});
+
+test('range group quick reply captures the larger guest count', () => {
+  const response = handleConciergeMessage({
+    message: '7-8 people',
+    state: {
+      expectedField: 'guests',
+      qualification: 'HOT',
+      lead: {
+        tourId: 'fullcity',
+        desiredDate: 'tomorrow',
+        preferredTime: 'afternoon',
+      },
+    },
+  });
+  assert.equal(response.leadPatch.guests, 8);
+  assert.equal(response.leadPatch.desiredDate, 'tomorrow');
+  assert.equal(response.leadPatch.preferredTime, 'afternoon');
+  assert.equal(response.nextExpectedField, 'pickupArea');
 });
