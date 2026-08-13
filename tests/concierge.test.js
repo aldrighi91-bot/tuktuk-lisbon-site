@@ -166,6 +166,8 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
     sourcePath: '/tours/alfama',
   });
   const row = buildSupabaseLeadRow(payload);
+  assert.equal(row.cliente_id, null);
+  assert.equal(row.reserva_id, null);
   assert.equal(row.origem, 'site_concierge');
   assert.equal(row.canal, 'site');
   assert.equal(row.agente, 'concierge_site');

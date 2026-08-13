@@ -65,6 +65,8 @@ source: site_concierge
 ```sql
 create table if not exists public."Leads - Tuk Tuk" (
   id uuid primary key default gen_random_uuid(),
+  cliente_id uuid references public."Clientes - Tuk Tuk"(id) on delete set null,
+  reserva_id bigint references public."Reservas"(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   origem text not null default 'site_concierge',
@@ -108,6 +110,7 @@ Action 1: send internal notification to Natanael
 Action 2: send customer email confirmation/request follow-up
 Action 3: if phone exists and customer consent/use is appropriate, prepare WhatsApp follow-up
 Action 4: update status/followup_status in Supabase
+Action 5: when the lead becomes a real customer or booking, set cliente_id and/or reserva_id
 ```
 
 Do not send automatic WhatsApp messages through a personal `wa.me` link. For backend WhatsApp follow-up, use the official WhatsApp Business/Meta API or leave it as a manual owner action.
