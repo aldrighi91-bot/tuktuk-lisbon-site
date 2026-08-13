@@ -1,6 +1,17 @@
 const { buildLeadPayload, deliverLead, sanitizeLead, validateLead } = require('../lib/concierge/lead-store');
 const { checkRateLimit } = require('../lib/concierge/rate-limit');
 
+function getHeader(req, name) {
+  const value = req.headers[name.toLowerCase()];
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function getClientIp(req) {
+  const forwardedFor = getHeader(req, 'x-forwarded-for');
+  if (forwardedFor) return forwardedFor.split(',')[0].trim();
+  return req.socket?.remoteAddress || '';
+}
+
 function readBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
   if (!req.body) return {};
@@ -43,7 +54,11 @@ module.exports = async function handler(req, res) {
   });
 
   try {
-    const delivery = await deliverLead(payload);
+    const delivery = await deliverLead(payload, {
+      clientIp: getClientIp(req),
+      origin: getHeader(req, 'origin'),
+      userAgent: getHeader(req, 'user-agent'),
+    });
     if (delivery.delivery === 'not_configured') {
       res.status(200).json({
         ok: false,

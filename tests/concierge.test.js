@@ -12,6 +12,7 @@ const {
 const {
   buildLeadPayload,
   buildSupabaseLeadRow,
+  deliverLead,
   sanitizeLead,
   validateLead,
 } = require('../lib/concierge/lead-store');
@@ -181,4 +182,53 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   assert.equal(row.qualificacao, 'HOT');
   assert.equal(row.status, 'novo');
   assert.equal(row.followup_status, 'pendente');
+});
+
+test('lead delivery falls back to the Supabase Edge Function without Vercel secrets', async () => {
+  const originalFetch = global.fetch;
+  const originalEnv = {
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_EDGE_LEAD_URL: process.env.SUPABASE_EDGE_LEAD_URL,
+    CONCIERGE_LEAD_WEBHOOK_URL: process.env.CONCIERGE_LEAD_WEBHOOK_URL,
+  };
+
+  delete process.env.SUPABASE_URL;
+  delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+  delete process.env.CONCIERGE_LEAD_WEBHOOK_URL;
+  process.env.SUPABASE_EDGE_LEAD_URL = 'https://example.test/functions/v1/tuktuk-site-lead';
+
+  const payload = buildLeadPayload({
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    desiredDate: 'tomorrow',
+    preferredTime: '10 am',
+    guests: 2,
+    pickupArea: 'Hotel Mundial',
+    tourId: 'alfama',
+    qualification: 'HOT',
+  });
+
+  try {
+    global.fetch = async (url, options) => {
+      assert.equal(url, 'https://example.test/functions/v1/tuktuk-site-lead');
+      assert.equal(options.method, 'POST');
+      assert.equal(options.headers['X-TukTuk-Forwarded-For'], '203.0.113.10');
+      assert.equal(options.headers['X-TukTuk-User-Agent'], 'test-agent');
+      assert.deepEqual(JSON.parse(options.body).payload, payload);
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    };
+
+    const result = await deliverLead(payload, {
+      clientIp: '203.0.113.10',
+      userAgent: 'test-agent',
+    });
+    assert.equal(result.delivery, 'supabase_edge');
+  } finally {
+    global.fetch = originalFetch;
+    for (const [key, value] of Object.entries(originalEnv)) {
+      if (value == null) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
 });

@@ -31,6 +31,7 @@ Supabase insert:
 SUPABASE_URL=https://fxmxcgqrbwvxnwejasqk.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=
 SUPABASE_LEADS_TABLE=Leads - Tuk Tuk
+SUPABASE_EDGE_LEAD_URL=https://fxmxcgqrbwvxnwejasqk.supabase.co/functions/v1/tuktuk-site-lead
 ```
 
 Optional n8n webhook:
@@ -41,6 +42,8 @@ CONCIERGE_LEAD_WEBHOOK_SECRET=
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` and webhook secrets must stay only in Vercel Environment Variables.
+
+The MVP also includes a Supabase Edge Function fallback at `SUPABASE_EDGE_LEAD_URL`. This lets Vercel submit concierge leads to the Tuk Tuk Supabase project even when the Vercel project does not yet have a service role key configured. The Edge Function uses Supabase server-side secrets internally, validates the payload, applies rate limiting, and writes to `public."Leads - Tuk Tuk"`.
 
 ## Lead Fields
 
