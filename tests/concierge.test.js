@@ -10,6 +10,8 @@ const {
 } = require('../lib/concierge/assistant');
 
 const {
+  buildLeadPayload,
+  buildSupabaseLeadRow,
   sanitizeLead,
   validateLead,
 } = require('../lib/concierge/lead-store');
@@ -149,4 +151,32 @@ test('range group quick reply captures the larger guest count', () => {
   assert.equal(response.leadPatch.desiredDate, 'tomorrow');
   assert.equal(response.leadPatch.preferredTime, 'afternoon');
   assert.equal(response.nextExpectedField, 'pickupArea');
+});
+
+test('Supabase lead row uses the Tuk Tuk database pattern', () => {
+  const payload = buildLeadPayload({
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    desiredDate: 'tomorrow',
+    preferredTime: '10 am',
+    guests: 2,
+    pickupArea: 'Hotel Mundial',
+    tourId: 'alfama',
+    qualification: 'HOT',
+    sourcePath: '/tours/alfama',
+  });
+  const row = buildSupabaseLeadRow(payload);
+  assert.equal(row.origem, 'site_concierge');
+  assert.equal(row.canal, 'site');
+  assert.equal(row.agente, 'concierge_site');
+  assert.equal(row.nome, 'Alex Johnson');
+  assert.equal(row.tour, 'Alfama Tour');
+  assert.equal(row.tour_slug, 'alfama');
+  assert.equal(row.data_tour, 'tomorrow');
+  assert.equal(row.hora_tour, '10 am');
+  assert.equal(row.pessoas, 2);
+  assert.equal(row.pickup, 'Hotel Mundial');
+  assert.equal(row.qualificacao, 'HOT');
+  assert.equal(row.status, 'novo');
+  assert.equal(row.followup_status, 'pendente');
 });

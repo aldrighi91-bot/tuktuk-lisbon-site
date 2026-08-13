@@ -7,21 +7,30 @@ Recommended architecture:
 ```text
 Website concierge
 -> /api/concierge-lead
--> Supabase lead table
+-> Supabase table "Leads - Tuk Tuk"
 -> n8n follow-up workflow
 -> email first, WhatsApp only when the customer provides or chooses it
 ```
 
 Use the same Supabase project as Lisa/n8n if desired, but keep customer data in dedicated tables. Do not store customer leads inside n8n's internal workflow/execution tables.
 
+Current Supabase project:
+
+```text
+Project: tuk-tuk-lisbon-tours
+Project ref: fxmxcgqrbwvxnwejasqk
+API URL: https://fxmxcgqrbwvxnwejasqk.supabase.co
+Lead table: public."Leads - Tuk Tuk"
+```
+
 ## Environment Variables
 
 Supabase insert:
 
 ```text
-SUPABASE_URL=
+SUPABASE_URL=https://fxmxcgqrbwvxnwejasqk.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=
-SUPABASE_LEADS_TABLE=concierge_leads
+SUPABASE_LEADS_TABLE=Leads - Tuk Tuk
 ```
 
 Optional n8n webhook:
@@ -54,25 +63,37 @@ source: site_concierge
 ## Suggested Supabase Table
 
 ```sql
-create table if not exists public.concierge_leads (
-  id uuid primary key,
-  created_at timestamptz not null,
-  source text not null,
-  name text not null,
+create table if not exists public."Leads - Tuk Tuk" (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  origem text not null default 'site_concierge',
+  canal text not null default 'site',
+  agente text not null default 'concierge_site',
+  nome text not null,
   email text not null,
-  phone text,
-  desired_date text not null,
-  preferred_time text not null,
-  guests integer not null,
-  pickup_area text not null,
-  tour_id text not null,
-  message text,
+  telefone text,
+  tour text not null,
+  tour_slug text not null,
+  data_tour text not null,
+  hora_tour text not null,
+  pessoas integer not null check (pessoas > 0 and pessoas <= 60),
+  pickup text not null,
+  mensagem text,
   source_path text,
-  qualification text not null check (qualification in ('HOT', 'WARM', 'INFORMATIONAL')),
-  status text not null default 'new',
-  followup_status text not null default 'pending',
-  last_followup_at timestamptz,
-  created_by_channel text not null default 'site_concierge'
+  qualificacao text not null check (qualificacao in ('HOT', 'WARM', 'INFORMATIONAL')),
+  status text not null default 'novo',
+  followup_status text not null default 'pendente',
+  ultimo_followup_em timestamptz,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
+  utm_term text,
+  utm_content text,
+  gclid text,
+  gbraid text,
+  wbraid text,
+  raw_json jsonb not null default '{}'::jsonb
 );
 ```
 
@@ -81,8 +102,8 @@ create table if not exists public.concierge_leads (
 Basic workflow:
 
 ```text
-Trigger: Supabase row created or CONCIERGE_LEAD_WEBHOOK_URL
-Filter: qualification is HOT or WARM
+Trigger: Supabase row created in public."Leads - Tuk Tuk" or CONCIERGE_LEAD_WEBHOOK_URL
+Filter: qualificacao is HOT or WARM
 Action 1: send internal notification to Natanael
 Action 2: send customer email confirmation/request follow-up
 Action 3: if phone exists and customer consent/use is appropriate, prepare WhatsApp follow-up
