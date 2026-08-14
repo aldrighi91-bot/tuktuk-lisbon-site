@@ -228,18 +228,151 @@
       .join('');
   }
 
-  function trackWhatsApp(label) {
-    if (typeof gtag !== 'function') return;
-    gtag('event', 'conversion', {
-      send_to: ['AW-18234798096/8PsbCJb48L0cEJDgg_dD', 'AW-17831839287/wIbCCOv1-dIcELeM8bZC'],
+  const GOOGLE_ADS_CONVERSIONS = [
+    'AW-18234798096/8PsbCJb48L0cEJDgg_dD',
+    'AW-17831839287/wIbCCOv1-dIcELeM8bZC',
+  ];
+  const ATTRIBUTION_KEY = 'ttl_attribution_v1';
+  const ATTRIBUTION_PARAMS = [
+    'gclid',
+    'gbraid',
+    'wbraid',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+  ];
+  const WHATSAPP_VALUES = {
+    miradouros: 130,
+    'centro-historico': 190,
+    belem: 190,
+    personalizado: 360,
+    van_home: 600,
+    floating: 130,
+    generic: 130,
+    whatsapp_link: 130,
+  };
+
+  function readStoredAttribution() {
+    try {
+      return JSON.parse(localStorage.getItem(ATTRIBUTION_KEY) || '{}') || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function writeStoredAttribution(data) {
+    try {
+      localStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(data));
+    } catch {
+      // Tracking should never block WhatsApp booking.
+    }
+  }
+
+  function captureAttribution() {
+    const params = new URLSearchParams(window.location.search);
+    const current = {};
+    ATTRIBUTION_PARAMS.forEach(key => {
+      const value = params.get(key);
+      if (value) current[key] = value;
+    });
+    if (!Object.keys(current).length) return;
+
+    const previous = readStoredAttribution();
+    writeStoredAttribution({
+      ...previous,
+      ...current,
+      landing_page: window.location.href,
+      referrer: document.referrer || previous.referrer || '',
+      captured_at: new Date().toISOString(),
+    });
+  }
+
+  function getLeadRef(label) {
+    const attribution = readStoredAttribution();
+    const clickId = attribution.gclid || attribution.gbraid || attribution.wbraid || '';
+    const seed = clickId || `${Date.now()}-${label || 'site'}`;
+    const suffix = String(seed).replace(/[^a-z0-9]/gi, '').slice(-10).toUpperCase();
+    return `${clickId ? 'GADS' : 'WEB'}-${suffix || Date.now().toString(36).toUpperCase()}`;
+  }
+
+  function getAttributionLines(label) {
+    const attribution = readStoredAttribution();
+    const clickId = attribution.gclid || attribution.gbraid || attribution.wbraid || '';
+    return [
+      `Ref: ${getLeadRef(label)}`,
+      label ? `Button: ${label}` : '',
+      attribution.utm_campaign ? `Campaign: ${attribution.utm_campaign}` : '',
+      attribution.utm_term ? `Keyword: ${attribution.utm_term}` : '',
+      attribution.utm_source ? `Source: ${attribution.utm_source}` : '',
+      clickId ? `Click ID: ${clickId}` : '',
+    ].filter(Boolean);
+  }
+
+  function addAttributionToMessage(message, label) {
+    return `${message}\n\n${getAttributionLines(label).join('\n')}`;
+  }
+
+  function buildWhatsAppUrl(message, label) {
+    return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(addAttributionToMessage(message, label))}`;
+  }
+
+  function trackWhatsApp(label, options = {}) {
+    const value = options.value || WHATSAPP_VALUES[label] || WHATSAPP_VALUES.generic;
+    if (typeof gtag !== 'function') {
+      if (typeof options.eventCallback === 'function') setTimeout(options.eventCallback, 0);
+      return;
+    }
+    const conversionPayload = {
+      send_to: GOOGLE_ADS_CONVERSIONS,
+      value,
+      currency: 'EUR',
       event_category: 'lead',
       event_label: label,
-    });
+      event_timeout: 1200,
+    };
+    if (typeof options.eventCallback === 'function') {
+      conversionPayload.event_callback = options.eventCallback;
+    }
+    gtag('event', 'conversion', conversionPayload);
     gtag('event', 'whatsapp_click', {
       event_category: 'engagement',
       event_label: label,
+      value,
+      currency: 'EUR',
     });
   }
+
+  function openTrackedWhatsApp(label, message) {
+    const url = buildWhatsAppUrl(message, label);
+    let popup = null;
+    let opened = false;
+
+    try {
+      popup = window.open('', '_blank');
+    } catch {
+      popup = null;
+    }
+
+    function openUrl() {
+      if (opened) return;
+      opened = true;
+      if (popup && !popup.closed) popup.location.href = url;
+      else window.location.href = url;
+    }
+
+    trackWhatsApp(label, { eventCallback: openUrl });
+    setTimeout(openUrl, 1400);
+  }
+
+  captureAttribution();
+  window.TukTukTracking = {
+    buildWhatsAppUrl,
+    getAttribution: readStoredAttribution,
+    openWhatsApp: openTrackedWhatsApp,
+    trackWhatsApp,
+  };
 
   /* ===== mount ===== */
   let activeTourTimers = [];
@@ -357,22 +490,23 @@
   document.addEventListener('click', (e) => {
     const waLink = e.target.closest('a[href*="wa.me/"]');
     if (!waLink) return;
-    trackWhatsApp(waLink.dataset.whatsappLabel || 'whatsapp_link');
+    const label = waLink.dataset.whatsappLabel || 'whatsapp_link';
+    const url = new URL(waLink.href);
+    const message = url.searchParams.get('text') || get('contact.whatsappMsg');
+    e.preventDefault();
+    openTrackedWhatsApp(label, message);
   });
 
   /* ===== WhatsApp ===== */
   window.openWa = function () {
-    const msg = encodeURIComponent(get('contact.whatsappMsg'));
-    trackWhatsApp('generic');
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+    openTrackedWhatsApp('generic', get('contact.whatsappMsg'));
   };
 
   window.openWaTour = function (tourId) {
     const lang = detectLang();
     const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
-    const msg = encodeURIComponent(msgs[tourId] || get('contact.whatsappMsg'));
-    trackWhatsApp(tourId);
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+    const msg = msgs[tourId] || get('contact.whatsappMsg');
+    openTrackedWhatsApp(tourId, msg);
   };
 
   /* ===== boot ===== */
