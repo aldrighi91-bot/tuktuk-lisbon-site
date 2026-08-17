@@ -8,6 +8,81 @@
     minimize: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>',
     send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
   };
+  const PHONE_COUNTRIES = [
+    { iso: 'US', name: 'United States', dial: '+1' },
+    { iso: 'CA', name: 'Canada', dial: '+1' },
+    { iso: 'GB', name: 'United Kingdom', dial: '+44' },
+    { iso: 'PT', name: 'Portugal', dial: '+351' },
+    { iso: 'BR', name: 'Brazil', dial: '+55' },
+    { iso: 'AU', name: 'Australia', dial: '+61' },
+    { iso: 'IE', name: 'Ireland', dial: '+353' },
+    { iso: 'MX', name: 'Mexico', dial: '+52' },
+    { iso: 'PR', name: 'Puerto Rico', dial: '+1' },
+    { iso: 'DO', name: 'Dominican Republic', dial: '+1' },
+    { iso: 'JM', name: 'Jamaica', dial: '+1' },
+    { iso: 'CR', name: 'Costa Rica', dial: '+506' },
+    { iso: 'PA', name: 'Panama', dial: '+507' },
+    { iso: 'ES', name: 'Spain', dial: '+34' },
+    { iso: 'FR', name: 'France', dial: '+33' },
+    { iso: 'DE', name: 'Germany', dial: '+49' },
+    { iso: 'IT', name: 'Italy', dial: '+39' },
+    { iso: 'NL', name: 'Netherlands', dial: '+31' },
+    { iso: 'BE', name: 'Belgium', dial: '+32' },
+    { iso: 'CH', name: 'Switzerland', dial: '+41' },
+    { iso: 'AT', name: 'Austria', dial: '+43' },
+    { iso: 'SE', name: 'Sweden', dial: '+46' },
+    { iso: 'NO', name: 'Norway', dial: '+47' },
+    { iso: 'DK', name: 'Denmark', dial: '+45' },
+    { iso: 'FI', name: 'Finland', dial: '+358' },
+    { iso: 'IS', name: 'Iceland', dial: '+354' },
+    { iso: 'PL', name: 'Poland', dial: '+48' },
+    { iso: 'CZ', name: 'Czechia', dial: '+420' },
+    { iso: 'HU', name: 'Hungary', dial: '+36' },
+    { iso: 'RO', name: 'Romania', dial: '+40' },
+    { iso: 'GR', name: 'Greece', dial: '+30' },
+    { iso: 'TR', name: 'Turkey', dial: '+90' },
+    { iso: 'HR', name: 'Croatia', dial: '+385' },
+    { iso: 'SI', name: 'Slovenia', dial: '+386' },
+    { iso: 'SK', name: 'Slovakia', dial: '+421' },
+    { iso: 'LT', name: 'Lithuania', dial: '+370' },
+    { iso: 'LV', name: 'Latvia', dial: '+371' },
+    { iso: 'EE', name: 'Estonia', dial: '+372' },
+    { iso: 'UA', name: 'Ukraine', dial: '+380' },
+    { iso: 'AR', name: 'Argentina', dial: '+54' },
+    { iso: 'CL', name: 'Chile', dial: '+56' },
+    { iso: 'CO', name: 'Colombia', dial: '+57' },
+    { iso: 'PE', name: 'Peru', dial: '+51' },
+    { iso: 'EC', name: 'Ecuador', dial: '+593' },
+    { iso: 'BO', name: 'Bolivia', dial: '+591' },
+    { iso: 'PY', name: 'Paraguay', dial: '+595' },
+    { iso: 'UY', name: 'Uruguay', dial: '+598' },
+    { iso: 'IL', name: 'Israel', dial: '+972' },
+    { iso: 'AE', name: 'United Arab Emirates', dial: '+971' },
+    { iso: 'SA', name: 'Saudi Arabia', dial: '+966' },
+    { iso: 'QA', name: 'Qatar', dial: '+974' },
+    { iso: 'KW', name: 'Kuwait', dial: '+965' },
+    { iso: 'BH', name: 'Bahrain', dial: '+973' },
+    { iso: 'OM', name: 'Oman', dial: '+968' },
+    { iso: 'MA', name: 'Morocco', dial: '+212' },
+    { iso: 'EG', name: 'Egypt', dial: '+20' },
+    { iso: 'ZA', name: 'South Africa', dial: '+27' },
+    { iso: 'KE', name: 'Kenya', dial: '+254' },
+    { iso: 'NG', name: 'Nigeria', dial: '+234' },
+    { iso: 'GH', name: 'Ghana', dial: '+233' },
+    { iso: 'IN', name: 'India', dial: '+91' },
+    { iso: 'SG', name: 'Singapore', dial: '+65' },
+    { iso: 'MY', name: 'Malaysia', dial: '+60' },
+    { iso: 'ID', name: 'Indonesia', dial: '+62' },
+    { iso: 'PH', name: 'Philippines', dial: '+63' },
+    { iso: 'TH', name: 'Thailand', dial: '+66' },
+    { iso: 'VN', name: 'Vietnam', dial: '+84' },
+    { iso: 'HK', name: 'Hong Kong', dial: '+852' },
+    { iso: 'TW', name: 'Taiwan', dial: '+886' },
+    { iso: 'JP', name: 'Japan', dial: '+81' },
+    { iso: 'KR', name: 'South Korea', dial: '+82' },
+    { iso: 'CN', name: 'China', dial: '+86' },
+    { iso: 'NZ', name: 'New Zealand', dial: '+64' },
+  ];
 
   const initialState = {
     messages: [],
@@ -21,6 +96,7 @@
     quickReplies: [],
     ctas: [],
     panelOpen: false,
+    phoneCountry: '',
   };
 
   let state = loadState();
@@ -29,6 +105,11 @@
   let quickEl;
   let ctasEl;
   let inputEl;
+  let phoneEl;
+  let phoneNumberEl;
+  let countryTriggerEl;
+  let countrySearchEl;
+  let countryListEl;
 
   function loadState() {
     try {
@@ -48,6 +129,7 @@
       quickReplies: Array.isArray(parsed.quickReplies) ? parsed.quickReplies : [],
       ctas: Array.isArray(parsed.ctas) ? parsed.ctas : [],
       panelOpen: parsed.panelOpen === true,
+      phoneCountry: findPhoneCountry(parsed.phoneCountry)?.iso || defaultPhoneCountry().iso,
     };
   }
 
@@ -64,6 +146,7 @@
       quickReplies: state.quickReplies || [],
       ctas: state.ctas || [],
       panelOpen: state.panelOpen === true,
+      phoneCountry: findPhoneCountry(state.phoneCountry)?.iso || defaultPhoneCountry().iso,
     }));
   }
 
@@ -108,6 +191,18 @@
         <div class="tlc-quick"></div>
         <div class="tlc-ctas"></div>
         <form class="tlc-form">
+          <div class="tlc-phone" hidden>
+            <div class="tlc-phone-row">
+              <div class="tlc-country">
+                <button class="tlc-country-trigger" type="button" aria-label="Select phone country code" aria-expanded="false"></button>
+                <div class="tlc-country-menu" hidden>
+                  <input class="tlc-country-search" type="search" autocomplete="off" placeholder="Search country" aria-label="Search country">
+                  <div class="tlc-country-list" role="listbox"></div>
+                </div>
+              </div>
+              <input class="tlc-phone-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="Mobile number">
+            </div>
+          </div>
           <textarea class="tlc-input" rows="1" maxlength="1200" placeholder="Ask about tours, dates, group size..."></textarea>
           <button class="tlc-send" type="submit" aria-label="Send">${ICONS.send}</button>
         </form>
@@ -119,6 +214,11 @@
     quickEl = root.querySelector('.tlc-panel .tlc-quick');
     ctasEl = root.querySelector('.tlc-ctas');
     inputEl = root.querySelector('.tlc-input');
+    phoneEl = root.querySelector('.tlc-phone');
+    phoneNumberEl = root.querySelector('.tlc-phone-number');
+    countryTriggerEl = root.querySelector('.tlc-country-trigger');
+    countrySearchEl = root.querySelector('.tlc-country-search');
+    countryListEl = root.querySelector('.tlc-country-list');
   }
 
   function bindEvents() {
@@ -141,14 +241,38 @@
     });
     root.querySelector('.tlc-form').addEventListener('submit', (event) => {
       event.preventDefault();
-      const message = inputEl.value.trim();
+      const message = getComposerMessage();
       if (!message) return;
-      inputEl.value = '';
+      clearComposer();
       sendMessage(message);
     });
     inputEl.addEventListener('input', () => {
       inputEl.style.height = 'auto';
       inputEl.style.height = Math.min(inputEl.scrollHeight, 110) + 'px';
+    });
+    countryTriggerEl.addEventListener('click', () => {
+      const expanded = countryTriggerEl.getAttribute('aria-expanded') === 'true';
+      setCountryMenuOpen(!expanded);
+    });
+    countrySearchEl.addEventListener('input', renderCountryOptions);
+    countryListEl.addEventListener('click', (event) => {
+      const option = event.target.closest('[data-country]');
+      if (!option) return;
+      selectPhoneCountry(option.dataset.country);
+    });
+    phoneNumberEl.addEventListener('focus', () => {
+      if (!state.phoneCountry) {
+        state.phoneCountry = defaultPhoneCountry().iso;
+        saveState();
+        renderPhoneComposer();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) setCountryMenuOpen(false);
+      if (!event.target.closest || !event.target.closest('.tlc-country')) setCountryMenuOpen(false);
+    });
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setCountryMenuOpen(false);
     });
   }
 
@@ -236,6 +360,27 @@
     renderMessages();
     renderQuickReplies(state.quickReplies || []);
     renderCtas(state.ctas || []);
+    renderPhoneComposer();
+  }
+
+  function getComposerMessage() {
+    if (!isPhoneExpected()) return inputEl.value.trim();
+    const raw = phoneNumberEl.value.trim();
+    if (!raw) return '';
+    if (/^\+/.test(raw)) return normalizePhoneForSend(raw);
+    if (/^00/.test(raw)) return `+${raw.replace(/^00/, '').replace(/[^\d]/g, '')}`;
+    const country = getSelectedPhoneCountry();
+    const digits = raw.replace(/[^\d]/g, '');
+    return digits ? `${country.dial} ${digits}` : '';
+  }
+
+  function clearComposer() {
+    if (isPhoneExpected()) {
+      phoneNumberEl.value = '';
+      setCountryMenuOpen(false);
+      return;
+    }
+    inputEl.value = '';
   }
 
   function labelToAction(label) {
@@ -246,6 +391,107 @@
     if (normalized.includes('whatsapp')) return 'whatsapp';
     if (normalized.includes('question')) return 'ask_question';
     return 'message:' + label;
+  }
+
+  function isPhoneExpected() {
+    return state.expectedField === 'phone';
+  }
+
+  function defaultPhoneCountry() {
+    const lang = String(navigator.language || '').toLowerCase();
+    if (lang.endsWith('-pt')) return findPhoneCountry('PT') || PHONE_COUNTRIES[0];
+    if (lang.endsWith('-gb')) return findPhoneCountry('GB') || PHONE_COUNTRIES[0];
+    if (lang.endsWith('-ca')) return findPhoneCountry('CA') || PHONE_COUNTRIES[0];
+    if (lang.endsWith('-br')) return findPhoneCountry('BR') || PHONE_COUNTRIES[0];
+    return PHONE_COUNTRIES[0];
+  }
+
+  function findPhoneCountry(iso) {
+    return PHONE_COUNTRIES.find((country) => country.iso === String(iso || '').toUpperCase()) || null;
+  }
+
+  function getSelectedPhoneCountry() {
+    return findPhoneCountry(state.phoneCountry) || defaultPhoneCountry();
+  }
+
+  function flagForCountry(iso) {
+    return String(iso || 'US')
+      .toUpperCase()
+      .replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
+  }
+
+  function normalizePhoneForSend(value) {
+    return `+${String(value).replace(/[^\d]/g, '')}`;
+  }
+
+  function renderPhoneComposer() {
+    const phoneMode = isPhoneExpected();
+    root.dataset.phoneMode = phoneMode ? 'true' : 'false';
+    phoneEl.hidden = !phoneMode;
+    inputEl.hidden = phoneMode;
+    if (phoneMode) renderSelectedPhoneCountry();
+  }
+
+  function renderSelectedPhoneCountry() {
+    const country = getSelectedPhoneCountry();
+    countryTriggerEl.innerHTML = [
+      `<span class="tlc-country-flag">${flagForCountry(country.iso)}</span>`,
+      `<span class="tlc-country-code">${escapeHtml(country.dial)}</span>`,
+      '<span class="tlc-country-caret">&#8964;</span>',
+    ].join('');
+    renderCountryOptions();
+  }
+
+  function renderCountryOptions() {
+    const query = normalizeCountrySearch(countrySearchEl.value || '');
+    const selected = getSelectedPhoneCountry();
+    const matches = PHONE_COUNTRIES
+      .filter((country) => {
+        if (!query) return true;
+        const haystack = normalizeCountrySearch(`${country.name} ${country.iso} ${country.dial}`);
+        return haystack.includes(query);
+      })
+      .slice(0, 12);
+    countryListEl.innerHTML = matches.map((country) => {
+      const active = country.iso === selected.iso ? 'true' : 'false';
+      return [
+        `<button class="tlc-country-option" type="button" role="option" aria-selected="${active}" data-country="${escapeHtml(country.iso)}">`,
+        `<span>${flagForCountry(country.iso)}</span>`,
+        `<span class="tlc-country-name">${escapeHtml(country.name)}</span>`,
+        `<span class="tlc-country-dial">${escapeHtml(country.dial)}</span>`,
+        '</button>',
+      ].join('');
+    }).join('') || '<div class="tlc-country-empty">Type the full number with + country code</div>';
+  }
+
+  function normalizeCountrySearch(value) {
+    return String(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function selectPhoneCountry(iso) {
+    const country = findPhoneCountry(iso);
+    if (!country) return;
+    state.phoneCountry = country.iso;
+    saveState();
+    renderSelectedPhoneCountry();
+    setCountryMenuOpen(false);
+    phoneNumberEl.focus({ preventScroll: true });
+  }
+
+  function setCountryMenuOpen(open) {
+    if (!countryTriggerEl || !countrySearchEl || !countryListEl) return;
+    countryTriggerEl.setAttribute('aria-expanded', open ? 'true' : 'false');
+    root.dataset.countryMenu = open ? 'true' : 'false';
+    root.querySelector('.tlc-country-menu').hidden = !open;
+    if (open) {
+      countrySearchEl.value = '';
+      renderCountryOptions();
+      countrySearchEl.focus({ preventScroll: true });
+    }
   }
 
   function handleAction(action, tourId) {
@@ -461,6 +707,10 @@
   function setBusy(isBusy) {
     root.dataset.busy = isBusy ? 'true' : 'false';
     root.querySelector('.tlc-send').disabled = isBusy;
+    inputEl.disabled = isBusy;
+    phoneNumberEl.disabled = isBusy;
+    countryTriggerEl.disabled = isBusy;
+    countrySearchEl.disabled = isBusy;
   }
 
   function trackLeadStarted(params) {
