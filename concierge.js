@@ -18,6 +18,9 @@
     leadStartedTracked: false,
     qualification: 'INFORMATIONAL',
     lastRecommendedTour: '',
+    quickReplies: [],
+    ctas: [],
+    panelOpen: false,
   };
 
   let state = loadState();
@@ -30,10 +33,22 @@
   function loadState() {
     try {
       const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      return { ...initialState, ...parsed, lead: parsed.lead || {}, finder: parsed.finder || {} };
+      return normalizeState(parsed);
     } catch {
-      return { ...initialState };
+      return normalizeState();
     }
+  }
+
+  function normalizeState(parsed = {}) {
+    return {
+      ...initialState,
+      ...parsed,
+      lead: parsed.lead && typeof parsed.lead === 'object' ? parsed.lead : {},
+      finder: parsed.finder && typeof parsed.finder === 'object' ? parsed.finder : {},
+      quickReplies: Array.isArray(parsed.quickReplies) ? parsed.quickReplies : [],
+      ctas: Array.isArray(parsed.ctas) ? parsed.ctas : [],
+      panelOpen: parsed.panelOpen === true,
+    };
   }
 
   function saveState() {
@@ -46,6 +61,9 @@
       leadStartedTracked: state.leadStartedTracked,
       qualification: state.qualification,
       lastRecommendedTour: state.lastRecommendedTour,
+      quickReplies: state.quickReplies || [],
+      ctas: state.ctas || [],
+      panelOpen: state.panelOpen === true,
     }));
   }
 
@@ -64,8 +82,8 @@
   function createRoot() {
     root = document.createElement('div');
     root.className = 'tlc-root';
-    root.dataset.open = 'false';
-    root.dataset.teaser = sessionStorage.getItem('tlc_teaser_closed') ? 'hidden' : 'waiting';
+    root.dataset.open = state.panelOpen ? 'true' : 'false';
+    root.dataset.teaser = state.panelOpen || sessionStorage.getItem('tlc_teaser_closed') ? 'hidden' : 'waiting';
     root.innerHTML = `
       <div class="tlc-teaser" role="dialog" aria-label="Tour assistant prompt">
         <p><strong>Hi! Planning your visit to Lisbon?</strong><br>I can help you choose the perfect private tour in less than a minute.</p>
@@ -137,8 +155,10 @@
   function openChat() {
     const wasOpen = root.dataset.open === 'true';
     root.dataset.open = 'true';
+    state.panelOpen = true;
     root.dataset.teaser = 'hidden';
     sessionStorage.setItem('tlc_teaser_closed', '1');
+    saveState();
     inputEl.focus({ preventScroll: true });
     if (!wasOpen) track('concierge_open');
     if (!state.messages.length) {
@@ -150,6 +170,8 @@
 
   function closeChat() {
     root.dataset.open = 'false';
+    state.panelOpen = false;
+    saveState();
   }
 
   function showTeaserLater() {
@@ -237,7 +259,7 @@
     }
     if (action === 'view_tour') {
       const tour = state.lastRecommendedTour || state.lead.tourId;
-      if (tour) window.location.href = `/tours/${tour}`;
+      if (tour) openInNewTab(`/tours/${tour}`);
       return;
     }
     if (action === 'whatsapp') {
@@ -249,6 +271,10 @@
 
   function handleCta(action, href, tourId) {
     if (action === 'link' && href) {
+      if (isTourLink(href)) {
+        openInNewTab(href);
+        return;
+      }
       window.location.href = href;
       return;
     }
@@ -268,6 +294,21 @@
   function sendMessage(message) {
     addMessage('user', message);
     callConcierge(message, '');
+  }
+
+  function isTourLink(href) {
+    return /^\/tours\/[a-z0-9-]+\/?$/i.test(href);
+  }
+
+  function openInNewTab(href) {
+    saveState();
+    const anchor = document.createElement('a');
+    anchor.href = href;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
   }
 
   async function callConcierge(message, action, tourId) {
@@ -448,10 +489,21 @@
       .replace(/"/g, '&quot;');
   }
 
+  function syncStateFromStorage(event) {
+    if (event.key !== STORAGE_KEY) return;
+    state = loadState();
+    if (!root) return;
+    root.dataset.open = state.panelOpen ? 'true' : 'false';
+    root.dataset.teaser = state.panelOpen ? 'hidden' : root.dataset.teaser;
+    render();
+  }
+
   function boot() {
     createRoot();
     bindEvents();
     render();
+    window.addEventListener('storage', syncStateFromStorage);
+    if (state.panelOpen && !state.messages.length) callConcierge('', 'intro');
     showTeaserLater();
   }
 
