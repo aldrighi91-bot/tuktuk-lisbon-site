@@ -49,10 +49,11 @@ test('availability flow does not invent availability', () => {
   assert.doesNotMatch(response.reply, /\bis available\b/i);
 });
 
-test('lead validation requires email, date, guests and tour but not phone', () => {
+test('lead validation requires phone with the other booking details', () => {
   const lead = sanitizeLead({
     name: 'Alex',
     email: 'alex@example.com',
+    phone: '+1 415 555 0199',
     desiredDate: 'tomorrow',
     preferredTime: '10 am',
     guests: 2,
@@ -60,13 +61,13 @@ test('lead validation requires email, date, guests and tour but not phone', () =
     tourId: 'alfama',
   });
   assert.deepEqual(validateLead(lead), []);
-  assert.equal(lead.phone, '');
+  assert.equal(lead.phone, '+1 415 555 0199');
 });
 
 test('missing lead fields are progressive', () => {
   assert.deepEqual(
     missingLeadFields({ tourId: 'belem', desiredDate: 'Friday', guests: 3 }),
-    ['preferred time', 'pickup area', 'name', 'email']
+    ['preferred time', 'pickup area', 'name', 'email', 'phone']
   );
 });
 
@@ -150,13 +151,14 @@ test('lead capture continues after pickup and name answers', () => {
       },
     },
   });
-  assert.equal(skipPhoneResponse.leadPatch.phoneSkipped, true);
-  assert.equal(skipPhoneResponse.leadPatch.contactPreference, 'email');
-  assert.equal(skipPhoneResponse.leadReady, true);
-  assert.equal(skipPhoneResponse.ctas[0].action, 'submit_lead');
+  assert.equal(skipPhoneResponse.nextExpectedField, 'phone');
+  assert.equal(skipPhoneResponse.leadPatch.phone, undefined);
+  assert.equal(skipPhoneResponse.leadReady, undefined);
+  assert.deepEqual(skipPhoneResponse.quickReplies, []);
+  assert.match(skipPhoneResponse.reply, /mobile number|SMS|WhatsApp/i);
 });
 
-test('optional phone capture stores consent and keeps lead ready', () => {
+test('phone capture stores consent and makes lead ready', () => {
   const response = handleConciergeMessage({
     message: '+1 415 555 0199',
     state: {
@@ -251,6 +253,7 @@ test('lead delivery falls back to the Supabase Edge Function without Vercel secr
   const payload = buildLeadPayload({
     name: 'Alex Johnson',
     email: 'alex@example.com',
+    phone: '+1 415 555 0199',
     desiredDate: 'tomorrow',
     preferredTime: '10 am',
     guests: 2,

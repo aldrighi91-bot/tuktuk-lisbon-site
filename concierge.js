@@ -398,12 +398,7 @@
   }
 
   function defaultPhoneCountry() {
-    const lang = String(navigator.language || '').toLowerCase();
-    if (lang.endsWith('-pt')) return findPhoneCountry('PT') || PHONE_COUNTRIES[0];
-    if (lang.endsWith('-gb')) return findPhoneCountry('GB') || PHONE_COUNTRIES[0];
-    if (lang.endsWith('-ca')) return findPhoneCountry('CA') || PHONE_COUNTRIES[0];
-    if (lang.endsWith('-br')) return findPhoneCountry('BR') || PHONE_COUNTRIES[0];
-    return PHONE_COUNTRIES[0];
+    return findPhoneCountry('US') || PHONE_COUNTRIES[0];
   }
 
   function findPhoneCountry(iso) {
@@ -605,6 +600,7 @@
     addMessage('assistant', data.reply || 'How can I help with your Lisbon tour?');
     renderQuickReplies(state.quickReplies);
     renderCtas(state.ctas);
+    renderPhoneComposer();
 
     if (Array.isArray(data.analytics)) {
       data.analytics.forEach((eventName) => {
@@ -727,6 +723,7 @@
       pickupArea: 'pickup area',
       tourId: 'tour of interest',
       guests: 'number of guests',
+      phone: 'mobile number',
     };
     return fields.map((field) => labels[field] || field).join(', ');
   }

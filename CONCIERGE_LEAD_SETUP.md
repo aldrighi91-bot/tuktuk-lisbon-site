@@ -57,7 +57,7 @@ number of guests
 pickup area or hotel
 name
 email
-optional phone/WhatsApp
+phone/WhatsApp
 question/message
 qualification: HOT, WARM, INFORMATIONAL
 source: site_concierge

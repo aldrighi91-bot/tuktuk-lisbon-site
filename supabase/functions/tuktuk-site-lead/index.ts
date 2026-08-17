@@ -84,6 +84,7 @@ function validateLead(lead: Record<string, unknown>) {
   if (!lead.guests) errors.push('guests');
   if (!lead.pickupArea) errors.push('pickupArea');
   if (!lead.tourId || !TOUR_NAMES[String(lead.tourId)]) errors.push('tourId');
+  if (!lead.phone) errors.push('phone');
   return errors;
 }
 
