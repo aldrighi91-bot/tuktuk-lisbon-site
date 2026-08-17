@@ -10,6 +10,8 @@ const MAX_FIELD_LENGTHS: Record<string, number> = {
   name: 100,
   email: 160,
   phone: 60,
+  phoneConsentText: 300,
+  contactPreference: 40,
   desiredDate: 80,
   preferredTime: 40,
   pickupArea: 180,
@@ -67,6 +69,9 @@ function sanitizeLead(input: Record<string, unknown> = {}) {
     : crypto.randomUUID();
   lead.createdAt = cleanString(input.createdAt, 40) || new Date().toISOString();
   lead.source = cleanString(input.source, 40) || 'site_concierge';
+  lead.phoneConsent = Boolean(input.phoneConsent && lead.phone);
+  lead.phoneSkipped = input.phoneSkipped === true || input.phoneSkipped === 'true';
+  if (!lead.contactPreference) lead.contactPreference = lead.phone ? 'sms_whatsapp' : 'email';
   return lead;
 }
 

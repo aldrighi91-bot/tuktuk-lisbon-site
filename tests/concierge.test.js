@@ -131,8 +131,53 @@ test('lead capture continues after pickup and name answers', () => {
       },
     },
   });
-  assert.equal(nameResponse.leadReady, true);
-  assert.equal(nameResponse.ctas[0].action, 'submit_lead');
+  assert.equal(nameResponse.nextExpectedField, 'phone');
+  assert.match(nameResponse.reply, /mobile number|SMS|WhatsApp/i);
+
+  const skipPhoneResponse = handleConciergeMessage({
+    message: 'Email only',
+    state: {
+      expectedField: 'phone',
+      qualification: 'HOT',
+      lead: {
+        tourId: 'alfama',
+        desiredDate: 'tomorrow',
+        preferredTime: '10 am',
+        guests: 2,
+        pickupArea: 'Hotel Mundial',
+        name: 'Alex Johnson',
+        email: 'alex@example.com',
+      },
+    },
+  });
+  assert.equal(skipPhoneResponse.leadPatch.phoneSkipped, true);
+  assert.equal(skipPhoneResponse.leadPatch.contactPreference, 'email');
+  assert.equal(skipPhoneResponse.leadReady, true);
+  assert.equal(skipPhoneResponse.ctas[0].action, 'submit_lead');
+});
+
+test('optional phone capture stores consent and keeps lead ready', () => {
+  const response = handleConciergeMessage({
+    message: '+1 415 555 0199',
+    state: {
+      expectedField: 'phone',
+      qualification: 'HOT',
+      lead: {
+        tourId: 'alfama',
+        desiredDate: 'tomorrow',
+        preferredTime: '10 am',
+        guests: 2,
+        pickupArea: 'Hotel Mundial',
+        name: 'Alex Johnson',
+        email: 'alex@example.com',
+      },
+    },
+  });
+  assert.equal(response.leadPatch.phone, '+1 415 555 0199');
+  assert.equal(response.leadPatch.phoneConsent, true);
+  assert.equal(response.leadPatch.contactPreference, 'sms_whatsapp');
+  assert.equal(response.leadReady, true);
+  assert.equal(response.ctas[0].action, 'submit_lead');
 });
 
 test('range group quick reply captures the larger guest count', () => {
@@ -158,6 +203,8 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   const payload = buildLeadPayload({
     name: 'Alex Johnson',
     email: 'alex@example.com',
+    phone: '+1 415 555 0199',
+    phoneConsent: true,
     desiredDate: 'tomorrow',
     preferredTime: '10 am',
     guests: 2,
@@ -173,6 +220,7 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   assert.equal(row.canal, 'site');
   assert.equal(row.agente, 'concierge_site');
   assert.equal(row.nome, 'Alex Johnson');
+  assert.equal(row.telefone, '+1 415 555 0199');
   assert.equal(row.tour, 'Alfama Tour');
   assert.equal(row.tour_slug, 'alfama');
   assert.equal(row.data_tour, 'tomorrow');
@@ -182,6 +230,8 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   assert.equal(row.qualificacao, 'HOT');
   assert.equal(row.status, 'novo');
   assert.equal(row.followup_status, 'pendente');
+  assert.equal(row.raw_json.phoneConsent, true);
+  assert.equal(row.raw_json.contactPreference, 'sms_whatsapp');
 });
 
 test('lead delivery falls back to the Supabase Edge Function without Vercel secrets', async () => {
