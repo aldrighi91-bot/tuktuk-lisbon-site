@@ -450,9 +450,84 @@
 </div>
 
 
-<script src="/booking-links.js?v=20260820-booking-button"></script>
-<script src="/i18n.js?v=20260820-booking-button"></script>
-<script src="/app.js?v=20260820-booking-button"></script>
+<script src="/booking-links.js?v=20260820-cachefix"></script>
+<script src="/i18n.js?v=20260820-cachefix"></script>
+<script src="/app.js?v=20260820-cachefix"></script>
+<script>
+(function () {
+  const bookingMap = [
+    { id: 'miradouros', booking: 'alfama', names: ['viewpoints + alfama', 'miradouros + alfama', 'miradores + alfama'] },
+    { id: 'centro-historico', booking: 'chiado', names: ['chiado & bairro alto'] },
+    { id: 'belem', booking: 'belem', names: ['belem', 'belém'] },
+    { id: 'personalizado', booking: 'fullcity', names: ['full city tour'] },
+  ];
+
+  function inferTour(article) {
+    const text = (article.textContent || '').toLowerCase();
+    return bookingMap.find((item) => item.names.some((name) => text.includes(name)));
+  }
+
+  function openBooking(tourId) {
+    if (window.openOnlineBooking) {
+      window.openOnlineBooking(tourId, 'home_inline_fallback');
+      return;
+    }
+    const item = bookingMap.find((entry) => entry.id === tourId);
+    const bookingId = item ? item.booking : tourId;
+    window.open('/booking.html?tour=' + encodeURIComponent(bookingId), '_blank', 'noopener,noreferrer');
+  }
+
+  function createButton(tourId) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'w-full h-12 inline-flex items-center justify-center gap-2 rounded-md bg-brand-700 text-white font-bold transition active:scale-[.98] hover:bg-brand-800';
+    button.setAttribute('data-booking-tour', tourId);
+    button.setAttribute('data-booking-label', 'Book Online');
+    button.innerHTML = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-booking-text>Book Online</span>';
+    button.addEventListener('click', () => openBooking(tourId));
+    return button;
+  }
+
+  function createTrustLine() {
+    const p = document.createElement('p');
+    p.className = 'text-[11px] leading-snug text-muted text-center';
+    p.textContent = 'Secure checkout by Bókun, a Tripadvisor company.';
+    return p;
+  }
+
+  function ensureHomepageBookingButtons() {
+    document.querySelectorAll('#tours-grid article').forEach((article) => {
+      if (article.querySelector('[data-booking-tour]')) return;
+      const tour = inferTour(article);
+      if (!tour) return;
+      const whatsapp = Array.from(article.querySelectorAll('button, a')).find((el) => /whatsapp/i.test(el.textContent || ''));
+      if (!whatsapp || !whatsapp.parentElement) return;
+      whatsapp.parentElement.insertBefore(createButton(tour.id), whatsapp);
+      whatsapp.parentElement.insertBefore(createTrustLine(), whatsapp);
+    });
+
+    if (window.TukTukBooking && typeof window.TukTukBooking.hydrateButtons === 'function') {
+      window.TukTukBooking.hydrateButtons(document);
+    }
+  }
+
+  let fallbackPending = false;
+  function scheduleHomepageBookingButtons() {
+    if (fallbackPending) return;
+    fallbackPending = true;
+    setTimeout(() => {
+      fallbackPending = false;
+      ensureHomepageBookingButtons();
+    }, 0);
+  }
+
+  ensureHomepageBookingButtons();
+  [100, 500, 1500, 3000].forEach((delay) => setTimeout(ensureHomepageBookingButtons, delay));
+  if (window.MutationObserver) {
+    new MutationObserver(scheduleHomepageBookingButtons).observe(document.documentElement, { childList: true, subtree: true });
+  }
+})();
+</script>
 <script defer src="/concierge.js"></script>
 </body>
 </html>

@@ -40,8 +40,17 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
 test('homepage loads versioned booking assets for mobile cache busting', () => {
   const homeHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const linksJs = fs.readFileSync(path.join(__dirname, '..', 'booking-links.js'), 'utf8');
+  const vercelJson = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'vercel.json'), 'utf8'));
 
-  assert.match(homeHtml, /\/booking-links\.js\?v=20260820-booking-button/);
-  assert.match(homeHtml, /\/app\.js\?v=20260820-booking-button/);
+  assert.match(homeHtml, /\/booking-links\.js\?v=20260820-cachefix/);
+  assert.match(homeHtml, /\/app\.js\?v=20260820-cachefix/);
+  assert.match(homeHtml, /home_inline_fallback/);
+  assert.match(homeHtml, /ensureHomepageBookingButtons/);
   assert.match(linksJs, /observeBookingButtons/);
+  assert.deepEqual(vercelJson.headers[0], {
+    source: '/(.*)\\.js',
+    headers: [
+      { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+    ],
+  });
 });

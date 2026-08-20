@@ -240,8 +240,8 @@
       button.setAttribute('title', available ? `Book online via ${link.provider}` : 'Online checkout for this tour is not connected yet');
 
       const labelTarget = button.querySelector('[data-booking-text]');
-      if (labelTarget) labelTarget.textContent = label;
-      else button.textContent = label;
+      if (labelTarget && labelTarget.textContent !== label) labelTarget.textContent = label;
+      else if (!labelTarget && button.textContent !== label) button.textContent = label;
     });
   }
 
