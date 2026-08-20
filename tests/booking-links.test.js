@@ -26,3 +26,13 @@ test('embeds the Bókun calendar widget inline', () => {
   assert.match(html, /\/experience-calendar\/' \+ experienceId/);
   assert.doesNotMatch(html, /partialView=1/);
 });
+
+test('shows Tripadvisor-powered trust messaging for online booking', () => {
+  const bookingHtml = fs.readFileSync(path.join(__dirname, '..', 'booking.html'), 'utf8');
+  const linksJs = fs.readFileSync(path.join(__dirname, '..', 'booking-links.js'), 'utf8');
+
+  assert.match(bookingHtml, /Tripadvisor-powered technology/);
+  assert.match(bookingHtml, /Bókun is a Tripadvisor company/);
+  assert.match(linksJs, /tour_page_price_block/);
+  assert.match(linksJs, /Viator and Tripadvisor Experiences/);
+});

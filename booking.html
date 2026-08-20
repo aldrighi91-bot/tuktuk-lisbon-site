@@ -16,6 +16,7 @@
       --line: #dce3ee;
       --soft: #f5f8fc;
       --green: #128c46;
+      --trip: #00aa6c;
     }
 
     * { box-sizing: border-box; }
@@ -114,6 +115,39 @@
       max-width: 680px;
     }
 
+    .trust-rail {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .trust-card {
+      min-height: 82px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .trust-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.25;
+    }
+
+    .trust-card span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .trust-card.trip strong { color: #006b4a; }
+
     .widget-wrap {
       min-height: 420px;
       padding: 22px;
@@ -184,6 +218,7 @@
 
       .brand span:last-child { max-width: 180px; }
       .intro { padding: 20px; }
+      .trust-rail { grid-template-columns: 1fr; }
       .widget-wrap { padding: 12px; }
       .actions, .button { width: 100%; }
     }
@@ -204,6 +239,20 @@
         <p class="eyebrow">Online booking</p>
         <h1 id="tour-title">Loading tour...</h1>
         <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
+        <div class="trust-rail" aria-label="Booking trust signals">
+          <div class="trust-card trip">
+            <strong>Tripadvisor-powered technology</strong>
+            <span>Bókun is a Tripadvisor company and connects with Viator distribution tools.</span>
+          </div>
+          <div class="trust-card">
+            <strong>Secure online checkout</strong>
+            <span>Choose your date and request the tour without needing WhatsApp.</span>
+          </div>
+          <div class="trust-card">
+            <strong>Local guide confirmation</strong>
+            <span>Natanael personally confirms on-request times and pickup details.</span>
+          </div>
+        </div>
       </div>
       <div class="widget-wrap" id="booking-widget">
         <div class="status">
