@@ -30,7 +30,7 @@
     }
 
     .shell {
-      width: min(960px, calc(100% - 32px));
+      width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
       padding: 24px 0 40px;
     }
@@ -91,6 +91,17 @@
       background: var(--soft);
     }
 
+    .booking-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .82fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
     .eyebrow {
       margin: 0 0 8px;
       color: var(--blue);
@@ -115,15 +126,158 @@
       max-width: 680px;
     }
 
+    .fact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .fact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid #cdd9ea;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .fact-chip span {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .photo-card {
+      position: relative;
+      min-height: 310px;
+      border: 1px solid #cad6e7;
+      border-radius: 10px;
+      background: #e9eef6;
+      overflow: hidden;
+      box-shadow: 0 16px 34px rgba(17, 42, 77, .14);
+    }
+
+    .photo-track {
+      height: 100%;
+      min-height: 310px;
+      display: flex;
+      transition: transform .35s ease;
+    }
+
+    .photo-slide {
+      min-width: 100%;
+      height: 100%;
+      min-height: 310px;
+      position: relative;
+    }
+
+    .photo-slide img {
+      width: 100%;
+      height: 100%;
+      min-height: 310px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.38));
+      pointer-events: none;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-shadow: 0 1px 3px rgba(0,0,0,.35);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .photo-count {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: var(--ink);
+      text-shadow: none;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .photo-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 999px;
+      background: rgba(255,255,255,.88);
+      color: var(--ink);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+
+    .photo-nav.prev { left: 12px; }
+    .photo-nav.next { right: 12px; }
+
+    .photo-dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 54px;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .photo-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      padding: 0;
+    }
+
+    .photo-dot[aria-current="true"] {
+      width: 20px;
+      background: #fff;
+    }
+
     .trust-rail {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
       margin-top: 18px;
     }
 
     .trust-card {
-      min-height: 82px;
+      min-height: 92px;
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -147,6 +301,99 @@
     }
 
     .trust-card.trip strong { color: #006b4a; }
+
+    .trust-icon {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: #edf5ff;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .trust-card.trip .trust-icon {
+      background: #e8f8f1;
+      color: #006b4a;
+    }
+
+    .tour-details {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .detail-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+    }
+
+    .detail-card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .detail-list li {
+      display: flex;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .detail-list li::before {
+      content: '✓';
+      flex: 0 0 auto;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .booking-path {
+      display: grid;
+      gap: 8px;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .path-step strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .path-number {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
 
     .widget-wrap {
       min-height: 420px;
@@ -217,10 +464,33 @@
       }
 
       .brand span:last-child { max-width: 180px; }
-      .intro { padding: 20px; }
-      .trust-rail { grid-template-columns: 1fr; }
+      .intro { padding: 18px; }
+      .booking-hero { grid-template-columns: 1fr; }
+      .photo-card, .photo-track, .photo-slide, .photo-slide img { min-height: 238px; }
+      .trust-rail { grid-template-columns: 1fr 1fr; }
+      .tour-details { grid-template-columns: 1fr; }
       .widget-wrap { padding: 12px; }
       .actions, .button { width: 100%; }
+    }
+
+    @media (max-width: 430px) {
+      .shell { width: min(100% - 16px, 960px); }
+      .topbar { gap: 10px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .brand span:last-child { max-width: 170px; }
+      .back { min-height: 40px; padding: 0 12px; }
+      h1 { font-size: 32px; }
+      .summary { font-size: 15px; }
+      .trust-rail { grid-template-columns: 1fr 1fr; }
+      .trust-card { min-height: 0; padding: 11px; }
+      .trust-card strong { font-size: 12.5px; }
+      .trust-card span { font-size: 11.5px; }
+      .trust-icon { width: 26px; height: 26px; margin-bottom: 7px; }
+      .photo-nav { width: 34px; height: 34px; }
+    }
+
+    @media (max-width: 340px) {
+      .trust-rail { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -236,21 +506,71 @@
 
     <section class="panel" aria-live="polite">
       <div class="intro">
-        <p class="eyebrow">Online booking</p>
-        <h1 id="tour-title">Loading tour...</h1>
-        <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
+        <div class="booking-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Online booking</p>
+            <h1 id="tour-title">Loading tour...</h1>
+            <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
+            <div class="fact-row" aria-label="Tour quick facts">
+              <span class="fact-chip"><span>Time</span><strong id="tour-duration">--</strong></span>
+              <span class="fact-chip"><span>Price</span><strong id="tour-price">--</strong></span>
+              <span class="fact-chip"><span>Group</span><strong id="tour-capacity">Private group</strong></span>
+            </div>
+          </div>
+          <div class="photo-card" aria-label="Tour photos">
+            <div class="photo-track" id="photo-track"></div>
+            <button class="photo-nav prev" type="button" id="photo-prev" aria-label="Previous photo">‹</button>
+            <button class="photo-nav next" type="button" id="photo-next" aria-label="Next photo">›</button>
+            <div class="photo-dots" id="photo-dots" aria-label="Photo navigation"></div>
+            <div class="photo-caption">
+              <span id="photo-caption">Private Lisbon tuk tuk tour</span>
+              <span class="photo-count" id="photo-count">1 / 1</span>
+            </div>
+          </div>
+        </div>
         <div class="trust-rail" aria-label="Booking trust signals">
           <div class="trust-card trip">
+            <span class="trust-icon">T</span>
             <strong>Tripadvisor-powered technology</strong>
             <span>Bókun is a Tripadvisor company and connects with Viator distribution tools.</span>
           </div>
           <div class="trust-card">
+            <span class="trust-icon">✓</span>
             <strong>Secure online checkout</strong>
             <span>Choose your date and request the tour without needing WhatsApp.</span>
           </div>
           <div class="trust-card">
+            <span class="trust-icon">N</span>
             <strong>Local guide confirmation</strong>
             <span>Natanael personally confirms on-request times and pickup details.</span>
+          </div>
+          <div class="trust-card">
+            <span class="trust-icon">★</span>
+            <strong>Private local experience</strong>
+            <span>Small-group tours operated directly by Tuk Tuk Lisbon Tours in Lisbon.</span>
+          </div>
+        </div>
+        <div class="tour-details">
+          <div class="detail-card">
+            <h2>What you can expect</h2>
+            <ul class="detail-list" id="tour-highlights"></ul>
+          </div>
+          <div class="detail-card">
+            <h2>How this checkout works</h2>
+            <div class="booking-path">
+              <div class="path-step">
+                <span class="path-number">1</span>
+                <span><strong>Select participants and date</strong>Prices are shown in EUR inside the Bókun widget.</span>
+              </div>
+              <div class="path-step">
+                <span class="path-number">2</span>
+                <span><strong>Choose an available time</strong>Do not assume availability until the checkout confirms it.</span>
+              </div>
+              <div class="path-step">
+                <span class="path-number">3</span>
+                <span><strong>Receive booking details</strong>Natanael can confirm pickup details personally when needed.</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -269,30 +589,115 @@
         alfama: {
           title: 'Alfama Tour',
           summary: '1h30 private tuk tuk tour - EUR 130 per group, up to 6 people.',
+          duration: '1h30',
+          price: 'EUR 130 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Alfama, Graça and Lisbon viewpoints',
+          images: [
+            '/images/miradouros-1.jpg',
+            '/images/miradouros-2.jpg',
+            '/images/miradouros-3.jpg',
+            '/images/miradouros-4.jpg',
+            '/images/miradouros-5.jpg'
+          ],
+          highlights: [
+            'Private electric tuk tuk tour through historic Alfama and Graça.',
+            'Scenic viewpoints including Senhora do Monte and Graça.',
+            'Narrow old-town streets and São Jorge Castle surroundings.',
+            'Local guide experience operated directly by Tuk Tuk Lisbon Tours.'
+          ],
           url: '/tours/alfama',
           ready: true
         },
         belem: {
-          title: 'Belem Tour',
+          title: 'Belém Tour',
           summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people.',
+          duration: '2h',
+          price: 'EUR 190 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Belém monuments and Portuguese Discoveries',
+          images: [
+            '/images/belem-1.jpg',
+            '/images/belem-2.jpg',
+            '/images/belem-3.jpg',
+            '/images/belem-4.jpg',
+            '/images/belem-5.jpg'
+          ],
+          highlights: [
+            'Private tuk tuk route focused on Belém and Portuguese Discoveries.',
+            'Belém Tower, Jerónimos Monastery and the Monument to the Discoveries.',
+            'Includes time around the famous pastéis de nata area.',
+            'Comfortable way to reach riverside landmarks without losing time.'
+          ],
           url: '/tours/belem',
           ready: true
         },
         chiado: {
           title: 'Chiado & Bairro Alto Tour',
           summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people.',
+          duration: '2h',
+          price: 'EUR 190 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Chiado, Baixa and Bairro Alto',
+          images: [
+            '/images/centro-1.jpg',
+            '/images/centro-2.jpg',
+            '/images/centro-3.jpg',
+            '/images/centro-4.jpg',
+            '/images/centro-5.jpg'
+          ],
+          highlights: [
+            'Cultural and bohemian Lisbon through Chiado and Bairro Alto.',
+            'Baixa Pombalina streets, elegant squares and classic viewpoints.',
+            'Good choice for guests who want central Lisbon with local context.',
+            'Private pace, with photo stops when the route allows.'
+          ],
           url: '/tours/chiado',
           ready: true
         },
         fullcity: {
           title: 'Full City Tour',
           summary: '4h private tuk tuk tour - EUR 360 per group, up to 6 people.',
+          duration: '4h',
+          price: 'EUR 360 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'A broader private route across Lisbon',
+          images: [
+            '/images/fullcity-1.jpg',
+            '/images/fullcity-2.jpg',
+            '/images/fullcity-3.jpg',
+            '/images/fullcity-4.jpg',
+            '/images/fullcity-5.jpg'
+          ],
+          highlights: [
+            'Longer private route for guests who want to see more of Lisbon.',
+            'Flexible itinerary with neighborhoods and stops adjusted to your interests.',
+            'Combines viewpoints, historic districts and iconic city areas.',
+            'Best option when you have half a day and want a broader overview.'
+          ],
           url: '/tours/fullcity',
           ready: true
         },
         van: {
           title: 'Van Full Day Tour',
           summary: '8h private van tour - EUR 600 per group, up to 8 people.',
+          duration: '8h',
+          price: 'EUR 600 / group',
+          capacity: 'Up to 8 people',
+          photoCaption: 'Private day trips beyond Lisbon',
+          images: [
+            '/images/van-sintra.jpg',
+            '/images/van-cascais.jpg',
+            '/images/van-cabo.jpg',
+            '/images/van-obidos.jpg',
+            '/images/van-nazare.jpg'
+          ],
+          highlights: [
+            'Private van for full-day trips outside central Lisbon.',
+            'Choose destinations such as Sintra, Cascais, Cabo da Roca, Óbidos or Nazaré.',
+            'Local expert guide and flexible itinerary for your group.',
+            'Pickup and drop-off in Lisbon center according to confirmed details.'
+          ],
           url: '/tours/van',
           ready: true
         }
@@ -304,9 +709,83 @@
       var titleEl = document.getElementById('tour-title');
       var summaryEl = document.getElementById('tour-summary');
       var widgetEl = document.getElementById('booking-widget');
+      var durationEl = document.getElementById('tour-duration');
+      var priceEl = document.getElementById('tour-price');
+      var capacityEl = document.getElementById('tour-capacity');
+      var highlightsEl = document.getElementById('tour-highlights');
+      var photoTrackEl = document.getElementById('photo-track');
+      var photoDotsEl = document.getElementById('photo-dots');
+      var photoCountEl = document.getElementById('photo-count');
+      var photoCaptionEl = document.getElementById('photo-caption');
+      var photoPrevEl = document.getElementById('photo-prev');
+      var photoNextEl = document.getElementById('photo-next');
+      var currentPhoto = 0;
 
       titleEl.textContent = tour.title;
       summaryEl.textContent = tour.summary;
+      durationEl.textContent = tour.duration || '';
+      priceEl.textContent = tour.price || '';
+      capacityEl.textContent = tour.capacity || '';
+      photoCaptionEl.textContent = tour.photoCaption || tour.title;
+
+      function setPhoto(index) {
+        var images = tour.images || [];
+        if (!images.length) return;
+        currentPhoto = (index + images.length) % images.length;
+        photoTrackEl.style.transform = 'translateX(-' + (currentPhoto * 100) + '%)';
+        photoCountEl.textContent = (currentPhoto + 1) + ' / ' + images.length;
+        Array.prototype.forEach.call(photoDotsEl.children, function (dot, dotIndex) {
+          dot.setAttribute('aria-current', dotIndex === currentPhoto ? 'true' : 'false');
+        });
+      }
+
+      function renderPhotos() {
+        var images = tour.images || [];
+        photoTrackEl.innerHTML = '';
+        photoDotsEl.innerHTML = '';
+        images.forEach(function (src, index) {
+          var slide = document.createElement('div');
+          slide.className = 'photo-slide';
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = tour.title + ' photo ' + (index + 1);
+          img.loading = index === 0 ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          slide.appendChild(img);
+          photoTrackEl.appendChild(slide);
+
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'photo-dot';
+          dot.setAttribute('aria-label', 'Show photo ' + (index + 1));
+          dot.addEventListener('click', function () {
+            setPhoto(index);
+            track('booking_gallery_interaction', { booking_provider: 'bokun' });
+          });
+          photoDotsEl.appendChild(dot);
+        });
+        setPhoto(0);
+      }
+
+      function renderHighlights() {
+        highlightsEl.innerHTML = '';
+        (tour.highlights || []).forEach(function (item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          highlightsEl.appendChild(li);
+        });
+      }
+
+      photoPrevEl.addEventListener('click', function () {
+        setPhoto(currentPhoto - 1);
+        track('booking_gallery_interaction', { booking_provider: 'bokun' });
+      });
+      photoNextEl.addEventListener('click', function () {
+        setPhoto(currentPhoto + 1);
+        track('booking_gallery_interaction', { booking_provider: 'bokun' });
+      });
+      renderPhotos();
+      renderHighlights();
 
       function track(eventName, data) {
         var payload = Object.assign({ event: eventName, tour_id: tourId }, data || {});

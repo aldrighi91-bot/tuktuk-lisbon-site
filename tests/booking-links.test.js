@@ -33,8 +33,21 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
 
   assert.match(bookingHtml, /Tripadvisor-powered technology/);
   assert.match(bookingHtml, /Bókun is a Tripadvisor company/);
+  assert.match(bookingHtml, /Private local experience/);
   assert.match(linksJs, /tour_page_price_block/);
   assert.match(linksJs, /Viator and Tripadvisor Experiences/);
+});
+
+test('checkout page includes tour photos and reassurance content', () => {
+  const bookingHtml = fs.readFileSync(path.join(__dirname, '..', 'booking.html'), 'utf8');
+
+  assert.match(bookingHtml, /id="photo-track"/);
+  assert.match(bookingHtml, /\/images\/miradouros-1\.jpg/);
+  assert.match(bookingHtml, /\/images\/belem-1\.jpg/);
+  assert.match(bookingHtml, /\/images\/van-sintra\.jpg/);
+  assert.match(bookingHtml, /What you can expect/);
+  assert.match(bookingHtml, /How this checkout works/);
+  assert.match(bookingHtml, /booking_gallery_interaction/);
 });
 
 test('homepage loads versioned booking assets for mobile cache busting', () => {
