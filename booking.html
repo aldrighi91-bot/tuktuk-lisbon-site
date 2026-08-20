@@ -111,8 +111,8 @@
 
     .tripadvisor-badge {
       flex: 0 0 auto;
-      width: 166px;
-      padding: 10px 11px;
+      width: 196px;
+      padding: 10px 12px;
       border: 1px solid #bfe7d7;
       border-radius: 10px;
       background: #fff;
@@ -120,25 +120,65 @@
       box-shadow: 0 10px 24px rgba(0, 120, 84, .10);
     }
 
-    .tripadvisor-badge strong {
-      display: block;
-      color: #006b4a;
-      font-size: 12px;
+    .tripadvisor-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #003f2d;
+      font-size: 20px;
       font-weight: 900;
-      line-height: 1.15;
+      line-height: 1;
+      letter-spacing: -0.01em;
     }
 
-    .tripadvisor-badge span {
-      display: block;
+    .tripadvisor-owl {
+      position: relative;
+      width: 30px;
+      height: 22px;
+      flex: 0 0 auto;
     }
 
-    .tripadvisor-badge .bubble-row {
+    .tripadvisor-owl .eye {
+      position: absolute;
+      top: 3px;
+      width: 17px;
+      height: 17px;
+      border: 4px solid #003f2d;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .tripadvisor-owl .eye::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 999px;
+      background: #003f2d;
+    }
+
+    .tripadvisor-owl .eye.left { left: 0; }
+    .tripadvisor-owl .eye.right { right: 0; }
+
+    .tripadvisor-owl .beak {
+      position: absolute;
+      left: 50%;
+      top: 11px;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid #00aa6c;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .tripadvisor-badge .rating-row {
       display: flex;
       gap: 3px;
-      margin: 6px 0 5px;
+      margin: 8px 0 5px;
     }
 
-    .tripadvisor-badge .bubble {
+    .tripadvisor-badge .rating-bubble {
       width: 12px;
       height: 12px;
       border-radius: 999px;
@@ -146,7 +186,7 @@
       box-shadow: inset 0 0 0 1px rgba(0, 80, 55, .10);
     }
 
-    .tripadvisor-badge .badge-note {
+    .tripadvisor-badge .rating-copy {
       color: var(--muted);
       font-size: 10.5px;
       font-weight: 750;
@@ -532,12 +572,31 @@
       .back { min-height: 40px; padding: 0 12px; }
       .hero-title-row { gap: 10px; }
       .tripadvisor-badge {
-        width: 136px;
+        width: 154px;
         padding: 9px;
       }
-      .tripadvisor-badge strong { font-size: 11px; }
-      .tripadvisor-badge .bubble { width: 10px; height: 10px; }
-      .tripadvisor-badge .badge-note { font-size: 9.8px; }
+      .tripadvisor-wordmark {
+        gap: 5px;
+        font-size: 15px;
+      }
+      .tripadvisor-owl {
+        width: 24px;
+        height: 18px;
+      }
+      .tripadvisor-owl .eye {
+        width: 14px;
+        height: 14px;
+        border-width: 3px;
+      }
+      .tripadvisor-owl .eye::after { inset: 3px; }
+      .tripadvisor-owl .beak {
+        top: 9px;
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-top-width: 5px;
+      }
+      .tripadvisor-badge .rating-bubble { width: 10px; height: 10px; }
+      .tripadvisor-badge .rating-copy { font-size: 9.8px; }
       h1 { font-size: 32px; }
       .summary { font-size: 15px; }
       .trust-rail { grid-template-columns: 1fr 1fr; }
@@ -572,16 +631,23 @@
                 <p class="eyebrow">Online booking</p>
                 <h1 id="tour-title">Loading tour...</h1>
               </div>
-              <div class="tripadvisor-badge" aria-label="Tripadvisor-powered Bókun checkout">
-                <strong>Tripadvisor-powered</strong>
-                <span class="bubble-row" aria-hidden="true">
-                  <span class="bubble"></span>
-                  <span class="bubble"></span>
-                  <span class="bubble"></span>
-                  <span class="bubble"></span>
-                  <span class="bubble"></span>
+              <div class="tripadvisor-badge" aria-label="Tripadvisor listed product with Bókun checkout">
+                <div class="tripadvisor-wordmark">
+                  <span class="tripadvisor-owl" aria-hidden="true">
+                    <span class="eye left"></span>
+                    <span class="eye right"></span>
+                    <span class="beak"></span>
+                  </span>
+                  <span>Tripadvisor</span>
+                </div>
+                <span class="rating-row" aria-hidden="true">
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
                 </span>
-                <span class="badge-note">Bókun checkout technology</span>
+                <span class="rating-copy">Listed product · Bókun checkout</span>
               </div>
             </div>
             <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
