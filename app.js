@@ -168,10 +168,16 @@
             <p class="text-sm text-muted">⏱ ${t.duration} · up to 6 people</p>
           </div>
         </div>
-        <button onclick="openWaTour('${id}')" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Book via WhatsApp
-        </button>
+        <div class="grid gap-2">
+          <button onclick="openOnlineBooking('${id}', 'home_tour_card')" data-booking-tour="${id}" data-booking-label="${tn.bookOnline}" data-booking-pending-label="${tn.bookOnlineSoon}" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md bg-brand-700 text-white font-bold transition active:scale-[.98] hover:bg-brand-800 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span data-booking-text>${tn.bookOnline}</span>
+          </button>
+          <button onclick="openWaTour('${id}')" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            ${tn.bookWhatsapp}
+          </button>
+        </div>
       </div>
     </article>`;
   }
@@ -228,18 +234,152 @@
       .join('');
   }
 
-  function trackWhatsApp(label) {
-    if (typeof gtag !== 'function') return;
-    gtag('event', 'conversion', {
-      send_to: ['AW-18234798096/8PsbCJb48L0cEJDgg_dD', 'AW-17831839287/wIbCCOv1-dIcELeM8bZC'],
+  const GOOGLE_ADS_CONVERSIONS = [
+    'AW-18234798096/8PsbCJb48L0cEJDgg_dD',
+    'AW-17831839287/wIbCCOv1-dIcELeM8bZC',
+  ];
+  const ATTRIBUTION_KEY = 'ttl_attribution_v1';
+  const ATTRIBUTION_PARAMS = [
+    'gclid',
+    'gbraid',
+    'wbraid',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+  ];
+  const WHATSAPP_VALUES = {
+    miradouros: 130,
+    'centro-historico': 190,
+    belem: 190,
+    personalizado: 360,
+    van_home: 600,
+    floating: 130,
+    generic: 130,
+    concierge: 190,
+    whatsapp_link: 130,
+  };
+
+  function readStoredAttribution() {
+    try {
+      return JSON.parse(localStorage.getItem(ATTRIBUTION_KEY) || '{}') || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function writeStoredAttribution(data) {
+    try {
+      localStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(data));
+    } catch {
+      // Tracking should never block WhatsApp booking.
+    }
+  }
+
+  function captureAttribution() {
+    const params = new URLSearchParams(window.location.search);
+    const current = {};
+    ATTRIBUTION_PARAMS.forEach((key) => {
+      const value = params.get(key);
+      if (value) current[key] = value;
+    });
+    if (!Object.keys(current).length) return;
+
+    const previous = readStoredAttribution();
+    writeStoredAttribution({
+      ...previous,
+      ...current,
+      landing_page: window.location.href,
+      referrer: document.referrer || previous.referrer || '',
+      captured_at: new Date().toISOString(),
+    });
+  }
+
+  function getLeadRef(label) {
+    const attribution = readStoredAttribution();
+    const clickId = attribution.gclid || attribution.gbraid || attribution.wbraid || '';
+    const seed = clickId || `${Date.now()}-${label || 'site'}`;
+    const suffix = String(seed).replace(/[^a-z0-9]/gi, '').slice(-10).toUpperCase();
+    return `${clickId ? 'GADS' : 'WEB'}-${suffix || Date.now().toString(36).toUpperCase()}`;
+  }
+
+  function getAttributionLines(label) {
+    const attribution = readStoredAttribution();
+    const clickId = attribution.gclid || attribution.gbraid || attribution.wbraid || '';
+    return [
+      `Ref: ${getLeadRef(label)}`,
+      label ? `Button: ${label}` : '',
+      attribution.utm_campaign ? `Campaign: ${attribution.utm_campaign}` : '',
+      attribution.utm_term ? `Keyword: ${attribution.utm_term}` : '',
+      attribution.utm_source ? `Source: ${attribution.utm_source}` : '',
+      clickId ? `Click ID: ${clickId}` : '',
+    ].filter(Boolean);
+  }
+
+  function addAttributionToMessage(message, label) {
+    return `${message}\n\n${getAttributionLines(label).join('\n')}`;
+  }
+
+  function buildWhatsAppUrl(message, label) {
+    return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(addAttributionToMessage(message, label))}`;
+  }
+
+  function trackWhatsApp(label, options = {}) {
+    const value = options.value || WHATSAPP_VALUES[label] || WHATSAPP_VALUES.generic;
+    if (typeof gtag !== 'function') {
+      if (typeof options.eventCallback === 'function') setTimeout(options.eventCallback, 0);
+      return;
+    }
+    const conversionPayload = {
+      send_to: GOOGLE_ADS_CONVERSIONS,
+      value,
+      currency: 'EUR',
       event_category: 'lead',
       event_label: label,
-    });
+      event_timeout: 1200,
+    };
+    if (typeof options.eventCallback === 'function') {
+      conversionPayload.event_callback = options.eventCallback;
+    }
+    gtag('event', 'conversion', conversionPayload);
     gtag('event', 'whatsapp_click', {
       event_category: 'engagement',
       event_label: label,
+      value,
+      currency: 'EUR',
     });
   }
+
+  function openTrackedWhatsApp(label, message) {
+    const url = buildWhatsAppUrl(message, label);
+    let popup = null;
+    let opened = false;
+
+    try {
+      popup = window.open('', '_blank');
+    } catch {
+      popup = null;
+    }
+
+    function openUrl() {
+      if (opened) return;
+      opened = true;
+      if (popup && !popup.closed) popup.location.href = url;
+      else window.location.href = url;
+    }
+
+    trackWhatsApp(label, { eventCallback: openUrl });
+    setTimeout(openUrl, 1400);
+  }
+
+  captureAttribution();
+  window.TukTukTracking = {
+    buildWhatsAppUrl,
+    getAttribution: readStoredAttribution,
+    openWhatsApp: openTrackedWhatsApp,
+    trackWhatsApp,
+  };
 
   /* ===== mount ===== */
   let activeTourTimers = [];
@@ -341,6 +481,10 @@
     document.querySelectorAll('#lang-switcher .lang-btn').forEach(b => {
       b.setAttribute('aria-current', b.dataset.lang === lang ? 'true' : 'false');
     });
+
+    if (window.TukTukBooking && typeof window.TukTukBooking.hydrateButtons === 'function') {
+      window.TukTukBooking.hydrateButtons(document);
+    }
   }
 
   /* ===== language switcher ===== */
@@ -357,22 +501,29 @@
   document.addEventListener('click', (e) => {
     const waLink = e.target.closest('a[href*="wa.me/"]');
     if (!waLink) return;
-    trackWhatsApp(waLink.dataset.whatsappLabel || 'whatsapp_link');
+    const label = waLink.dataset.whatsappLabel || 'whatsapp_link';
+    const url = new URL(waLink.href);
+    const message = url.searchParams.get('text') || get('contact.whatsappMsg');
+    e.preventDefault();
+    openTrackedWhatsApp(label, message);
   });
 
   /* ===== WhatsApp ===== */
   window.openWa = function () {
-    const msg = encodeURIComponent(get('contact.whatsappMsg'));
-    trackWhatsApp('generic');
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+    openTrackedWhatsApp('generic', get('contact.whatsappMsg'));
   };
 
   window.openWaTour = function (tourId) {
     const lang = detectLang();
     const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
-    const msg = encodeURIComponent(msgs[tourId] || get('contact.whatsappMsg'));
-    trackWhatsApp(tourId);
-    window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+    const msg = msgs[tourId] || get('contact.whatsappMsg');
+    openTrackedWhatsApp(tourId, msg);
+  };
+
+  window.openOnlineBooking = function (tourId, source) {
+    if (window.TukTukBooking && typeof window.TukTukBooking.openOnlineBooking === 'function') {
+      window.TukTukBooking.openOnlineBooking(tourId, source || 'site');
+    }
   };
 
   /* ===== boot ===== */

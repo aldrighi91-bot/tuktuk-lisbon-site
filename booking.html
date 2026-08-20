@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Book Online | Tuk Tuk Lisbon Tours</title>
+  <meta name="description" content="Secure online booking for Tuk Tuk Lisbon Tours." />
+  <link rel="preconnect" href="https://widgets.bokun.io" crossorigin />
+  <style>
+    :root {
+      --blue: #0f5eb8;
+      --blue-dark: #0a3f7e;
+      --ink: #182033;
+      --muted: #657085;
+      --line: #dce3ee;
+      --soft: #f5f8fc;
+      --green: #128c46;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+    }
+
+    .shell {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .back {
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 18px 48px rgba(17, 42, 77, .10);
+      overflow: hidden;
+    }
+
+    .intro {
+      padding: 26px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 7vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      max-width: 680px;
+    }
+
+    .widget-wrap {
+      min-height: 420px;
+      padding: 22px;
+    }
+
+    .status {
+      min-height: 220px;
+      display: grid;
+      gap: 14px;
+      align-content: center;
+      justify-items: start;
+      padding: 22px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .status h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .status p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .button.primary { color: #fff; background: var(--blue); }
+    .button.whatsapp { color: #fff; background: var(--green); }
+    .button.secondary { color: var(--ink); background: #fff; border-color: var(--line); }
+
+    .bokunWidget {
+      width: 100%;
+      min-height: 420px;
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 20px, 960px);
+        padding-top: 12px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        padding-bottom: 14px;
+      }
+
+      .brand span:last-child { max-width: 180px; }
+      .intro { padding: 20px; }
+      .widget-wrap { padding: 12px; }
+      .actions, .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Booking navigation">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <span>Tuk Tuk Lisbon Tours</span>
+      </a>
+      <a class="back" href="/">Back to site</a>
+    </nav>
+
+    <section class="panel" aria-live="polite">
+      <div class="intro">
+        <p class="eyebrow">Online booking</p>
+        <h1 id="tour-title">Loading tour...</h1>
+        <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
+      </div>
+      <div class="widget-wrap" id="booking-widget">
+        <div class="status">
+          <h2>Loading checkout</h2>
+          <p>Please wait a moment while the booking system opens.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var TOURS = {
+        alfama: {
+          title: 'Alfama Tour',
+          summary: '1h30 private tuk tuk tour - EUR 130 per group, up to 6 people.',
+          url: '/tours/alfama',
+          ready: true
+        },
+        belem: {
+          title: 'Belem Tour',
+          summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people.',
+          url: '/tours/belem',
+          ready: true
+        },
+        chiado: {
+          title: 'Chiado & Bairro Alto Tour',
+          summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people.',
+          url: '/tours/chiado',
+          ready: true
+        },
+        fullcity: {
+          title: 'Full City Tour',
+          summary: '4h private tuk tuk tour - EUR 360 per group, up to 6 people.',
+          url: '/tours/fullcity',
+          ready: true
+        },
+        van: {
+          title: 'Van Full Day Tour',
+          summary: '8h private van tour - EUR 600 per group, up to 8 people.',
+          url: '/tours/van',
+          ready: true
+        }
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var tourId = String(params.get('tour') || 'alfama').toLowerCase();
+      var tour = TOURS[tourId] || TOURS.alfama;
+      var titleEl = document.getElementById('tour-title');
+      var summaryEl = document.getElementById('tour-summary');
+      var widgetEl = document.getElementById('booking-widget');
+
+      titleEl.textContent = tour.title;
+      summaryEl.textContent = tour.summary;
+
+      function track(eventName, data) {
+        var payload = Object.assign({ event: eventName, tour_id: tourId }, data || {});
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(payload);
+        if (typeof window.gtag === 'function') window.gtag('event', eventName, payload);
+      }
+
+      function renderStatus(heading, message, includeTourLink) {
+        widgetEl.innerHTML = [
+          '<div class="status">',
+          '<h2>' + heading + '</h2>',
+          '<p>' + message + '</p>',
+          '<div class="actions">',
+          includeTourLink ? '<a class="button secondary" href="' + tour.url + '">View tour</a>' : '',
+          '<a class="button whatsapp" href="https://wa.me/351967315921" target="_blank" rel="noopener">WhatsApp Natanael</a>',
+          '<a class="button primary" href="mailto:contact@tuktuklisbon.tours">Email us</a>',
+          '</div>',
+          '</div>'
+        ].join('');
+      }
+
+      function loadBokunWidget(bookingChannelUuid, experienceId) {
+        widgetEl.innerHTML = '<div class="bokunWidget" data-src="https://widgets.bokun.io/online-sales/' +
+          bookingChannelUuid + '/experience-calendar/' + experienceId + '"></div>';
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=' + bookingChannelUuid;
+        script.onerror = function () {
+          renderStatus('Checkout could not load', 'Please contact Natanael directly and he will confirm availability.', true);
+        };
+        document.head.appendChild(script);
+        track('booking_checkout_loaded', { booking_provider: 'bokun' });
+
+        window.setTimeout(function () {
+          var iframe = widgetEl.querySelector('iframe');
+          if (!iframe) return;
+          var rect = iframe.getBoundingClientRect();
+          if (rect.height < 40) {
+            renderStatus(
+              'Checkout is connected but not displaying here',
+              'Please contact Natanael directly while the Bókun payment/channel settings are being finalized.',
+              true
+            );
+          }
+        }, 12000);
+      }
+
+      track('booking_page_view', { booking_provider: 'bokun' });
+
+      if (!tour.ready) {
+        renderStatus('Online checkout is being prepared', 'This tour has been created in Bókun as a draft and will be available here after final validation.', true);
+        return;
+      }
+
+      fetch('/api/bokun-widget-config')
+        .then(function (response) { return response.json(); })
+        .then(function (config) {
+          var experienceId = config && config.products && config.products[tourId];
+          if (!config || !config.ok || !config.bookingChannelUuid || !experienceId) {
+            renderStatus('Checkout is not connected yet', 'The tour is configured, but the public Bókun widget channel still needs to be provided.', true);
+            return;
+          }
+
+          loadBokunWidget(config.bookingChannelUuid, experienceId);
+        })
+        .catch(function () {
+          renderStatus('Checkout could not load', 'Please contact Natanael directly and he will confirm availability.', true);
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1,10 +1,14 @@
 .tlc-root {
   position: fixed;
   left: 16px;
-  bottom: 16px;
+  bottom: var(--tlc-bottom-offset, 16px);
   z-index: 60;
   font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   color: #0f1729;
+}
+
+.tlc-root[data-open="true"] {
+  bottom: 16px;
 }
 
 .tlc-root:not([data-teaser="visible"]) .tlc-teaser {
@@ -362,6 +366,10 @@
 @media (max-width: 767px) {
   .tlc-root {
     left: 12px;
+    bottom: var(--tlc-mobile-bottom-offset, var(--tlc-bottom-offset, 12px));
+  }
+
+  .tlc-root[data-open="true"] {
     bottom: 12px;
   }
 

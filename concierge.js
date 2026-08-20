@@ -386,6 +386,7 @@
   function labelToAction(label) {
     const normalized = label.toLowerCase();
     if (normalized.includes('find')) return 'find_tour';
+    if (normalized.includes('book online')) return 'book_online';
     if (normalized.includes('availability') || normalized.includes('book') || normalized.includes('send request')) return normalized.includes('send request') ? 'submit_lead' : 'check_availability';
     if (normalized.includes('view tour')) return 'view_tour';
     if (normalized.includes('whatsapp')) return 'whatsapp';
@@ -503,6 +504,10 @@
       if (tour) openInNewTab(`/tours/${tour}`);
       return;
     }
+    if (action === 'book_online') {
+      openOnlineBooking(tourId || state.lastRecommendedTour || state.lead.tourId || '');
+      return;
+    }
     if (action === 'whatsapp') {
       openWhatsApp(tourId || state.lead.tourId || '');
       return;
@@ -521,6 +526,10 @@
     }
     if (action === 'check_availability') {
       callConcierge('', 'check_availability', tourId);
+      return;
+    }
+    if (action === 'book_online') {
+      openOnlineBooking(tourId);
       return;
     }
     if (action === 'whatsapp') {
@@ -550,6 +559,17 @@
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
+  }
+
+  function openOnlineBooking(tourId) {
+    const selectedTour = tourId || state.lastRecommendedTour || state.lead.tourId || '';
+    saveState();
+    if (window.TukTukBooking && typeof window.TukTukBooking.openOnlineBooking === 'function') {
+      const opened = window.TukTukBooking.openOnlineBooking(selectedTour, 'concierge_cta');
+      if (opened) return;
+    }
+    addMessage('assistant', 'Online booking for this tour is being connected. I can still collect your details so Natanael can confirm availability personally.');
+    renderCtas([{ label: 'Check Availability', action: 'check_availability', tourId: selectedTour }]);
   }
 
   async function callConcierge(message, action, tourId) {
@@ -662,11 +682,17 @@
   }
 
   function openWhatsApp(tourId) {
+    const message = buildWhatsAppMessage(tourId);
     track('whatsapp_from_concierge', {
       tour_id: tourId || state.lead.tourId || '',
       qualification: state.qualification,
     });
-    const message = buildWhatsAppMessage(tourId);
+
+    if (window.TukTukTracking && typeof window.TukTukTracking.openWhatsApp === 'function') {
+      window.TukTukTracking.openWhatsApp('concierge', message);
+      return;
+    }
+
     const anchor = document.createElement('a');
     anchor.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
     anchor.target = '_blank';

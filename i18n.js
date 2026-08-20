@@ -8,6 +8,7 @@ window.I18N = {
     tours: { title:"Nossos Passeios",
       subtitle:"Escolha o tour perfeito para descobrir Lisboa ou crie o seu próprio itinerário personalizado.",
       bookBtn:"Reservar", paymentNote:"Pagamento total apenas ao final do tour.",
+      bookOnline:"Reservar online", bookOnlineSoon:"Reserva online em breve", bookWhatsapp:"Reservar via WhatsApp",
       highlights:"Destaques:", capacity:"Lugares para 4 – 6 pessoas", mostPopular:"Mais Popular",
       items: {
         miradouros:{ name:"Miradouros + Alfama (old town)",
@@ -76,6 +77,7 @@ window.I18N = {
     tours: { title:"Our Tours",
       subtitle:"Choose the perfect tour to discover Lisbon or create your own custom itinerary.",
       bookBtn:"Book Now", paymentNote:"Full payment only at the end of the tour.",
+      bookOnline:"Book Online", bookOnlineSoon:"Online booking soon", bookWhatsapp:"Book via WhatsApp",
       highlights:"Highlights:", capacity:"Seats for 4 – 6 people", mostPopular:"Most Popular",
       items: {
         miradouros:{ name:"Viewpoints + Alfama (old town)",
@@ -144,6 +146,7 @@ window.I18N = {
     tours: { title:"Nuestros Tours",
       subtitle:"Elija el tour perfecto para descubrir Lisboa o cree su propio itinerario personalizado.",
       bookBtn:"Reservar", paymentNote:"Pago completo solo al final del tour.",
+      bookOnline:"Reservar online", bookOnlineSoon:"Reserva online pronto", bookWhatsapp:"Reservar vía WhatsApp",
       highlights:"Destacados:", capacity:"Plazas para 4 – 6 personas", mostPopular:"Más Popular",
       items: {
         miradouros:{ name:"Miradores + Alfama (old town)",

@@ -2,7 +2,7 @@
   "name": "tuktuk-lisbon-site",
   "scripts": {
     "build:css": "tailwindcss -i ./styles/tailwind.css -o ./assets/tailwind.css --minify",
-    "lint": "node --check app.js && node --check i18n.js && node --check concierge.js && node --check api/instagram-webhook.js && node --check api/concierge.js && node --check api/concierge-lead.js && node --check lib/concierge/assistant.js && node --check lib/concierge/lead-store.js && node --check lib/concierge/rate-limit.js",
+    "lint": "node --check app.js && node --check i18n.js && node --check booking-links.js && node --check concierge.js && node --check api/instagram-webhook.js && node --check api/concierge.js && node --check api/concierge-lead.js && node --check api/bokun-status.js && node --check api/bokun-products.js && node --check api/bokun-product-detail.js && node --check api/bokun-tour-sync.js && node --check api/bokun-widget-config.js && node --check lib/concierge/assistant.js && node --check lib/concierge/lead-store.js && node --check lib/concierge/rate-limit.js && node --check lib/bokun/client.js && node --check lib/bokun/tour-sync.js",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
