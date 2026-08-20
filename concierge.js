@@ -169,6 +169,7 @@
     root.dataset.teaser = state.panelOpen || sessionStorage.getItem('tlc_teaser_closed') ? 'hidden' : 'waiting';
     root.innerHTML = `
       <div class="tlc-teaser" role="dialog" aria-label="Tour assistant prompt">
+        <button class="tlc-teaser-close" type="button" data-teaser-close aria-label="Dismiss tour assistant prompt">${ICONS.close}</button>
         <p><strong>Hi! Planning your visit to Lisbon?</strong><br>I can help you choose the perfect private tour in less than a minute.</p>
         <div class="tlc-quick">
           <button class="tlc-chip" data-action="find_tour">Find the right tour</button>
@@ -223,11 +224,15 @@
 
   function bindEvents() {
     root.querySelector('.tlc-launcher').addEventListener('click', openChat);
+    root.querySelector('[data-teaser-close]').addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      hideTeaser();
+    });
     root.querySelector('[data-minimize]').addEventListener('click', closeChat);
     root.querySelector('[data-close]').addEventListener('click', () => {
       closeChat();
-      root.dataset.teaser = 'hidden';
-      sessionStorage.setItem('tlc_teaser_closed', '1');
+      hideTeaser();
     });
     root.addEventListener('click', (event) => {
       if (root.dataset.busy === 'true') return;
@@ -296,6 +301,11 @@
     root.dataset.open = 'false';
     state.panelOpen = false;
     saveState();
+  }
+
+  function hideTeaser() {
+    root.dataset.teaser = 'hidden';
+    sessionStorage.setItem('tlc_teaser_closed', '1');
   }
 
   function showTeaserLater() {

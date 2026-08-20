@@ -39,13 +39,42 @@
 }
 
 .tlc-teaser {
+  position: relative;
   width: min(330px, calc(100vw - 32px));
   margin-bottom: 10px;
-  padding: 14px;
+  padding: 14px 46px 14px 14px;
   border-radius: 12px;
   background: #fff;
   border: 1px solid rgba(225, 231, 239, .96);
   box-shadow: 0 18px 44px rgba(15, 23, 41, .20);
+}
+
+.tlc-teaser-close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d8e1ed;
+  border-radius: 999px;
+  background: #fff;
+  color: #52637a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tlc-teaser-close:hover,
+.tlc-teaser-close:focus {
+  border-color: #0f4fa8;
+  color: #0f4fa8;
+  outline: none;
+}
+
+.tlc-teaser-close svg {
+  width: 18px;
+  height: 18px;
 }
 
 .tlc-teaser p {

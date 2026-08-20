@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const {
   capacityNote,
@@ -16,6 +18,16 @@ const {
   sanitizeLead,
   validateLead,
 } = require('../lib/concierge/lead-store');
+
+test('teaser prompt can be dismissed without opening the chat panel', () => {
+  const widget = fs.readFileSync(path.join(__dirname, '..', 'concierge.js'), 'utf8');
+  const styles = fs.readFileSync(path.join(__dirname, '..', 'assets', 'concierge.css'), 'utf8');
+
+  assert.match(widget, /data-teaser-close/);
+  assert.match(widget, /function hideTeaser/);
+  assert.match(widget, /sessionStorage\.setItem\('tlc_teaser_closed', '1'\)/);
+  assert.match(styles, /\.tlc-teaser-close/);
+});
 
 test('recommends Belem for Portuguese Discoveries interest', () => {
   const tour = chooseRecommendedTour({ message: 'We want monuments, Belem and the Portuguese Discoveries' });
