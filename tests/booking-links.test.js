@@ -34,6 +34,8 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
   assert.match(bookingHtml, /Tripadvisor-powered technology/);
   assert.match(bookingHtml, /Bókun is a Tripadvisor company/);
   assert.match(bookingHtml, /Private local experience/);
+  assert.match(bookingHtml, /tripadvisor-badge/);
+  assert.match(bookingHtml, /Bókun checkout technology/);
   assert.match(linksJs, /tour_page_price_block/);
   assert.match(linksJs, /Viator and Tripadvisor Experiences/);
 });

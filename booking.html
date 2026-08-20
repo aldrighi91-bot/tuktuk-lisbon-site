@@ -102,6 +102,57 @@
       min-width: 0;
     }
 
+    .hero-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .tripadvisor-badge {
+      flex: 0 0 auto;
+      width: 166px;
+      padding: 10px 11px;
+      border: 1px solid #bfe7d7;
+      border-radius: 10px;
+      background: #fff;
+      color: #003f2d;
+      box-shadow: 0 10px 24px rgba(0, 120, 84, .10);
+    }
+
+    .tripadvisor-badge strong {
+      display: block;
+      color: #006b4a;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .tripadvisor-badge span {
+      display: block;
+    }
+
+    .tripadvisor-badge .bubble-row {
+      display: flex;
+      gap: 3px;
+      margin: 6px 0 5px;
+    }
+
+    .tripadvisor-badge .bubble {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--trip);
+      box-shadow: inset 0 0 0 1px rgba(0, 80, 55, .10);
+    }
+
+    .tripadvisor-badge .badge-note {
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 750;
+      line-height: 1.2;
+    }
+
     .eyebrow {
       margin: 0 0 8px;
       color: var(--blue);
@@ -479,6 +530,14 @@
       .brand-mark { width: 34px; height: 34px; }
       .brand span:last-child { max-width: 170px; }
       .back { min-height: 40px; padding: 0 12px; }
+      .hero-title-row { gap: 10px; }
+      .tripadvisor-badge {
+        width: 136px;
+        padding: 9px;
+      }
+      .tripadvisor-badge strong { font-size: 11px; }
+      .tripadvisor-badge .bubble { width: 10px; height: 10px; }
+      .tripadvisor-badge .badge-note { font-size: 9.8px; }
       h1 { font-size: 32px; }
       .summary { font-size: 15px; }
       .trust-rail { grid-template-columns: 1fr 1fr; }
@@ -508,8 +567,23 @@
       <div class="intro">
         <div class="booking-hero">
           <div class="hero-copy">
-            <p class="eyebrow">Online booking</p>
-            <h1 id="tour-title">Loading tour...</h1>
+            <div class="hero-title-row">
+              <div>
+                <p class="eyebrow">Online booking</p>
+                <h1 id="tour-title">Loading tour...</h1>
+              </div>
+              <div class="tripadvisor-badge" aria-label="Tripadvisor-powered Bókun checkout">
+                <strong>Tripadvisor-powered</strong>
+                <span class="bubble-row" aria-hidden="true">
+                  <span class="bubble"></span>
+                  <span class="bubble"></span>
+                  <span class="bubble"></span>
+                  <span class="bubble"></span>
+                  <span class="bubble"></span>
+                </span>
+                <span class="badge-note">Bókun checkout technology</span>
+              </div>
+            </div>
             <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
             <div class="fact-row" aria-label="Tour quick facts">
               <span class="fact-chip"><span>Time</span><strong id="tour-duration">--</strong></span>
