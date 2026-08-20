@@ -188,6 +188,32 @@
     hydrateButtons(doc);
   }
 
+  function observeBookingButtons(doc) {
+    if (!doc || !doc.body || doc.body.dataset.bookingObserver === '1') return;
+    const Observer = root && root.MutationObserver;
+    if (typeof Observer !== 'function') return;
+    doc.body.dataset.bookingObserver = '1';
+
+    let pending = false;
+    const run = () => {
+      pending = false;
+      hydrateButtons(doc);
+      hydrateTourPageInlineBooking(doc);
+    };
+
+    const observer = new Observer(() => {
+      if (pending) return;
+      pending = true;
+      if (root && typeof root.requestAnimationFrame === 'function') root.requestAnimationFrame(run);
+      else setTimeout(run, 0);
+    });
+
+    observer.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
+  }
+
   function openOnlineBooking(tourId, source) {
     const normalizedTourId = normalizeTourId(tourId);
     const link = getBookingLink(normalizedTourId);
@@ -224,16 +250,19 @@
       root.document.addEventListener('DOMContentLoaded', () => {
         hydrateButtons(root.document);
         hydrateTourPageInlineBooking(root.document);
+        observeBookingButtons(root.document);
       });
     } else {
       hydrateButtons(root.document);
       hydrateTourPageInlineBooking(root.document);
+      observeBookingButtons(root.document);
     }
   }
 
   return {
     getBookingLink,
     hydrateTourPageInlineBooking,
+    observeBookingButtons,
     hasOnlineBooking,
     hydrateButtons,
     normalizeTourId,

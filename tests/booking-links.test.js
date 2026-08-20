@@ -36,3 +36,12 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
   assert.match(linksJs, /tour_page_price_block/);
   assert.match(linksJs, /Viator and Tripadvisor Experiences/);
 });
+
+test('homepage loads versioned booking assets for mobile cache busting', () => {
+  const homeHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const linksJs = fs.readFileSync(path.join(__dirname, '..', 'booking-links.js'), 'utf8');
+
+  assert.match(homeHtml, /\/booking-links\.js\?v=20260820-booking-button/);
+  assert.match(homeHtml, /\/app\.js\?v=20260820-booking-button/);
+  assert.match(linksJs, /observeBookingButtons/);
+});
