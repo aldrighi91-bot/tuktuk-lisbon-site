@@ -33,13 +33,15 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
 
   assert.match(bookingHtml, /Tripadvisor-powered technology/);
   assert.match(bookingHtml, /Bókun is a Tripadvisor company/);
-  assert.match(bookingHtml, /Private local experience/);
+  assert.match(bookingHtml, /Balance paid in person/);
   assert.match(bookingHtml, /tripadvisor-badge/);
   assert.match(bookingHtml, /tripadvisor-wordmark/);
   assert.match(bookingHtml, /Listed product · Bókun checkout/);
+  assert.match(bookingHtml, /Pay 20% online/);
+  assert.match(bookingHtml, /remaining 80% is paid in person/i);
   assert.equal((bookingHtml.match(/class="rating-bubble"/g) || []).length, 5);
   assert.match(linksJs, /tour_page_price_block/);
-  assert.match(linksJs, /Viator and Tripadvisor Experiences/);
+  assert.match(linksJs, /20% deposit online/);
 });
 
 test('checkout page includes tour photos and reassurance content', () => {
@@ -51,7 +53,32 @@ test('checkout page includes tour photos and reassurance content', () => {
   assert.match(bookingHtml, /\/images\/van-sintra\.jpg/);
   assert.match(bookingHtml, /What you can expect/);
   assert.match(bookingHtml, /How this checkout works/);
+  assert.match(bookingHtml, /Pay only the 20% deposit/);
   assert.match(bookingHtml, /booking_gallery_interaction/);
+});
+
+test('tour pages and structured data use the current deposit policy', () => {
+  const files = [
+    'index.html',
+    'booking.html',
+    'data/tours.json',
+    'tours/alfama.html',
+    'tours/belem.html',
+    'tours/chiado.html',
+    'tours/fullcity.html',
+    'tours/van.html',
+  ];
+
+  files.forEach((file) => {
+    const content = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    assert.doesNotMatch(content, /no deposit/i, `${file} should not mention no deposit`);
+  });
+
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data/tours.json'), 'utf8'));
+  assert.match(data.policies.payment, /20% deposit/);
+  data.tours.forEach((tour) => {
+    assert(tour.included.includes('20% online deposit; remaining balance paid in person'));
+  });
 });
 
 test('homepage loads versioned booking assets for mobile cache busting', () => {

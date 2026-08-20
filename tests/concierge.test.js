@@ -49,6 +49,17 @@ test('availability flow does not invent availability', () => {
   assert.doesNotMatch(response.reply, /\bis available\b/i);
 });
 
+test('payment answers use the current deposit policy', () => {
+  const response = handleConciergeMessage({
+    message: 'Can I pay by card or cash?',
+    state: { lead: { tourId: 'alfama' } },
+  });
+
+  assert.match(response.reply, /20% deposit/i);
+  assert.match(response.reply, /card or cash/i);
+  assert.doesNotMatch(response.reply, /no deposit/i);
+});
+
 test('lead validation requires phone with the other booking details', () => {
   const lead = sanitizeLead({
     name: 'Alex',

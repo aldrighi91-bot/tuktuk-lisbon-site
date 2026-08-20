@@ -41,9 +41,9 @@
   };
   const POPULAR_ID = 'miradouros';
   const HERO_PROOF = {
-    en: ['Private tours', 'Flexible pickup', 'From €130/group', 'Pay at the end'],
-    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', 'Pague no final'],
-    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', 'Pago al final'],
+    en: ['Private tours', 'Flexible pickup', 'From €130/group', '20% deposit online'],
+    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', '20% online'],
+    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', '20% online'],
   };
 
   const TOUR_WA_MESSAGES = {

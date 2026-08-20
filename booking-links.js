@@ -164,7 +164,7 @@
 
     const copy = doc.createElement('p');
     copy.className = 'cta-copy';
-    copy.textContent = 'Secure checkout powered by Bókun, a Tripadvisor company. Bókun connects operators with Viator and Tripadvisor Experiences.';
+    copy.textContent = 'Secure checkout powered by Bókun, a Tripadvisor company. Pay a 20% deposit online; the remaining balance is paid in person by card or cash.';
 
     wrap.appendChild(online);
     wrap.appendChild(copy);
@@ -180,6 +180,7 @@
     trust.className = 'trust-strip';
     trust.innerHTML = [
       '<div class="trust-item"><strong>Tripadvisor-powered booking technology</strong><span>The online checkout runs on Bókun, part of Tripadvisor and connected with Viator distribution tools.</span></div>',
+      '<div class="trust-item"><strong>20% deposit online</strong><span>Reserve securely now and pay the remaining balance in person by card or cash.</span></div>',
       '<div class="trust-item"><strong>Local confirmation from Natanael</strong><span>For on-request times, Natanael personally confirms availability and pickup details.</span></div>',
     ].join('');
 
