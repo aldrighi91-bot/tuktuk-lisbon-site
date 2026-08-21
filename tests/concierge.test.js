@@ -29,6 +29,14 @@ test('teaser prompt can be dismissed without opening the chat panel', () => {
   assert.match(styles, /\.tlc-teaser-close/);
 });
 
+test('submitted leads show booking and home follow-up actions', () => {
+  const widget = fs.readFileSync(path.join(__dirname, '..', 'concierge.js'), 'utf8');
+
+  assert.match(widget, /Book Online', action: 'book_online'/);
+  assert.match(widget, /Back to home', action: 'link', href: '\/'/);
+  assert.match(widget, /WhatsApp as backup', action: 'whatsapp'/);
+});
+
 test('recommends Belem for Portuguese Discoveries interest', () => {
   const tour = chooseRecommendedTour({ message: 'We want monuments, Belem and the Portuguese Discoveries' });
   assert.equal(tour.id, 'belem');

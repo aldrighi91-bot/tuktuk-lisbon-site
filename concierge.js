@@ -681,8 +681,13 @@
         tour_id: state.lead.tourId || '',
         lead_id: data.leadId,
       });
+      const selectedTour = state.lead.tourId || state.lastRecommendedTour || '';
       addMessage('assistant', 'Thanks. Your request was sent to Natanael. He will reply personally to confirm availability and next steps.');
-      setActionOptions(['Ask a question', 'WhatsApp'], [{ label: 'WhatsApp as backup', action: 'whatsapp', tourId: state.lead.tourId || '' }]);
+      setActionOptions(['Ask a question'], [
+        { label: 'Book Online', action: 'book_online', tourId: selectedTour },
+        { label: 'Back to home', action: 'link', href: '/' },
+        { label: 'WhatsApp as backup', action: 'whatsapp', tourId: selectedTour },
+      ]);
     } catch {
       addAssistantOnce(`I could not submit the request right now. You can email Natanael directly at ${CONTACT_EMAIL}.`);
       setActionOptions(['Add a question'], [{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
