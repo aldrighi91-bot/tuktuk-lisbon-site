@@ -42,7 +42,7 @@ The normalized record includes:
 
 ## Delivery modes
 
-### Current safe fallback
+### Current safe fallback with database linking
 
 If Vercel does not have a Supabase service role key, the endpoint posts a HOT lead to the existing Supabase Edge Function:
 
@@ -63,11 +63,18 @@ origem = bokun_checkout
 qualificacao = HOT
 ```
 
-This gives Lisa/n8n enough data to follow up after a completed or reserved Bókun booking.
+The Supabase trigger `tuktuk_link_bokun_checkout_lead` then links that lead into:
 
-### Full database sync
+```text
+public."Clientes - Tuk Tuk"
+public."Reservas"
+```
 
-For full sync into `Clientes - Tuk Tuk`, `Reservas`, and `Leads - Tuk Tuk`, add these Vercel environment variables:
+So Lisa/n8n can follow up from the same database pattern even without a Vercel service role key.
+
+### Optional direct database sync
+
+The endpoint also supports writing directly into `Clientes - Tuk Tuk`, `Reservas`, and `Leads - Tuk Tuk`. This is optional because the Edge Function + trigger already handles the current production flow. To enable direct writes from Vercel, add:
 
 ```text
 SUPABASE_URL=https://fxmxcgqrbwvxnwejasqk.supabase.co

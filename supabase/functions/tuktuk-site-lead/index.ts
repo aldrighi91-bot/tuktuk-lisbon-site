@@ -72,6 +72,9 @@ function sanitizeLead(input: Record<string, unknown> = {}) {
   lead.phoneConsent = Boolean(input.phoneConsent && lead.phone);
   lead.phoneSkipped = input.phoneSkipped === true || input.phoneSkipped === 'true';
   if (!lead.contactPreference) lead.contactPreference = lead.phone ? 'sms_whatsapp' : 'email';
+  if (input.bokun && typeof input.bokun === 'object' && !Array.isArray(input.bokun)) {
+    lead.bokun = input.bokun;
+  }
   return lead;
 }
 
