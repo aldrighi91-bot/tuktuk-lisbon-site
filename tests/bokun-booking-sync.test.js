@@ -4,11 +4,14 @@ const test = require('node:test');
 
 const {
   buildEdgeLeadPayload,
+  buildBookingSearchQuery,
   canonicalBokunHeaders,
   decodeBokunGraphqlId,
+  extractBookingSearchItems,
   isAuthorizedWebhook,
   normalizeBokunBooking,
   processBokunBookingWebhook,
+  syncRecentBokunBookings,
   upsertBookingInSupabase,
   verifyBokunHmac,
 } = require('../lib/bokun/booking-sync');
@@ -118,6 +121,27 @@ test('normalizes Bókun booking details into the Tuk Tuk lead pattern', () => {
   assert.equal(edgeLead.source, 'bokun_checkout');
   assert.equal(edgeLead.qualification, 'HOT');
   assert.equal(edgeLead.bokun.paymentStatus, 'DEPOSIT');
+  assert.equal(edgeLead.id, buildEdgeLeadPayload(normalized).id);
+});
+
+test('builds a bounded Bókun booking search query for recent syncs', () => {
+  const query = buildBookingSearchQuery({
+    now: new Date('2026-08-21T12:00:00.000Z'),
+    lookbackHours: 3,
+    pageSize: 500,
+  }, 2);
+
+  assert.equal(query.page, 2);
+  assert.equal(query.pageSize, 50);
+  assert.equal(query.lastModifiedDateRange.from, '2026-08-21T09:00:00.000Z');
+  assert.equal(query.lastModifiedDateRange.to, '2026-08-21T12:00:00.000Z');
+  assert.equal(query.lastModifiedDateRange.includeLower, true);
+});
+
+test('extracts Bókun booking search items across common response shapes', () => {
+  assert.deepEqual(extractBookingSearchItems({ items: [{ id: 1 }] }), [{ id: 1 }]);
+  assert.deepEqual(extractBookingSearchItems({ results: [{ id: 2 }] }), [{ id: 2 }]);
+  assert.deepEqual(extractBookingSearchItems([{ items: [{ id: 3 }] }]), [{ id: 3 }]);
 });
 
 test('booking webhook fetches Bókun details and falls back to the Supabase lead Edge Function', async () => {
@@ -167,6 +191,74 @@ test('booking webhook fetches Bókun details and falls back to the Supabase lead
       assert.equal(result.delivery, 'supabase_edge');
       assert.equal(result.fetchedFromBokun, true);
       assert.equal(calls.length, 2);
+    } finally {
+      global.fetch = originalFetch;
+    }
+  });
+});
+
+test('recent booking sync searches Bókun and processes found bookings through the lead pipeline', async () => {
+  const originalFetch = global.fetch;
+
+  await withEnv({
+    BOKUN_ACCESS_KEY: 'access',
+    BOKUN_SECRET_KEY: 'secret',
+    SUPABASE_URL: null,
+    SUPABASE_SERVICE_ROLE_KEY: null,
+    SUPABASE_EDGE_LEAD_URL: 'https://example.test/functions/v1/tuktuk-site-lead',
+    BOKUN_BOOKING_FORWARD_URL: null,
+  }, async () => {
+    const calls = [];
+    global.fetch = async (url, options) => {
+      calls.push({ url, options });
+      if (url === 'https://api.bokun.io/booking.json/booking-search') {
+        assert.equal(options.method, 'POST');
+        const body = JSON.parse(options.body);
+        assert.equal(body.page, 0);
+        assert.equal(body.pageSize, 5);
+        assert.equal(body.lastModifiedDateRange.from, '2026-08-21T10:00:00.000Z');
+        return new Response(JSON.stringify({
+          items: [{ confirmationCode: 'TUK-101401400' }],
+          totalHits: 1,
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (url === 'https://api.bokun.io/booking.json/booking/TUK-101401400') {
+        return new Response(JSON.stringify(sampleBooking), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (url === 'https://example.test/functions/v1/tuktuk-site-lead') {
+        const body = JSON.parse(options.body);
+        assert.equal(body.payload.source, 'bokun_checkout');
+        assert.equal(body.payload.bokun.bookingReference, 'TUK-101401400');
+        return new Response(JSON.stringify({ ok: true }), { status: 200 });
+      }
+
+      throw new Error(`Unexpected fetch ${url}`);
+    };
+
+    try {
+      const result = await syncRecentBokunBookings({
+        now: new Date('2026-08-21T12:00:00.000Z'),
+        lookbackHours: 2,
+        pageSize: 5,
+        maxPages: 3,
+      }, {
+        clientIp: '203.0.113.10',
+        userAgent: 'test-agent',
+      });
+
+      assert.equal(result.ok, true);
+      assert.equal(result.totalFound, 1);
+      assert.equal(result.processedCount, 1);
+      assert.equal(result.processed[0].delivery, 'supabase_edge');
+      assert.equal(calls.length, 3);
     } finally {
       global.fetch = originalFetch;
     }

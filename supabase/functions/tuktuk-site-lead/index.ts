@@ -219,11 +219,11 @@ Deno.serve(async (req) => {
   }
 
   const table = 'Leads - Tuk Tuk';
-  const response = await fetch(`${supabaseUrl}/rest/v1/${encodeURIComponent(table)}`, {
+  const response = await fetch(`${supabaseUrl}/rest/v1/${encodeURIComponent(table)}?on_conflict=id`, {
     method: 'POST',
     headers: {
       ...headers,
-      Prefer: 'return=minimal',
+      Prefer: 'resolution=merge-duplicates,return=minimal',
     },
     body: JSON.stringify(buildRow(lead)),
   });

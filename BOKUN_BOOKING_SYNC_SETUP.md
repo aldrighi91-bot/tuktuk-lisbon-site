@@ -2,13 +2,28 @@
 
 The online checkout runs inside the Bókun widget. Customer details entered there are owned by Bókun until Bókun notifies our backend.
 
-This site now exposes:
+This site now exposes two booking sync endpoints:
 
 ```text
 POST /api/bokun-booking-webhook
+GET  /api/bokun-booking-sync
+POST /api/bokun-booking-sync
 ```
 
 ## Reservation flow
+
+Active fallback while Bókun Webhooks are locked:
+
+```text
+Vercel Cron or n8n schedule
+-> /api/bokun-booking-sync
+-> Bókun REST search /booking.json/booking-search
+-> Bókun REST lookup /booking.json/booking/{confirmationCode or id}
+-> Supabase
+-> n8n / Lisa follow-up
+```
+
+Real-time flow when Bókun Webhooks are available:
 
 ```text
 Bókun booking webhook
@@ -19,6 +34,8 @@ Bókun booking webhook
 ```
 
 The endpoint accepts the normal Bókun webhook payload that contains `bookingId`. It then fetches the full booking details from Bókun before saving or forwarding.
+
+The sync endpoint searches recent bookings by `lastModifiedDateRange`, fetches each booking detail, and uses deterministic lead IDs for Bókun bookings. Re-running the sync updates the same Bókun lead instead of creating duplicates.
 
 ## Data saved
 
@@ -92,6 +109,42 @@ BOKUN_BOOKING_FORWARD_URL=<n8n production webhook URL>
 BOKUN_BOOKING_FORWARD_SECRET=<optional HMAC secret>
 ```
 
+## Vercel Cron / n8n scheduled sync
+
+`/api/bokun-booking-sync` is protected by:
+
+```text
+CRON_SECRET=<random long token>
+```
+
+Vercel Cron calls it with `Authorization: Bearer <CRON_SECRET>`.
+
+Current Vercel Hobby-compatible fallback:
+
+```json
+{
+  "path": "/api/bokun-booking-sync",
+  "schedule": "0 7 * * *"
+}
+```
+
+For faster follow-up, either upgrade the Vercel project to Pro and use `*/15 * * * *`, or run the fast schedule from n8n:
+
+```text
+Method: GET
+URL: https://www.tuktuklisbon.tours/api/bokun-booking-sync
+Header: Authorization: Bearer <same CRON_SECRET>
+Frequency: every 5-15 minutes
+```
+
+The endpoint defaults to the last 48 hours and up to 40 recent bookings:
+
+```text
+lookbackHours=48
+pageSize=20
+maxPages=2
+```
+
 ## Webhook security
 
 Preferred:
@@ -115,6 +168,17 @@ https://tuktuklisbon.tours/api/bokun-booking-webhook?token=<same token>
 ```
 
 ## Bókun setup
+
+Current panel status:
+
+```text
+Settings -> Connections -> Webhooks
+Status: locked unless Bókun Plus/Premium is active
+```
+
+The code is ready for webhooks, but the current active connection can use scheduled sync without paying for the webhook add-on.
+
+When Webhooks are unlocked in Bókun:
 
 In Bókun:
 
