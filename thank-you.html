@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18234798096"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18234798096');
+    gtag('config', 'AW-17831839287');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, follow" />
+  <title>Thank You | Tuk Tuk Lisbon Tours</title>
+  <meta name="description" content="Thank you for joining Tuk Tuk Lisbon Tours. Leave a review on Google, Tripadvisor, or GetYourGuide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="/images/hero.jpg" fetchpriority="high" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://www.tuktuklisbon.tours/thank-you" />
+  <style>
+    :root {
+      --brand: #165fba;
+      --brand-dark: #0d3f7b;
+      --green: #0f8b57;
+      --trip: #00aa6c;
+      --gyg: #ff4d00;
+      --google-blue: #1a73e8;
+      --ink: #101827;
+      --muted: #667085;
+      --line: #d8e1ee;
+      --soft: #f5f8fc;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--soft);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; }
+
+    .hero {
+      position: relative;
+      min-height: 42vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: var(--white);
+      background: #0c2038;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 12, 24, .36), rgba(5, 12, 24, .76));
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 18px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand,
+    .nav-link {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .brand {
+      gap: 10px;
+      color: var(--white);
+      font-size: 18px;
+      text-shadow: 0 1px 2px rgba(0,0,0,.24);
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--brand);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    }
+
+    .nav-link {
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: 8px;
+      color: var(--white);
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-content {
+      padding: 112px 0 46px;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 9vw, 68px);
+      line-height: 1;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin: 16px 0 0;
+      color: rgba(255,255,255,.88);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    main {
+      margin-top: -26px;
+      padding: 0 0 44px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .review-panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 20px 55px rgba(17, 42, 77, .12);
+      overflow: hidden;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .intro h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .intro p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #eaf4ff;
+      color: var(--brand-dark);
+      font-weight: 800;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .review-card {
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .card-top {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .platform {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .platform-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--white);
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .platform-mark.google { background: var(--google-blue); }
+    .platform-mark.tripadvisor { background: var(--trip); }
+    .platform-mark.gyg { background: var(--gyg); }
+
+    .platform-name {
+      display: block;
+      font-size: 19px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .platform-note {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .review-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .card-action {
+      margin-top: auto;
+      padding: 16px 18px 18px;
+    }
+
+    .review-button {
+      width: 100%;
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 8px;
+      color: var(--white);
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    .review-button:hover { filter: brightness(.96); }
+    .review-button:active { transform: scale(.98); }
+    .review-button.google { background: var(--google-blue); }
+    .review-button.tripadvisor { background: var(--trip); }
+    .review-button.gyg { background: var(--gyg); }
+
+    .arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .help-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 20px 24px 24px;
+      border-top: 1px solid var(--line);
+      background: #f8fbff;
+    }
+
+    .help-strip p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .whatsapp {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 8px;
+      background: var(--green);
+      color: var(--white);
+      font-weight: 850;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 24px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .hero { min-height: 48vh; }
+      .intro,
+      .help-strip {
+        grid-template-columns: 1fr;
+      }
+      .badge,
+      .whatsapp {
+        width: fit-content;
+      }
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+      .review-card {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .shell {
+        width: min(100% - 20px, 1080px);
+      }
+      .topbar {
+        padding-top: 12px;
+      }
+      .brand {
+        font-size: 16px;
+      }
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+      .nav-link {
+        min-height: 40px;
+        padding: 0 12px;
+      }
+      .hero-content {
+        padding: 96px 0 38px;
+      }
+      .hero-copy {
+        font-size: 16px;
+      }
+      main {
+        margin-top: -18px;
+      }
+      .intro,
+      .help-strip {
+        padding: 18px;
+      }
+      .review-grid {
+        padding: 12px;
+        gap: 12px;
+      }
+      .card-top,
+      .card-action {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <span>Tuk Tuk Lisbon</span>
+      </a>
+      <a class="nav-link" href="/">Back to site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="/images/hero.jpg" alt="Private tuk tuk tour in Lisbon" fetchpriority="high" decoding="async" />
+    <div class="shell hero-content">
+      <p class="eyebrow">Thank you for touring with us</p>
+      <h1>Your review helps our small local business.</h1>
+      <p class="hero-copy">If you enjoyed your Lisbon tuk tuk experience, please take a moment to share it. Choose the platform where you booked, or the one you normally use.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="shell">
+      <section class="review-panel" aria-labelledby="review-title">
+        <div class="intro">
+          <div>
+            <h2 id="review-title">Leave a quick review</h2>
+            <p>Most reviews take less than two minutes. A few honest words help future travellers book with confidence.</p>
+          </div>
+          <span class="badge">Choose one platform</span>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="card-top">
+              <div class="platform">
+                <span class="platform-mark google" aria-hidden="true">G</span>
+                <span>
+                  <span class="platform-name">Google Reviews</span>
+                  <span class="platform-note">Best for local visibility</span>
+                </span>
+              </div>
+              <p>Open our Google listing and share your experience. This helps other visitors find us when they search for tuk tuk tours in Lisbon.</p>
+            </div>
+            <div class="card-action">
+              <a class="review-button google" data-review-link="google" href="https://www.google.com/maps/search/?api=1&query=Tuk%20Tuk%20Lisbon%20Tours%20Rua%20do%20Com%C3%A9rcio%20Lisboa" target="_blank" rel="noopener">
+                Review on Google <span class="arrow" aria-hidden="true">-></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="card-top">
+              <div class="platform">
+                <span class="platform-mark tripadvisor" aria-hidden="true">T</span>
+                <span>
+                  <span class="platform-name">Tripadvisor</span>
+                  <span class="platform-note">Best for travellers comparing tours</span>
+                </span>
+              </div>
+              <p>Share what you liked most about the route, the guide, the viewpoints, and the private tuk tuk experience.</p>
+            </div>
+            <div class="card-action">
+              <a class="review-button tripadvisor" data-review-link="tripadvisor" href="https://www.tripadvisor.com/AttractionProductReview-g189158-d34493976-Lisbon_Private_Electric_Tuk_Tuk_Tour_Alfama_Scenic_Viewpoints-Lisbon_Lisbon_Distri.html" target="_blank" rel="noopener">
+                Review on Tripadvisor <span class="arrow" aria-hidden="true">-></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="card-top">
+              <div class="platform">
+                <span class="platform-mark gyg" aria-hidden="true">G</span>
+                <span>
+                  <span class="platform-name">GetYourGuide</span>
+                  <span class="platform-note">Best if you booked there</span>
+                </span>
+              </div>
+              <p>If you booked through GetYourGuide, sign in with the same account and leave a verified review from your booking.</p>
+            </div>
+            <div class="card-action">
+              <a class="review-button gyg" data-review-link="getyourguide" href="https://www.getyourguide.com/lisbon-l42/lisbon-private-tuk-tuk-tour-with-local-guide-t1309300/" target="_blank" rel="noopener">
+                Review on GetYourGuide <span class="arrow" aria-hidden="true">-></span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="help-strip">
+          <p>Not sure where to review, or want to send photos from the tour? Message Natanael directly and he will help.</p>
+          <a class="whatsapp" href="https://wa.me/351967315921" target="_blank" rel="noopener">WhatsApp Natanael</a>
+        </div>
+      </section>
+
+      <footer>
+        Tuk Tuk Lisbon Tours - Rua do Comercio, Lisboa, Portugal
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'review_request_page_view' });
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-review-link]'), function (link) {
+        link.addEventListener('click', function () {
+          var platform = link.getAttribute('data-review-link');
+          window.dataLayer.push({ event: 'review_request_click', review_platform: platform });
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'review_request_click', { review_platform: platform });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
