@@ -1,0 +1,6 @@
+.agents/
+.env*
+.vercel/
+node_modules/
+skills-lock.json
+supabase/.temp/
