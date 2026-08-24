@@ -305,6 +305,27 @@
     .review-button.tripadvisor { background: var(--trip); }
     .review-button.gyg { background: var(--gyg); }
 
+    .tripadvisor-widget-wrap {
+      min-height: 88px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      border: 1px solid #bfe7d7;
+      border-radius: 8px;
+      background: #f3fbf7;
+    }
+
+    .tripadvisor-widget-wrap ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tripadvisor-widget-wrap img {
+      max-width: 100%;
+      height: auto;
+    }
+
     .arrow {
       font-size: 18px;
       line-height: 1;
@@ -470,9 +491,16 @@
               <p>Share what you liked most about the route, the guide, the viewpoints, and the private tuk tuk experience.</p>
             </div>
             <div class="card-action">
-              <a class="review-button tripadvisor" data-review-link="tripadvisor" href="https://www.tripadvisor.com/AttractionProductReview-g189158-d34493976-Lisbon_Private_Electric_Tuk_Tuk_Tour_Alfama_Scenic_Viewpoints-Lisbon_Lisbon_Distri.html" target="_blank" rel="noopener">
-                Review on Tripadvisor <span class="arrow" aria-hidden="true">-></span>
-              </a>
+              <div class="tripadvisor-widget-wrap" data-review-widget="tripadvisor">
+                <div id="TA_cdswritereviewlgvi982" class="TA_cdswritereviewlgvi">
+                  <ul id="QXSGfNIiW5" class="TA_links Ry8uQGKBA">
+                    <li id="9dut3Ll" class="9FBJxvCbhLug">
+                      <a target="_blank" href="https://www.tripadvisor.com/" rel="noopener"><img src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg" alt="TripAdvisor" /></a>
+                    </li>
+                  </ul>
+                </div>
+                <script async src="https://www.jscache.com/wejs?wtype=cdswritereviewlgvi&amp;uniq=982&amp;locationId=34493976&amp;lang=en_US&amp;display_version=2" data-loadtrk onload="this.loadtrk=true"></script>
+              </div>
             </div>
           </article>
 
@@ -515,6 +543,16 @@
       Array.prototype.forEach.call(document.querySelectorAll('[data-review-link]'), function (link) {
         link.addEventListener('click', function () {
           var platform = link.getAttribute('data-review-link');
+          window.dataLayer.push({ event: 'review_request_click', review_platform: platform });
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'review_request_click', { review_platform: platform });
+          }
+        });
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-review-widget]'), function (widget) {
+        widget.addEventListener('click', function () {
+          var platform = widget.getAttribute('data-review-widget');
           window.dataLayer.push({ event: 'review_request_click', review_platform: platform });
           if (typeof window.gtag === 'function') {
             window.gtag('event', 'review_request_click', { review_platform: platform });
