@@ -19,6 +19,11 @@ const {
   validateLead,
 } = require('../lib/concierge/lead-store');
 
+const {
+  buildCustomerConfirmation,
+  sendLeadNotificationEmails,
+} = require('../lib/concierge/lead-notifications');
+
 test('teaser prompt can be dismissed without opening the chat panel', () => {
   const widget = fs.readFileSync(path.join(__dirname, '..', 'concierge.js'), 'utf8');
   const styles = fs.readFileSync(path.join(__dirname, '..', 'assets', 'concierge.css'), 'utf8');
@@ -267,6 +272,89 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   assert.equal(row.raw_json.contactPreference, 'sms_whatsapp');
 });
 
+test('customer lead confirmation is a receipt, not a booking confirmation', () => {
+  const payload = buildLeadPayload({
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    phone: '+1 415 555 0199',
+    desiredDate: 'Friday',
+    preferredTime: '10 am',
+    guests: 2,
+    pickupArea: 'Hotel Mundial',
+    tourId: 'alfama',
+    qualification: 'HOT',
+  });
+  const email = buildCustomerConfirmation(payload, 'contact@tuktuklisbon.tours');
+
+  assert.equal(email.subject, 'We received your TukTuk Lisbon request');
+  assert.match(email.text, /Thank you for contacting TukTuk Lisbon/);
+  assert.match(email.text, /This is not a booking confirmation yet/);
+  assert.match(email.text, /checking availability, pricing/);
+  assert.doesNotMatch(email.text, /booking confirmed/i);
+});
+
+test('lead notification emails are sent to owner and customer through Resend', async () => {
+  const originalFetch = global.fetch;
+  const originalEnv = {
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    CONCIERGE_EMAIL_FROM: process.env.CONCIERGE_EMAIL_FROM,
+    CONCIERGE_NOTIFICATION_TO: process.env.CONCIERGE_NOTIFICATION_TO,
+    CONCIERGE_REPLY_TO: process.env.CONCIERGE_REPLY_TO,
+    CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED: process.env.CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED,
+  };
+  const requests = [];
+  process.env.RESEND_API_KEY = 're_test';
+  process.env.CONCIERGE_EMAIL_FROM = 'TukTuk Lisbon <contact@tuktuklisbon.tours>';
+  process.env.CONCIERGE_NOTIFICATION_TO = 'contact@tuktuklisbon.tours';
+  process.env.CONCIERGE_REPLY_TO = 'contact@tuktuklisbon.tours';
+  delete process.env.CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED;
+
+  const payload = buildLeadPayload({
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    phone: '+1 415 555 0199',
+    desiredDate: 'Friday',
+    preferredTime: '10 am',
+    guests: 2,
+    pickupArea: 'Hotel Mundial',
+    tourId: 'alfama',
+    message: 'Is there availability?',
+    qualification: 'HOT',
+  });
+
+  try {
+    global.fetch = async (url, options) => {
+      requests.push({ url, options, body: JSON.parse(options.body) });
+      return new Response(JSON.stringify({ id: `email-${requests.length}` }), { status: 200 });
+    };
+
+    const result = await sendLeadNotificationEmails(payload);
+    assert.equal(result.delivery, 'email');
+    assert.equal(result.provider, 'resend');
+    assert.equal(requests.length, 2);
+
+    assert.equal(requests[0].url, 'https://api.resend.com/emails');
+    assert.equal(requests[0].options.headers.Authorization, 'Bearer re_test');
+    assert.equal(requests[0].options.headers['User-Agent'], 'tuktuk-lisbon-site/1.0');
+    assert.equal(requests[0].options.headers['Idempotency-Key'], `tuktuk-lead-${payload.id}-owner`);
+    assert.equal(requests[0].body.to, 'contact@tuktuklisbon.tours');
+    assert.equal(requests[0].body.reply_to, 'alex@example.com');
+    assert.match(requests[0].body.text, /New lead received/);
+    assert.match(requests[0].body.text, /Is there availability/);
+
+    assert.equal(requests[1].options.headers['Idempotency-Key'], `tuktuk-lead-${payload.id}-customer`);
+    assert.equal(requests[1].body.to, 'alex@example.com');
+    assert.equal(requests[1].body.reply_to, 'contact@tuktuklisbon.tours');
+    assert.match(requests[1].body.text, /This is not a booking confirmation yet/);
+  } finally {
+    global.fetch = originalFetch;
+    for (const [key, value] of Object.entries(originalEnv)) {
+      if (value == null) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
 test('lead delivery falls back to the Supabase Edge Function without Vercel secrets', async () => {
   const originalFetch = global.fetch;
   const originalEnv = {
@@ -274,11 +362,15 @@ test('lead delivery falls back to the Supabase Edge Function without Vercel secr
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     SUPABASE_EDGE_LEAD_URL: process.env.SUPABASE_EDGE_LEAD_URL,
     CONCIERGE_LEAD_WEBHOOK_URL: process.env.CONCIERGE_LEAD_WEBHOOK_URL,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED: process.env.CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED,
   };
 
   delete process.env.SUPABASE_URL;
   delete process.env.SUPABASE_SERVICE_ROLE_KEY;
   delete process.env.CONCIERGE_LEAD_WEBHOOK_URL;
+  delete process.env.RESEND_API_KEY;
+  delete process.env.CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED;
   process.env.SUPABASE_EDGE_LEAD_URL = 'https://example.test/functions/v1/tuktuk-site-lead';
 
   const payload = buildLeadPayload({

@@ -1,6 +1,7 @@
 # Site Concierge Lead Setup
 
-The site concierge can send leads to Supabase, to an n8n webhook, or to both.
+The site concierge sends leads to Supabase and can send immediate email notifications from the site backend.
+An optional n8n webhook can still be used for Lisa/follow-up automation, but it is not required for immediate lead alerts.
 
 Recommended architecture:
 
@@ -8,8 +9,9 @@ Recommended architecture:
 Website concierge
 -> /api/concierge-lead
 -> Supabase table "Leads - Tuk Tuk"
--> n8n follow-up workflow
--> email first, WhatsApp only when the customer provides or chooses it
+-> backend email notification to contact@tuktuklisbon.tours
+-> backend customer receipt email
+-> Lisa/n8n follow-up workflow when available
 ```
 
 Use the same Supabase project as Lisa/n8n if desired, but keep customer data in dedicated tables. Do not store customer leads inside n8n's internal workflow/execution tables.
@@ -41,7 +43,18 @@ CONCIERGE_LEAD_WEBHOOK_URL=
 CONCIERGE_LEAD_WEBHOOK_SECRET=
 ```
 
-`SUPABASE_SERVICE_ROLE_KEY` and webhook secrets must stay only in Vercel Environment Variables.
+Immediate email notifications:
+
+```text
+RESEND_API_KEY=
+CONCIERGE_EMAIL_FROM=TukTuk Lisbon <contact@tuktuklisbon.tours>
+CONCIERGE_NOTIFICATION_TO=contact@tuktuklisbon.tours
+CONCIERGE_REPLY_TO=contact@tuktuklisbon.tours
+CONCIERGE_EMAIL_NOTIFICATIONS_DISABLED=false
+```
+
+`SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, and webhook secrets must stay only in Vercel Environment Variables.
+`CONCIERGE_NOTIFICATION_TO` is the internal inbox that receives each lead. `CONCIERGE_REPLY_TO` is the address customers can reply to after the automatic receipt email.
 
 The MVP also includes a Supabase Edge Function fallback at `SUPABASE_EDGE_LEAD_URL`. This lets Vercel submit concierge leads to the Tuk Tuk Supabase project even when the Vercel project does not yet have a service role key configured. The Edge Function uses Supabase server-side secrets internally, validates the payload, applies rate limiting, and writes to `public."Leads - Tuk Tuk"`.
 
