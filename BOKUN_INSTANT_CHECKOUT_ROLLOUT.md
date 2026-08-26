@@ -46,16 +46,24 @@ Horários configurados:
 
 ## Bókun Resource Management
 
-Antes de aplicar em produção, configurar no painel Bókun:
+Criado via Bókun API em 2026-08-26:
 
-1. Criar tipo de recurso `Vehicle`.
-2. Criar recursos `Tuk Tuk 1`, `Tuk Tuk 2` e `Van`.
-3. Associar `Tuk Tuk 1` e `Tuk Tuk 2` aos produtos `alfama`, `belem`, `chiado` e `fullcity`.
-4. Associar `Van` somente ao produto `van`.
-5. Definir buffer operacional entre tours se necessário, por exemplo 30 minutos.
-6. Se o guia/motorista também for gargalo, criar recursos de guia/motorista e associar aos produtos.
+| Recurso | Bókun resource ID | Capacidade | Pool |
+| --- | ---: | ---: | --- |
+| Tuk Tuk 1 | `1036235` | 6 | `Online Tuk Tuk Fleet` (`1021610`) |
+| Tuk Tuk 2 | `1036236` | 6 | `Online Tuk Tuk Fleet` (`1021610`) |
+| Van | `1036237` | 8 | `Online Van Fleet` (`1021611`) |
 
-Sem Resource Management, `LIMITED` limita lugares por horário, mas não garante sozinho que dois produtos diferentes não usem o mesmo tuk-tuk no mesmo horário.
+Bloqueio atual: o endpoint Bókun de `allocation` respondeu `403 Access denied. Upgrade your payment plan to use this feature.` Portanto os recursos e pools existem, mas ainda não foi possível vincular os pools aos produtos por allocation.
+
+Quando o plano/recurso estiver liberado no Bókun:
+
+1. Associar `Online Tuk Tuk Fleet` aos produtos `alfama`, `belem`, `chiado` e `fullcity`.
+2. Associar `Online Van Fleet` somente ao produto `van`.
+3. Definir buffer operacional entre tours se necessário, por exemplo 30 minutos.
+4. Se o guia/motorista também for gargalo, criar recursos de guia/motorista e associar aos produtos.
+
+Sem allocations ativas, `LIMITED` limita lugares por horário, mas não garante sozinho que dois produtos diferentes não usem o mesmo tuk-tuk no mesmo horário.
 
 ## Canais
 
@@ -112,14 +120,15 @@ Variáveis relevantes:
 
 ## Execução segura
 
-1. Configurar recursos no Bókun.
-2. Rodar `enable-instant-checkout` em `dryRun: true` com `includePayload: true`.
-3. Conferir horários, preços, capacidades e IDs.
-4. Aplicar com `dryRun: false` somente depois da conferência.
-5. Testar checkout dos 5 produtos no site.
-6. Reservar um horário de teste no site e verificar bloqueio nos outros canais.
-7. Conectar Viator/GetYourGuide ao Bókun e repetir o teste de conflito.
-8. Ligar Lisa/n8n usando Bókun como regra: sem Bókun, sem confirmação.
+1. Liberar allocations/Resource Management no plano Bókun.
+2. Associar pools aos produtos.
+3. Rodar `enable-instant-checkout` em `dryRun: true` com `includePayload: true`.
+4. Conferir horários, preços, capacidades e IDs.
+5. Aplicar com `dryRun: false` somente depois da conferência.
+6. Testar checkout dos 5 produtos no site.
+7. Reservar um horário de teste no site e verificar bloqueio nos outros canais.
+8. Conectar Viator/GetYourGuide ao Bókun e repetir o teste de conflito.
+9. Ligar Lisa/n8n usando Bókun como regra: sem Bókun, sem confirmação.
 
 ## Referências oficiais
 
