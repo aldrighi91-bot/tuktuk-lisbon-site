@@ -60,7 +60,7 @@ test('classifies booking and availability requests as HOT', () => {
 test('capacity note separates vehicle capacity from availability', () => {
   const note = capacityNote(7);
   assert.match(note, /Each tuk tuk seats up to 6/);
-  assert.match(note, /confirm/i);
+  assert.match(note, /Bókun/i);
   assert.doesNotMatch(note, /\bavailable\b/i);
 });
 
@@ -71,6 +71,7 @@ test('availability flow does not invent availability', () => {
   });
   assert.equal(response.qualification, 'HOT');
   assert.match(response.reply, /Let me check availability/i);
+  assert.match(response.reply, /Bókun accepts or holds/i);
   assert.doesNotMatch(response.reply, /\bis available\b/i);
 });
 
@@ -289,7 +290,7 @@ test('customer lead confirmation is a receipt, not a booking confirmation', () =
   assert.equal(email.subject, 'We received your TukTuk Lisbon request');
   assert.match(email.text, /Thank you for contacting TukTuk Lisbon/);
   assert.match(email.text, /This is not a booking confirmation yet/);
-  assert.match(email.text, /checking availability, pricing/);
+  assert.match(email.text, /accepted or held in Bókun/);
   assert.doesNotMatch(email.text, /booking confirmed/i);
 });
 

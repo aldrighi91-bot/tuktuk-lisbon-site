@@ -16,6 +16,7 @@ const {
   buildAlfamaUpdatePayload,
   buildContactInfoUpdatePayload,
   buildCreateDraftPayload,
+  buildInstantCheckoutPayload,
   buildTourSyncPlan,
   getOfficialTours,
 } = require('../lib/bokun/tour-sync');
@@ -49,9 +50,18 @@ const TEMPLATE_COMPONENTS = [
   'FLAGS',
   'ALLOW_CUSTOMIZED_BOOKINGS',
   'EARLY_BOOKING_LIMIT',
+  'START_TIMES',
+  'AVAILABILITY_RULES',
+  'ON_REQUEST_DEADLINE',
 ];
 
-const ALLOWED_ACTIONS = new Set(['update-alfama', 'create-drafts', 'update-draft-contact', 'activate-drafts']);
+const ALLOWED_ACTIONS = new Set([
+  'update-alfama',
+  'create-drafts',
+  'update-draft-contact',
+  'activate-drafts',
+  'enable-instant-checkout',
+]);
 
 function readBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
@@ -96,6 +106,15 @@ function summarizePayload(payload) {
       currency: payload.pricing.experiencePriceRules[0].currency,
       priceCatalogId: payload.pricing.experiencePriceRules[0].priceCatalogId,
       perBooking: !payload.pricing.experiencePriceRules[0].pricingCategoryId,
+    } : undefined,
+    startTimes: Array.isArray(payload.startTimes)
+      ? payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`)
+      : undefined,
+    availability: payload.availabilityRules?.[0] ? {
+      startDate: payload.availabilityRules[0].recurrenceRule?.startDate,
+      endDate: payload.availabilityRules[0].recurrenceRule?.endDate,
+      maxCapacity: payload.availabilityRules[0].maxCapacity,
+      allStartTimes: payload.availabilityRules[0].allStartTimes,
     } : undefined,
   };
 }
@@ -303,6 +322,47 @@ module.exports = async function handler(req, res) {
             summary: payload.activation,
             ...(!response.ok ? { error: response.data || { statusText: response.statusText } } : {}),
             ...(includePayload ? { payload } : {}),
+          });
+        }
+      }
+    }
+
+    if (actions.includes('enable-instant-checkout')) {
+      const tours = getOfficialTours();
+      for (const tour of tours) {
+        const experienceId = tour.id === 'alfama' ? existingAlfamaId : BOKUN_EXPERIENCE_IDS[tour.id];
+        const current = tour.id === 'alfama'
+          ? template
+          : (await getExperienceComponents(experienceId, TEMPLATE_COMPONENTS)).data || {};
+        const payload = buildInstantCheckoutPayload(tour, current);
+
+        if (dryRun) {
+          results.results.push({
+            tourId: tour.id,
+            action: 'enable_instant_checkout',
+            experienceId,
+            dryRun: true,
+            summary: summarizePayload(payload),
+            startTimes: payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
+            maxCapacity: payload.availabilityRules[0]?.maxCapacity,
+            resourceNote: tour.id === 'van'
+              ? 'Requires one Bókun Van resource assigned before going live.'
+              : 'Requires Tuk Tuk 1 and Tuk Tuk 2 resources assigned before going live.',
+            ...(includePayload ? { payload } : {}),
+          });
+        } else {
+          const response = await updateExperienceComponents(experienceId, payload);
+          results.results.push({
+            ...buildActionResponse({
+              tourId: tour.id,
+              action: 'enable_instant_checkout',
+              payload,
+              response,
+              includePayload,
+            }),
+            experienceId,
+            startTimes: payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
+            maxCapacity: payload.availabilityRules[0]?.maxCapacity,
           });
         }
       }

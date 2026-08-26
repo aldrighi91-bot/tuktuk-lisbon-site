@@ -10,11 +10,11 @@
     "operations": {
       "tukTuks": 2,
       "passengersPerTukTuk": 6,
-      "availabilityNote": "Vehicle capacity is not real-time availability. A guide must confirm date and time."
+      "availabilityNote": "Online availability is managed in Bókun. Manual bookings must be added to Bókun before a time is confirmed to the customer."
     }
   },
   "policies": {
-    "availability": "Availability is checked manually with Natanael. Do not state that a date or time is available until confirmed.",
+    "availability": "Use Bókun as the source of truth for online availability. Do not promise availability from WhatsApp, phone, or manual channels until the booking is held or created in Bókun.",
     "payment": "Online bookings require a 20% deposit through the secure Bókun checkout. The remaining balance is paid in person on the tour day by card or cash.",
     "pickup": "Pickup is flexible in Lisbon unless a tour page says otherwise.",
     "privacy": "Collect only the details needed to reply to a tour request: name, email, desired date, preferred time, number of guests, pickup area, tour of interest, and message. Phone or WhatsApp is optional."
@@ -59,7 +59,7 @@
       "pickup": "Flexible pickup in Lisbon",
       "important": [
         "Price is per private group up to 6 people.",
-        "Availability must be checked manually."
+        "Instant online checkout depends on Bókun availability and resource rules."
       ]
     },
     {
@@ -99,7 +99,7 @@
       "pickup": "Flexible pickup in Lisbon",
       "important": [
         "Price is per private group up to 6 people.",
-        "Availability must be checked manually."
+        "Instant online checkout depends on Bókun availability and resource rules."
       ]
     },
     {
@@ -140,7 +140,7 @@
       "pickup": "Flexible pickup in Lisbon",
       "important": [
         "Price is per private group up to 6 people.",
-        "Availability must be checked manually."
+        "Instant online checkout depends on Bókun availability and resource rules."
       ]
     },
     {
@@ -181,7 +181,7 @@
       "pickup": "Flexible pickup in Lisbon",
       "important": [
         "Price is per private group up to 6 people.",
-        "Availability must be checked manually."
+        "Instant online checkout depends on Bókun availability and resource rules."
       ]
     },
     {
@@ -223,7 +223,7 @@
       "pickup": "Hotel & airport pickup",
       "important": [
         "Price is per private group up to 8 people.",
-        "Availability and destination plan must be checked manually."
+        "Instant online checkout depends on Bókun availability and the dedicated van resource."
       ]
     }
   ]

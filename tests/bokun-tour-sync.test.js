@@ -7,6 +7,7 @@ const {
   buildAlfamaUpdatePayload,
   buildContactInfoUpdatePayload,
   buildCreateDraftPayload,
+  buildInstantCheckoutPayload,
   buildTourSyncPlan,
   getTourById,
   minutesToDurationParts,
@@ -181,7 +182,47 @@ test('documents safe availability strategy in the sync plan', () => {
   assert.equal(plan.updateExisting.experienceId, 1272182);
   assert.equal(plan.bokunExperienceIds.belem, 1273417);
   assert.equal(plan.createDrafts.length, 4);
-  assert.match(plan.availabilityStrategy, /Do not create instant time slots/i);
+  assert.match(plan.availabilityStrategy, /Resource Management/i);
+  assert.equal(plan.instantCheckout.onlineTukTuks, 2);
+  assert.deepEqual(plan.instantCheckout.startTimes.belem, ['09:00', '11:30', '14:00', '16:30']);
+});
+
+test('builds instant checkout payload with limited capacity and explicit start times', () => {
+  const tour = getTourById('belem');
+  const payload = buildInstantCheckoutPayload(tour, {
+    ...currentAlfama,
+    startTimes: [{ id: 42, externalId: 'TUK-BELEM-0900', hour: 9, minute: 0 }],
+    availabilityRules: [{
+      id: 77,
+      recurrenceRule: { id: 88, startDate: '2026-08-20' },
+      maxCapacity: 100,
+    }],
+  });
+
+  assert.equal(payload.bookingType, 'DATE_AND_TIME');
+  assert.equal(payload.capacityType, 'LIMITED');
+  assert.deepEqual(
+    payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
+    ['09:00', '11:30', '14:00', '16:30']
+  );
+  assert.equal(payload.startTimes[0].id, 42);
+  assert.equal(payload.availabilityRules[0].id, 77);
+  assert.equal(payload.availabilityRules[0].recurrenceRule.id, 88);
+  assert.equal(payload.availabilityRules[0].recurrenceRule.startDate, '2026-08-26');
+  assert.equal(payload.availabilityRules[0].recurrenceRule.endDate, '2027-12-31');
+  assert.equal(payload.availabilityRules[0].maxCapacity, 12);
+  assert.equal(payload.rates.rates[0].allStartTimes, true);
+});
+
+test('limits van instant checkout to the dedicated van capacity', () => {
+  const tour = getTourById('van');
+  const payload = buildInstantCheckoutPayload(tour, currentAlfama);
+
+  assert.deepEqual(
+    payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
+    ['09:00']
+  );
+  assert.equal(payload.availabilityRules[0].maxCapacity, 8);
 });
 
 test('keeps the created Bókun IDs and contact update payload explicit', () => {
