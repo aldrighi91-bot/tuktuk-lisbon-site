@@ -16,6 +16,7 @@ const {
   buildAlfamaUpdatePayload,
   buildContactInfoUpdatePayload,
   buildCreateDraftPayload,
+  buildInstantCheckoutOperationalPayload,
   buildInstantCheckoutPayload,
   buildTourSyncPlan,
   getOfficialTours,
@@ -387,6 +388,7 @@ module.exports = async function handler(req, res) {
           ? template
           : (await getExperienceComponents(experienceId, TEMPLATE_COMPONENTS)).data || {};
         const payload = buildInstantCheckoutPayload(tour, current);
+        const operationalPayload = buildInstantCheckoutOperationalPayload(tour, current);
 
         if (dryRun) {
           results.results.push({
@@ -404,18 +406,45 @@ module.exports = async function handler(req, res) {
             ...(includePayload ? { payload } : {}),
           });
         } else {
-          const response = await updateExperienceComponents(experienceId, payload);
+          const startTimesPayload = { ...operationalPayload };
+          delete startTimesPayload.availabilityRules;
+          const startTimesResponse = await updateExperienceComponents(experienceId, startTimesPayload);
+          let response = startTimesResponse;
+          let phases = [{
+            name: 'start_times',
+            ok: Boolean(startTimesResponse.ok),
+            status: startTimesResponse.status,
+            ...(!startTimesResponse.ok ? { error: startTimesResponse.data || { statusText: startTimesResponse.statusText } } : {}),
+          }];
+
+          if (startTimesResponse.ok) {
+            const refreshed = await getExperienceComponents(experienceId, TEMPLATE_COMPONENTS);
+            const refreshedPayload = buildInstantCheckoutOperationalPayload(tour, refreshed.data || {});
+            const availabilityPayload = {
+              title: refreshedPayload.title,
+              availabilityRules: refreshedPayload.availabilityRules,
+            };
+            response = await updateExperienceComponents(experienceId, availabilityPayload);
+            phases.push({
+              name: 'availability',
+              ok: Boolean(response.ok),
+              status: response.status,
+              ...(!response.ok ? { error: response.data || { statusText: response.statusText } } : {}),
+            });
+          }
+
           results.results.push({
             ...buildActionResponse({
               tourId: tour.id,
               action: 'enable_instant_checkout',
-              payload,
+              payload: operationalPayload,
               response,
               includePayload,
             }),
             experienceId,
-            startTimes: payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
-            maxCapacity: payload.availabilityRules[0]?.maxCapacity,
+            startTimes: operationalPayload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
+            maxCapacity: operationalPayload.availabilityRules[0]?.maxCapacity,
+            phases,
           });
         }
       }

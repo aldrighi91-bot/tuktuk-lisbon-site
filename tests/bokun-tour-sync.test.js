@@ -7,6 +7,7 @@ const {
   buildAlfamaUpdatePayload,
   buildContactInfoUpdatePayload,
   buildCreateDraftPayload,
+  buildInstantCheckoutOperationalPayload,
   buildInstantCheckoutPayload,
   buildTourSyncPlan,
   getTourById,
@@ -208,10 +209,26 @@ test('builds instant checkout payload with limited capacity and explicit start t
   assert.equal(payload.startTimes[0].id, 42);
   assert.equal(payload.availabilityRules[0].id, 77);
   assert.equal(payload.availabilityRules[0].recurrenceRule.id, 88);
-  assert.equal(payload.availabilityRules[0].recurrenceRule.startDate, '2026-08-26');
-  assert.equal(payload.availabilityRules[0].recurrenceRule.endDate, '2027-12-31');
+  assert.equal(payload.availabilityRules[0].recurrenceRule.startDate, '2026-08-20');
+  assert.equal(payload.availabilityRules[0].recurrenceRule.endDate, undefined);
   assert.equal(payload.availabilityRules[0].maxCapacity, 12);
+  assert.equal(payload.availabilityRules[0].allStartTimes, false);
+  assert.deepEqual(
+    payload.availabilityRules[0].startTimes.map((item) => item.externalId),
+    ['TUK-BELEM-0900', 'TUK-BELEM-1130', 'TUK-BELEM-1400', 'TUK-BELEM-1630']
+  );
   assert.equal(payload.rates.rates[0].allStartTimes, true);
+});
+
+test('builds operational instant checkout payload without replacing price rules', () => {
+  const tour = getTourById('belem');
+  const payload = buildInstantCheckoutOperationalPayload(tour, currentAlfama);
+
+  assert.equal(payload.bookingType, 'DATE_AND_TIME');
+  assert.equal(payload.capacityType, 'LIMITED');
+  assert.equal(payload.rates, undefined);
+  assert.equal(payload.pricing, undefined);
+  assert.equal(payload.availabilityRules[0].maxCapacity, 12);
 });
 
 test('limits van instant checkout to the dedicated van capacity', () => {
