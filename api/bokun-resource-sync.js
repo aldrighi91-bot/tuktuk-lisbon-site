@@ -11,8 +11,9 @@ const {
 } = require('../lib/bokun/client');
 
 const RESOURCE_ENDPOINTS = [
-  '/restapi/v2.0/resources',
-  '/restapi/v2.0/resource/pools',
+  '/restapi/v2.0/resources?pageNo=0&pageSize=100',
+  '/restapi/v2.0/resource/pools?pageNo=0&pageSize=100',
+  '/restapi/v2.0/allocations?pageNo=0&pageSize=100',
 ];
 
 async function readBokun(path) {
@@ -32,11 +33,13 @@ async function inspectResourceState() {
   }
 
   for (const [tourId, experienceId] of Object.entries(BOKUN_EXPERIENCE_IDS)) {
-    results.push({
-      tourId,
-      experienceId,
-      ...(await readBokun(`/restapi/v2.0/experience/${experienceId}/allocations`)),
-    });
+    for (const suffix of ['', '?pageNo=0&pageSize=100']) {
+      results.push({
+        tourId,
+        experienceId,
+        ...(await readBokun(`/restapi/v2.0/experience/${experienceId}/allocations${suffix}`)),
+      });
+    }
   }
 
   return results;
