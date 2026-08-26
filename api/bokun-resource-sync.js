@@ -17,9 +17,9 @@ const RESOURCE_ENDPOINTS = [
 ];
 
 const RESOURCE_PLAN = [
-  { key: 'tukTuk1', title: 'Tuk Tuk 1', type: 'VEHICLE' },
-  { key: 'tukTuk2', title: 'Tuk Tuk 2', type: 'VEHICLE' },
-  { key: 'van', title: 'Van', type: 'VEHICLE' },
+  { key: 'tukTuk1', title: 'Tuk Tuk 1', capacity: 6 },
+  { key: 'tukTuk2', title: 'Tuk Tuk 2', capacity: 6 },
+  { key: 'van', title: 'Van', capacity: 8 },
 ];
 
 async function readBokun(path) {
@@ -50,8 +50,8 @@ function summarizeResource(item) {
   return {
     id: item?.id,
     title: getTitle(item),
-    type: item?.resourceType || item?.type,
-    active: item?.active ?? item?.activated,
+    capacity: item?.capacity,
+    resourcePoolIds: Array.isArray(item?.resourcePoolIds) ? item.resourcePoolIds : undefined,
   };
 }
 
@@ -63,9 +63,8 @@ async function listResources() {
 
 async function tryCreateResource(resource) {
   const attempts = [
-    { title: resource.title, resourceType: resource.type, active: true },
-    { title: resource.title, type: resource.type, active: true },
-    { name: resource.title, resourceType: resource.type, active: true },
+    { title: resource.title, capacity: resource.capacity },
+    { title: resource.title },
   ];
 
   const responses = [];
