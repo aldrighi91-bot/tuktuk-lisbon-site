@@ -10,13 +10,15 @@ Bókun deve ser a fonte da verdade para disponibilidade. Site, Viator, GetYourGu
 
 | Produto | Slug | Bókun experience ID | Capacidade online |
 | --- | --- | ---: | ---: |
-| Alfama Tour | `alfama` | `1272182` | 12 lugares |
+| Alfama Tour | `alfama` | `1276905` | 12 lugares |
 | Belem Tour | `belem` | `1273417` | 12 lugares |
 | Chiado & Bairro Alto Tour | `chiado` | `1273418` | 12 lugares |
 | Lisbon Full City Tour | `fullcity` | `1273419` | 12 lugares |
 | Van Full Day Tour | `van` | `1273420` | 8 lugares |
 
 Capacidade online dos tours de tuk-tuk = 2 tuk-tuks x 6 pessoas. Capacidade online do tour de van = 1 van x 8 pessoas.
+
+Nota: o produto Alfama antigo `1272182` veio/importou regras do Viator e permanece como legado. O site usa o novo produto direto `1276905`.
 
 ## Alteração técnica preparada
 
@@ -28,7 +30,7 @@ O payload muda cada produto para:
 
 - `bookingType`: `DATE_AND_TIME`
 - `capacityType`: `LIMITED`
-- `availabilityRules`: janela `2026-08-26` a `2027-12-31`
+- `availabilityRules`: regra base existente preservada, com capacidade online e horários explícitos
 - `startTimes`: horários explícitos por produto
 - `rates`: preço por reserva privada, com todos os horários disponíveis na tarifa
 

@@ -152,6 +152,7 @@ test('builds new tour drafts as inactive on-request products', () => {
   assert.equal(payload.activation.activated, false);
   assert.equal(payload.capacityType, 'ON_REQUEST');
   assert.equal(payload.bookingType, 'DATE');
+  assert.equal(payload.cutoff.type, 'RELATIVE_TO_WORKING_HOURS_OPEN');
   assert.deepEqual(payload.startTimes, [{ externalId: 'TUK-BELEM-FLEXIBLE' }]);
   assert.equal(payload.availabilityRules[0].recurrenceRule.startDate, '2026-08-20');
   assert.equal(payload.availabilityRules[0].allStartTimes, true);
@@ -180,7 +181,7 @@ test('builds new tour drafts as inactive on-request products', () => {
 test('documents safe availability strategy in the sync plan', () => {
   const plan = buildTourSyncPlan();
 
-  assert.equal(plan.updateExisting.experienceId, 1272182);
+  assert.equal(plan.updateExisting.experienceId, 1276905);
   assert.equal(plan.bokunExperienceIds.belem, 1273417);
   assert.equal(plan.createDrafts.length, 4);
   assert.match(plan.availabilityStrategy, /Resource Management/i);

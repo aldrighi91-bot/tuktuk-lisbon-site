@@ -61,7 +61,7 @@ const sampleBooking = {
       totalPrice: 130,
       paidType: 'DEPOSIT',
       product: {
-        id: 1272182,
+        id: 1276905,
         title: 'Alfama Tour',
       },
     },
