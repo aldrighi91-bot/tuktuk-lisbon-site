@@ -22,6 +22,19 @@ const RESOURCE_PLAN = [
   { key: 'van', title: 'Van', capacity: 8 },
 ];
 
+const RESOURCE_POOL_PLAN = [
+  {
+    key: 'tukTuks',
+    title: 'Online Tuk Tuk Fleet',
+    resourceTitles: ['Tuk Tuk 1', 'Tuk Tuk 2'],
+  },
+  {
+    key: 'van',
+    title: 'Online Van Fleet',
+    resourceTitles: ['Van'],
+  },
+];
+
 async function readBokun(path) {
   const response = await bokunFetch(path, { timeoutMs: 12000 });
   return {
@@ -55,8 +68,26 @@ function summarizeResource(item) {
   };
 }
 
+function summarizePool(item) {
+  return {
+    id: item?.id,
+    title: getTitle(item),
+    resourceIds: Array.isArray(item?.resourceIds)
+      ? item.resourceIds
+      : Array.isArray(item?.resources)
+        ? item.resources.map((resource) => resource?.id).filter(Boolean)
+        : undefined,
+  };
+}
+
 async function listResources() {
   const response = await readBokun('/restapi/v2.0/resources?pageNo=0&pageSize=100');
+  if (!response.ok) return { response, items: [] };
+  return { response, items: getItems(response.data) };
+}
+
+async function listPools() {
+  const response = await readBokun('/restapi/v2.0/resource/pools?pageNo=0&pageSize=100');
   if (!response.ok) return { response, items: [] };
   return { response, items: getItems(response.data) };
 }
@@ -141,6 +172,107 @@ async function ensureResources() {
   };
 }
 
+async function tryCreatePool(pool, resourceIds) {
+  const attempts = [
+    { title: pool.title, resourceIds },
+    { title: pool.title, resources: resourceIds.map((id) => ({ id })) },
+    { title: pool.title },
+  ];
+
+  const responses = [];
+  for (const body of attempts) {
+    const response = await bokunFetch('/restapi/v2.0/resource/pool', {
+      method: 'POST',
+      body,
+      timeoutMs: 12000,
+    });
+    responses.push({
+      ok: response.ok,
+      status: response.status,
+      body,
+      data: response.data,
+    });
+    if (response.ok) return { response, responses };
+  }
+
+  return { response: responses[responses.length - 1], responses };
+}
+
+async function ensurePools() {
+  const resources = await listResources();
+  if (!resources.response.ok) {
+    return {
+      ok: false,
+      stage: 'list_resources_for_pools',
+      response: resources.response,
+    };
+  }
+
+  const pools = await listPools();
+  if (!pools.response.ok) {
+    return {
+      ok: false,
+      stage: 'list_pools_before',
+      response: pools.response,
+    };
+  }
+
+  const resourcesByTitle = new Map(resources.items.map((item) => [normalizeTitle(getTitle(item)), item]));
+  const poolsByTitle = new Map(pools.items.map((item) => [normalizeTitle(getTitle(item)), item]));
+  const actions = [];
+
+  for (const pool of RESOURCE_POOL_PLAN) {
+    const resourceIds = pool.resourceTitles
+      .map((title) => resourcesByTitle.get(normalizeTitle(title))?.id)
+      .filter(Boolean);
+    if (resourceIds.length !== pool.resourceTitles.length) {
+      actions.push({
+        key: pool.key,
+        title: pool.title,
+        action: 'missing_resources',
+        resourceTitles: pool.resourceTitles,
+        resourceIds,
+      });
+      continue;
+    }
+
+    const existing = poolsByTitle.get(normalizeTitle(pool.title));
+    if (existing) {
+      actions.push({
+        key: pool.key,
+        title: pool.title,
+        action: 'existing',
+        pool: summarizePool(existing),
+      });
+      continue;
+    }
+
+    const created = await tryCreatePool(pool, resourceIds);
+    actions.push({
+      key: pool.key,
+      title: pool.title,
+      action: 'created',
+      ok: Boolean(created.response?.ok),
+      status: created.response?.status,
+      pool: summarizePool(created.response?.data),
+      attempts: created.responses.map((item) => ({
+        ok: item.ok,
+        status: item.status,
+        bodyKeys: Object.keys(item.body),
+        data: item.ok ? summarizePool(item.data) : item.data,
+      })),
+    });
+  }
+
+  const after = await listPools();
+  return {
+    ok: actions.every((action) => action.action === 'existing' || action.ok) && after.response.ok,
+    stage: 'ensure_pools',
+    actions,
+    pools: getItems(after.response.data).map(summarizePool),
+  };
+}
+
 async function inspectResourceState() {
   const results = [];
   for (const path of RESOURCE_ENDPOINTS) {
@@ -197,6 +329,16 @@ module.exports = async function handler(req, res) {
     const action = String(url.searchParams.get('action') || 'inspect').trim();
     if (action === 'ensure-resources') {
       const result = await ensureResources();
+      res.status(200).json({
+        ok: result.ok,
+        configured,
+        readOnly: false,
+        result,
+      });
+      return;
+    }
+    if (action === 'ensure-pools') {
+      const result = await ensurePools();
       res.status(200).json({
         ok: result.ok,
         configured,
