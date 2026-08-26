@@ -273,6 +273,19 @@ async function ensurePools() {
   };
 }
 
+async function probeAllocationSchema() {
+  const response = await bokunFetch('/restapi/v2.0/allocation', {
+    method: 'POST',
+    body: { __schemaProbe: true },
+    timeoutMs: 12000,
+  });
+  return {
+    ok: response.ok,
+    status: response.status,
+    data: response.data,
+  };
+}
+
 async function inspectResourceState() {
   const results = [];
   for (const path of RESOURCE_ENDPOINTS) {
@@ -343,6 +356,16 @@ module.exports = async function handler(req, res) {
         ok: result.ok,
         configured,
         readOnly: false,
+        result,
+      });
+      return;
+    }
+    if (action === 'probe-allocation') {
+      const result = await probeAllocationSchema();
+      res.status(200).json({
+        ok: false,
+        configured,
+        readOnly: true,
         result,
       });
       return;
