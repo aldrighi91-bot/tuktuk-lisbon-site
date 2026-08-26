@@ -578,7 +578,7 @@
       const opened = window.TukTukBooking.openOnlineBooking(selectedTour, 'concierge_cta');
       if (opened) return;
     }
-    addMessage('assistant', 'Online booking for this tour is being connected. I can still collect your details so Natanael can confirm availability personally.');
+    addMessage('assistant', 'Online booking for this tour is being connected. I can still collect your details so the team can create or hold the booking in Bókun before confirming it.');
     renderCtas([{ label: 'Check Availability', action: 'check_availability', tourId: selectedTour }]);
   }
 
@@ -682,7 +682,7 @@
         lead_id: data.leadId,
       });
       const selectedTour = state.lead.tourId || state.lastRecommendedTour || '';
-      addMessage('assistant', 'Thanks. Your request was sent to Natanael. He will reply personally to confirm availability and next steps.');
+      addMessage('assistant', 'Thanks. Your request was sent to Natanael. The booking should only be confirmed after it is created or held in Bókun.');
       setActionOptions(['Ask a question'], [
         { label: 'Book Online', action: 'book_online', tourId: selectedTour },
         { label: 'Back to home', action: 'link', href: '/' },
@@ -731,7 +731,7 @@
       lead.name ? `Name: ${lead.name}` : '',
       lead.email ? `Email: ${lead.email}` : '',
       lead.message ? `Message: ${lead.message}` : '',
-      'Could you check availability for me?'
+      'Could you send the Bókun checkout link or hold this in Bókun before confirming?'
     ].filter(Boolean).join('\n');
   }
 
