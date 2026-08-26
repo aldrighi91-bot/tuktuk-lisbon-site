@@ -4,7 +4,7 @@
 
 Transformar os 5 produtos da Tuk Tuk Lisbon em checkout imediato: o cliente escolhe dia e hora, paga o depósito no checkout Bókun e a reserva fica confirmada sem aviso de "on request".
 
-Bókun deve ser a fonte da verdade para disponibilidade. Site, Viator, GetYourGuide e Lisa/WhatsApp precisam consultar ou criar reservas no Bókun antes de prometer qualquer horário.
+Bókun deve ser a fonte da verdade para checkout online. Como a operação aceita repassar tours para parceiros em caso de conflito, não é necessário subir de plano apenas para usar Allocation Manager.
 
 ## Produtos
 
@@ -54,7 +54,7 @@ Criado via Bókun API em 2026-08-26:
 | Tuk Tuk 2 | `1036236` | 6 | `Online Tuk Tuk Fleet` (`1021610`) |
 | Van | `1036237` | 8 | `Online Van Fleet` (`1021611`) |
 
-Bloqueio atual: o endpoint Bókun de `allocation` respondeu `403 Access denied. Upgrade your payment plan to use this feature.` Portanto os recursos e pools existem, mas ainda não foi possível vincular os pools aos produtos por allocation.
+Bloqueio atual: o endpoint Bókun de `allocation` respondeu `403 Access denied. Upgrade your payment plan to use this feature.` Portanto os recursos e pools existem, mas não vamos subir de plano apenas para vincular os pools aos produtos por allocation.
 
 Quando o plano/recurso estiver liberado no Bókun:
 
@@ -63,7 +63,7 @@ Quando o plano/recurso estiver liberado no Bókun:
 3. Definir buffer operacional entre tours se necessário, por exemplo 30 minutos.
 4. Se o guia/motorista também for gargalo, criar recursos de guia/motorista e associar aos produtos.
 
-Sem allocations ativas, `LIMITED` limita lugares por horário, mas não garante sozinho que dois produtos diferentes não usem o mesmo tuk-tuk no mesmo horário.
+Sem allocations ativas, `LIMITED` limita lugares por horário, mas não garante sozinho que dois produtos diferentes não usem o mesmo tuk-tuk no mesmo horário. Isso é aceitável para a operação atual porque conflitos podem ser repassados para parceiros.
 
 ## Canais
 
@@ -78,7 +78,7 @@ No Bókun Marketplace/Channel Manager:
 1. Conectar a conta Viator/Tripadvisor.
 2. Mapear cada produto Viator para o mesmo Bókun experience ID acima.
 3. Usar disponibilidade do Bókun, sem calendário separado.
-4. Ativar confirmação instantânea só depois dos recursos estarem configurados.
+4. Manter confirmação instantânea se a conta Viator estiver aceitando disponibilidade Bókun. Conflitos operacionais podem ser tratados por repasse.
 
 ### GetYourGuide
 
@@ -87,7 +87,7 @@ No Bókun Marketplace/Channel Manager, se a conta permitir conexão direta:
 1. Conectar GetYourGuide.
 2. Mapear os produtos GetYourGuide para os mesmos Bókun experience IDs.
 3. Usar Bókun como disponibilidade mestre.
-4. Fazer teste de conflito: reservar um horário no site e confirmar que ele reduz/bloqueia no GetYourGuide.
+4. Fazer teste de venda: reservar um horário no site e confirmar que o pedido entra no Bókun. Sem Allocation Manager, não depender de bloqueio perfeito por veículo.
 
 Se a conexão direta não estiver disponível na conta, o fallback operacional é inserir imediatamente no Bókun qualquer reserva que entrar pelo GetYourGuide.
 
@@ -96,8 +96,8 @@ Se a conexão direta não estiver disponível na conta, o fallback operacional �
 É possível ligar pelo n8n, mas o fluxo correto é:
 
 1. Lisa coleta `tour`, `date`, `time`, `guests`, `pickup`, `name`, `email`, `phone`.
-2. Lisa abre link de checkout Bókun quando o cliente quer pagar online.
-3. Se a reserva for fechada por WhatsApp, n8n deve criar ou segurar a reserva no Bókun antes de responder "confirmado".
+2. Lisa abre o `bookingCheckoutUrl` recebido do site/n8n quando o cliente quer pagar online.
+3. Se a reserva for fechada por WhatsApp, n8n deve criar ou segurar a reserva no Bókun, ou encaminhar para confirmação operacional.
 4. Bókun envia webhook de reserva para o site.
 5. Site processa em `/api/bokun-booking-webhook`.
 6. Site encaminha para Supabase/n8n/Lisa conforme variáveis de ambiente.
@@ -120,15 +120,13 @@ Variáveis relevantes:
 
 ## Execução segura
 
-1. Liberar allocations/Resource Management no plano Bókun.
-2. Associar pools aos produtos.
-3. Rodar `enable-instant-checkout` em `dryRun: true` com `includePayload: true`.
-4. Conferir horários, preços, capacidades e IDs.
-5. Aplicar com `dryRun: false` somente depois da conferência.
-6. Testar checkout dos 5 produtos no site.
-7. Reservar um horário de teste no site e verificar bloqueio nos outros canais.
-8. Conectar Viator/GetYourGuide ao Bókun e repetir o teste de conflito.
-9. Ligar Lisa/n8n usando Bókun como regra: sem Bókun, sem confirmação.
+1. Manter plano Start.
+2. Manter recursos e pools criados como registro operacional.
+3. Conferir horários, preços, capacidades e IDs.
+4. Testar checkout dos 5 produtos no site.
+5. Conectar/remapear Viator/GetYourGuide ao Bókun dentro do que o plano Start permitir.
+6. Ligar Lisa/n8n usando `bookingCheckoutUrl` para mandar o cliente ao checkout Bókun.
+7. Tratar conflito de veículo por repasse operacional para parceiros.
 
 ## Referências oficiais
 

@@ -4,10 +4,12 @@ Este diretório guarda o blueprint para ligar Lisa/WhatsApp ao Bókun sem criar 
 
 ## Regra operacional
 
-Bókun é a fonte da verdade. Lisa pode coletar dados e mandar link de checkout, mas só deve responder "confirmado" quando:
+Bókun é a fonte da verdade para checkout online. Como a conta está no plano Start, não usamos Allocation Manager. Se houver conflito de veículo, o tour pode ser repassado para parceiro operacional.
+
+Lisa pode coletar dados e mandar o link direto de checkout Bókun. Quando a venda acontecer por WhatsApp/manual, só responder "confirmado" depois que:
 
 - o checkout Bókun retornar reserva confirmada; ou
-- uma reserva/hold manual for criado no Bókun antes da resposta no WhatsApp.
+- uma reserva/hold manual for criado no Bókun.
 
 ## Fluxos
 
@@ -22,8 +24,9 @@ Bókun é a fonte da verdade. Lisa pode coletar dados e mandar link de checkout,
 
 1. Lisa/site envia lead para `POST /api/concierge-lead`.
 2. O site encaminha para `CONCIERGE_LEAD_WEBHOOK_URL`, que pode ser outro webhook do n8n.
-3. n8n cria/segura a reserva no Bókun ou envia o link de checkout.
-4. WhatsApp só confirma depois do Bókun aceitar.
+3. O payload já traz `bookingCheckoutUrl`, pronto para Lisa/WhatsApp enviar ao cliente.
+4. Se o cliente não usar o checkout, n8n cria/segura a reserva no Bókun ou encaminha para operação manual.
+5. WhatsApp só confirma depois do Bókun aceitar ou depois da confirmação operacional.
 
 ## Variáveis
 

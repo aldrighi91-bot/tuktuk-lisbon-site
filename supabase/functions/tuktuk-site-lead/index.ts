@@ -16,6 +16,7 @@ const MAX_FIELD_LENGTHS: Record<string, number> = {
   preferredTime: 40,
   pickupArea: 180,
   tourId: 40,
+  bookingCheckoutUrl: 500,
   message: 1000,
   sourcePath: 300,
 };

@@ -271,6 +271,7 @@ test('Supabase lead row uses the Tuk Tuk database pattern', () => {
   assert.equal(row.followup_status, 'pendente');
   assert.equal(row.raw_json.phoneConsent, true);
   assert.equal(row.raw_json.contactPreference, 'sms_whatsapp');
+  assert.equal(row.raw_json.bookingCheckoutUrl, 'https://www.tuktuklisbon.tours/booking.html?tour=alfama');
 });
 
 test('customer lead confirmation is a receipt, not a booking confirmation', () => {
@@ -291,7 +292,17 @@ test('customer lead confirmation is a receipt, not a booking confirmation', () =
   assert.match(email.text, /Thank you for contacting TukTuk Lisbon/);
   assert.match(email.text, /This is not a booking confirmation yet/);
   assert.match(email.text, /accepted or held in Bókun/);
+  assert.match(email.text, /https:\/\/www\.tuktuklisbon\.tours\/booking\.html\?tour=alfama/);
   assert.doesNotMatch(email.text, /booking confirmed/i);
+});
+
+test('n8n bridge blueprint forwards the Bókun checkout link for leads', () => {
+  const workflow = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'n8n', 'lisa-bokun-whatsapp.workflow.json'), 'utf8'));
+  const normalize = workflow.nodes.find((node) => node.id === 'Normalize');
+
+  assert.ok(normalize);
+  assert.match(normalize.parameters.jsCode, /bookingCheckoutUrl/);
+  assert.match(normalize.parameters.jsCode, /Checkout:/);
 });
 
 test('lead notification emails are sent to owner and customer through Resend', async () => {
