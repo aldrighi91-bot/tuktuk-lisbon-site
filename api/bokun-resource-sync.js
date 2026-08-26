@@ -16,6 +16,12 @@ const RESOURCE_ENDPOINTS = [
   '/restapi/v2.0/allocations?pageNo=0&pageSize=100',
 ];
 
+const RESOURCE_PLAN = [
+  { key: 'tukTuk1', title: 'Tuk Tuk 1', type: 'VEHICLE' },
+  { key: 'tukTuk2', title: 'Tuk Tuk 2', type: 'VEHICLE' },
+  { key: 'van', title: 'Van', type: 'VEHICLE' },
+];
+
 async function readBokun(path) {
   const response = await bokunFetch(path, { timeoutMs: 12000 });
   return {
@@ -23,6 +29,116 @@ async function readBokun(path) {
     ok: response.ok,
     status: response.status,
     data: response.data,
+  };
+}
+
+function getItems(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.items)) return data.items;
+  return [];
+}
+
+function getTitle(item) {
+  return String(item?.title || item?.name || '').trim();
+}
+
+function normalizeTitle(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function summarizeResource(item) {
+  return {
+    id: item?.id,
+    title: getTitle(item),
+    type: item?.resourceType || item?.type,
+    active: item?.active ?? item?.activated,
+  };
+}
+
+async function listResources() {
+  const response = await readBokun('/restapi/v2.0/resources?pageNo=0&pageSize=100');
+  if (!response.ok) return { response, items: [] };
+  return { response, items: getItems(response.data) };
+}
+
+async function tryCreateResource(resource) {
+  const attempts = [
+    { title: resource.title, resourceType: resource.type, active: true },
+    { title: resource.title, type: resource.type, active: true },
+    { name: resource.title, resourceType: resource.type, active: true },
+  ];
+
+  const responses = [];
+  for (const body of attempts) {
+    const response = await bokunFetch('/restapi/v2.0/resource', {
+      method: 'POST',
+      body,
+      timeoutMs: 12000,
+    });
+    responses.push({
+      ok: response.ok,
+      status: response.status,
+      body,
+      data: response.data,
+    });
+    if (response.ok) return { response, responses };
+  }
+
+  return { response: responses[responses.length - 1], responses };
+}
+
+async function ensureResources() {
+  const before = await listResources();
+  if (!before.response.ok) {
+    return {
+      ok: false,
+      stage: 'list_resources_before',
+      response: before.response,
+    };
+  }
+
+  const actions = [];
+  const known = new Map(before.items.map((item) => [normalizeTitle(getTitle(item)), item]));
+
+  for (const resource of RESOURCE_PLAN) {
+    const existing = known.get(normalizeTitle(resource.title));
+    if (existing) {
+      actions.push({
+        key: resource.key,
+        title: resource.title,
+        action: 'existing',
+        resource: summarizeResource(existing),
+      });
+      continue;
+    }
+
+    const created = await tryCreateResource(resource);
+    actions.push({
+      key: resource.key,
+      title: resource.title,
+      action: 'created',
+      ok: Boolean(created.response?.ok),
+      status: created.response?.status,
+      resource: summarizeResource(created.response?.data),
+      attempts: created.responses.map((item) => ({
+        ok: item.ok,
+        status: item.status,
+        bodyKeys: Object.keys(item.body),
+        data: item.ok ? summarizeResource(item.data) : item.data,
+      })),
+    });
+
+    if (created.response?.ok) {
+      known.set(normalizeTitle(resource.title), created.response.data);
+    }
+  }
+
+  const after = await listResources();
+  return {
+    ok: actions.every((action) => action.action === 'existing' || action.ok) && after.response.ok,
+    stage: 'ensure_resources',
+    actions,
+    resources: getItems(after.response.data).map(summarizeResource),
   };
 }
 
@@ -78,6 +194,19 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    const url = new URL(req.url || '/', 'https://tuktuklisbon.tours');
+    const action = String(url.searchParams.get('action') || 'inspect').trim();
+    if (action === 'ensure-resources') {
+      const result = await ensureResources();
+      res.status(200).json({
+        ok: result.ok,
+        configured,
+        readOnly: false,
+        result,
+      });
+      return;
+    }
+
     const checks = await inspectResourceState();
     res.status(200).json({
       ok: checks.every((check) => check.ok),
