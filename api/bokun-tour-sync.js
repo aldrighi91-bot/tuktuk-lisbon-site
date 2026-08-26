@@ -74,6 +74,23 @@ function readBody(req) {
   }
 }
 
+function readQuery(req) {
+  const query = req.query && typeof req.query === 'object'
+    ? req.query
+    : Object.fromEntries(new URL(req.url || '/', 'https://tuktuklisbon.tours').searchParams);
+  const rawActions = query.actions || query.action;
+  const actions = Array.isArray(rawActions)
+    ? rawActions
+    : String(rawActions || '').split(',');
+
+  return {
+    actions: actions.map((action) => String(action || '').trim()).filter(Boolean),
+    existingAlfamaId: query.existingAlfamaId,
+    includePayload: String(query.includePayload || '').toLowerCase() === 'true',
+    dryRun: true,
+  };
+}
+
 function toNumberId(value, fallback) {
   if (typeof value === 'number' && Number.isFinite(value)) return Math.trunc(value);
   if (typeof value === 'string' && /^\d+$/.test(value.trim())) return Number(value.trim());
@@ -165,17 +182,17 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const body = req.method === 'POST' ? readBody(req) : {};
+  const body = req.method === 'POST' ? readBody(req) : readQuery(req);
   const existingAlfamaId = toNumberId(body.existingAlfamaId, DEFAULT_ALFAMA_EXPERIENCE_ID);
   const plan = buildTourSyncPlan({ existingAlfamaId });
   const configured = getBokunConfigStatus();
 
-  if (req.method === 'GET') {
+  if (req.method === 'GET' && !body.actions.length) {
     res.status(200).json({ ok: true, configured, dryRunOnly: true, plan });
     return;
   }
 
-  if (body.confirm !== SYNC_CONFIRMATION) {
+  if (req.method === 'POST' && body.confirm !== SYNC_CONFIRMATION) {
     res.status(403).json({
       error: 'Missing confirmation',
       requiredConfirm: SYNC_CONFIRMATION,
@@ -200,7 +217,7 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const dryRun = body.dryRun !== false;
+  const dryRun = req.method === 'GET' ? true : body.dryRun !== false;
   const includePayload = body.includePayload === true;
 
   try {
