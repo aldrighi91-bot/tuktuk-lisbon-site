@@ -136,6 +136,41 @@ function summarizePayload(payload) {
   };
 }
 
+function summarizeCurrentComponents(components = {}) {
+  const primaryRate = Array.isArray(components.rates?.rates) ? components.rates.rates[0] : null;
+  const priceRule = components.pricing?.experiencePriceRules?.[0] || null;
+  const availabilityRule = Array.isArray(components.availabilityRules) ? components.availabilityRules[0] : null;
+
+  return {
+    title: components.title,
+    bookingType: components.bookingType,
+    capacityType: components.capacityType,
+    activated: components.activation?.activated,
+    onRequestDeadline: components.onRequestDeadline,
+    startTimes: Array.isArray(components.startTimes)
+      ? components.startTimes.map((item) => `${String(item.hour ?? '').padStart(2, '0')}:${String(item.minute ?? '').padStart(2, '0')}`)
+      : undefined,
+    availability: availabilityRule ? {
+      startDate: availabilityRule.recurrenceRule?.startDate,
+      endDate: availabilityRule.recurrenceRule?.endDate,
+      maxCapacity: availabilityRule.maxCapacity,
+      allStartTimes: availabilityRule.allStartTimes,
+    } : undefined,
+    rate: primaryRate ? {
+      externalId: primaryRate.externalId,
+      minPerBooking: primaryRate.minPerBooking,
+      maxPerBooking: primaryRate.maxPerBooking,
+      pricedPerPerson: primaryRate.pricedPerPerson,
+    } : undefined,
+    price: priceRule ? {
+      amount: priceRule.amount,
+      currency: priceRule.currency,
+      priceCatalogId: priceRule.priceCatalogId,
+      perBooking: !priceRule.pricingCategoryId,
+    } : undefined,
+  };
+}
+
 function buildActionResponse({ tourId, action, payload, response, includePayload }) {
   const body = {
     tourId,
@@ -359,6 +394,7 @@ module.exports = async function handler(req, res) {
             action: 'enable_instant_checkout',
             experienceId,
             dryRun: true,
+            current: summarizeCurrentComponents(current),
             summary: summarizePayload(payload),
             startTimes: payload.startTimes.map((item) => `${String(item.hour).padStart(2, '0')}:${String(item.minute).padStart(2, '0')}`),
             maxCapacity: payload.availabilityRules[0]?.maxCapacity,
