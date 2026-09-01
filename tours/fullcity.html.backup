@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Full City Tour · Tuk Tuk Lisbon</title>
-<meta name="description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
+<meta name="description" content="Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.">
 <link rel="canonical" href="https://www.tuktuklisbon.tours/tours/fullcity">
 <meta property="og:title" content="Full City Tour | Tuk Tuk Lisbon">
-<meta property="og:description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
+<meta property="og:description" content="Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.tuktuklisbon.tours/tours/fullcity">
 <meta property="og:image" content="https://www.tuktuklisbon.tours/images/hero.jpg">
@@ -46,31 +46,7 @@
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
     "url": "https://www.tuktuklisbon.tours/tours/fullcity"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "140",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "review": [
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Emma W."},
-      "datePublished": "2026-08-22",
-      "description": "Saw the whole city in one day! Guide was patient and accommodating.",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    },
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Carlos M."},
-      "datePublished": "2026-08-16",
-      "description": "Best value for money. Worth every minute and every euro!",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    }
-  ]
-}
+  }
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">

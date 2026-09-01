@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Full City Tour · Tuk Tuk Lisbon</title>
-<meta name="description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
-<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/fullcity">
-<meta property="og:title" content="Full City Tour | Tuk Tuk Lisbon">
-<meta property="og:description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
+<title>Chiado & Bairro Alto Tour · Tuk Tuk Lisbon</title>
+<meta name="description" content="Private Chiado and Bairro Alto tuk tuk tour through culture, viewpoints and bohemian Lisbon. Book by WhatsApp.">
+<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/chiado">
+<meta property="og:title" content="Chiado & Bairro Alto Tour | Tuk Tuk Lisbon">
+<meta property="og:description" content="Private Chiado and Bairro Alto tuk tuk tour through culture, viewpoints and bohemian Lisbon. Book by WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/fullcity">
+<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/chiado">
 <meta property="og:image" content="https://www.tuktuklisbon.tours/images/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Google tag (gtag.js) -->
@@ -25,9 +25,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
-  "name": "Full City Tour",
-  "description": "Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.",
-  "url": "https://www.tuktuklisbon.tours/tours/fullcity",
+  "name": "Chiado & Bairro Alto Tour",
+  "description": "Private Chiado and Bairro Alto tuk tuk tour through culture, viewpoints and bohemian Lisbon. Book by WhatsApp.",
+  "url": "https://www.tuktuklisbon.tours/tours/chiado",
   "image": "https://www.tuktuklisbon.tours/images/hero.jpg",
   "provider": {
     "@type": "LocalBusiness",
@@ -42,35 +42,11 @@
   },
   "offers": {
     "@type": "Offer",
-    "price": "360",
+    "price": "190",
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
-    "url": "https://www.tuktuklisbon.tours/tours/fullcity"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "140",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "review": [
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Emma W."},
-      "datePublished": "2026-08-22",
-      "description": "Saw the whole city in one day! Guide was patient and accommodating.",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    },
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Carlos M."},
-      "datePublished": "2026-08-16",
-      "description": "Best value for money. Worth every minute and every euro!",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    }
-  ]
-}
+    "url": "https://www.tuktuklisbon.tours/tours/chiado"
+  }
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">
@@ -243,12 +219,12 @@ body { padding-bottom: 80px; }
 <body>
 
 <div class="title">
-  <h1>Full City Tour</h1>
-  <p>The complete Lisbon experience · 4h · All districts</p>
+  <h1>Chiado & Bairro Alto Tour</h1>
+  <p>Culture, art & bohemian streets · 2h · Central Lisbon</p>
 </div>
 <div class="review-banner">
   <div class="stars">★★★★★</div>
-  <div class="txt"><b>Top Rated</b> complete Lisbon tuk tuk tour in Lisbon</div>
+  <div class="txt"><b>Top Rated</b> cultural tuk tuk experience in Lisbon</div>
 </div>
 
 <div class="c-wrap">
@@ -256,51 +232,51 @@ body { padding-bottom: 80px; }
 
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Alfama & Sé Cathedral" loading="eager">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Praça do Comércio" loading="eager">
         <div class="s-num">1 / 7</div>
-        <div class="s-name">Alfama & Sé Cathedral</div>
-      </div>
-      <div class="s-desc"><p>Begin in Lisbon's oldest district — medieval streets, tiled facades and the 12th century cathedral that survived the great earthquake of 1755.</p></div>
-    </div>
-    <div class="slide">
-      <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Castelo de São Jorge" loading="lazy">
-        <div class="s-num">2 / 7</div>
-        <div class="s-name">Castelo de São Jorge</div>
-      </div>
-      <div class="s-desc"><p>The ancient Moorish castle crowning Lisbon's highest hill — with 360° views over the entire city, the Tagus and the bridge that echoes San Francisco.</p></div>
-    </div>
-    <div class="slide">
-      <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Baixa & Chiado" loading="lazy">
-        <div class="s-num">3 / 7</div>
-        <div class="s-name">Baixa & Chiado</div>
-      </div>
-      <div class="s-desc"><p>Through the elegant grid of Baixa — rebuilt after the 1755 earthquake — up into bohemian Chiado, where Lisbon's literary and artistic soul lives.</p></div>
-    </div>
-    <div class="slide">
-      <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Belém & Torre" loading="lazy">
-        <div class="s-num">4 / 7</div>
-        <div class="s-name">Belém & Torre</div>
-      </div>
-      <div class="s-desc"><p>Out to Belém for the iconic Tower and Jerónimos Monastery — the two great monuments of Portugal's Age of Discovery, UNESCO World Heritage.</p></div>
-    </div>
-    <div class="slide">
-      <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Praça do Comércio" loading="lazy">
-        <div class="s-num">5 / 7</div>
         <div class="s-name">Praça do Comércio</div>
       </div>
-      <div class="s-desc"><p>Back along the riverside to Lisbon's grand ceremonial square — the triumphal arch, the wide promenade and the Tagus glittering in the afternoon light.</p></div>
+      <div class="s-desc"><p>Lisbon's grand riverside square, once the gateway to the Portuguese Empire. The triumphal arch opens onto the elegant streets of Baixa.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-6.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Panoramic Viewpoints" loading="lazy">
-        <div class="s-num">6 / 7</div>
-        <div class="s-name">Panoramic Viewpoints</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Rua Augusta" loading="lazy">
+        <div class="s-num">2 / 7</div>
+        <div class="s-name">Rua Augusta</div>
       </div>
-      <div class="s-desc"><p>The full city tour includes the best miradouros — elevated terraces where all of Lisbon unfolds below you, rooftop by rooftop, river to hills.</p></div>
+      <div class="s-desc"><p>The heart of Baixa — a pedestrian street lined with mosaic cobblestones, street performers and the iconic triumphal arch framing the Tagus.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Chiado District" loading="lazy">
+        <div class="s-num">3 / 7</div>
+        <div class="s-name">Chiado District</div>
+      </div>
+      <div class="s-desc"><p>Lisbon's most cultured neighbourhood — home to the famous A Brasileira café, Fernando Pessoa's statue, theatres and independent bookshops since 1711.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Bairro Alto" loading="lazy">
+        <div class="s-num">4 / 7</div>
+        <div class="s-name">Bairro Alto</div>
+      </div>
+      <div class="s-desc"><p>By day a quiet hilltop neighbourhood of faded azulejo facades; by night the beating heart of Lisbon's nightlife and Fado music scene.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Elevador da Bica" loading="lazy">
+        <div class="s-num">5 / 7</div>
+        <div class="s-name">Elevador da Bica</div>
+      </div>
+      <div class="s-desc"><p>One of Lisbon's iconic yellow funiculars, climbing the steep hillside of Bica since 1892 — one of the most photographed spots in the city.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/centro-6.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Miradouro de São Pedro de Alcântara" loading="lazy">
+        <div class="s-num">6 / 7</div>
+        <div class="s-name">Miradouro de São Pedro de Alcântara</div>
+      </div>
+      <div class="s-desc"><p>A terrace garden with one of the best panoramic views of Lisbon's skyline — from the castle on the hill to the rooftops of Alfama below.</p></div>
     </div>
 
     <div class="slide">
@@ -328,7 +304,7 @@ body { padding-bottom: 80px; }
             <polygon points="0,-13 -3,-6 3,-6" fill="#334"/>
           </g>
           <text x="200" y="88" text-anchor="middle" font-family="DM Sans,sans-serif"
-                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Full City Route</text>
+                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Chiado & Bairro Alto</text>
           
           <g transform="translate(120,220)">
             <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
@@ -366,12 +342,6 @@ body { padding-bottom: 80px; }
             <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
                   font-size="10" font-weight="800" fill="white">6</text>
           </g>
-          <g transform="translate(200,310)">
-            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
-            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
-            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
-                  font-size="10" font-weight="800" fill="white">7</text>
-          </g>
           <rect x="344" y="14" width="40" height="18" rx="9" fill="rgba(0,0,0,.35)"/>
           <text x="364" y="27" text-anchor="middle" font-family="DM Sans,sans-serif"
                 font-size="10" font-weight="700" fill="rgba(255,255,255,.88)">7 / 7</text>
@@ -400,13 +370,13 @@ body { padding-bottom: 80px; }
 
 <div class="info">
   <div class="price-row">
-    <div class="price"><sup>€</sup>360</div>
+    <div class="price"><sup>€</sup>190</div>
     <div class="price-sub">private group · up to 6 people</div>
   </div>
   <div class="pills">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      4h
+      2h
     </span>
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -437,7 +407,7 @@ body { padding-bottom: 80px; }
     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Free photos during the tour</li>
     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Flexible pickup in Lisbon</li>
     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Pay at the end · no deposit</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 6 people · all Lisbon districts</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 6 people · private group</li>
   </ul>
 </div>
 
@@ -450,20 +420,20 @@ body { padding-bottom: 80px; }
 
 <script>
   const WA  = '351XXXXXXXXX';
-  const MSG = encodeURIComponent('Quero reservar o Full City Tour! 🛺');
+  const MSG = encodeURIComponent('Quero reservar o tour de Chiado! 🛺');
   function goBack() {
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', {
         send_to: ['AW-18234798096/8PsbCJb48L0cEJDgg_dD', 'AW-17831839287/wIbCCOv1-dIcELeM8bZC'],
         event_category: 'lead',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_chiado'
       });
       gtag('event', 'whatsapp_click', {
         event_category: 'engagement',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_chiado'
       });
     }
-    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20City%20Tour%2A%20%284h%20-%20EUR%20360%20per%20group%29.%20Could%20you%20check%20availability%20for%20me%3F";
+    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AChiado%20%26%20Bairro%20Alto%20Tour%2A%20%282h%20-%20EUR%20190%20per%20group%29.%20Could%20you%20check%20availability%20for%20me%3F";
   }
   const track = document.getElementById('track');
   const allDots = document.querySelectorAll('.dot');

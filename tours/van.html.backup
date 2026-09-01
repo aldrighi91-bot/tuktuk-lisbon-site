@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Full City Tour · Tuk Tuk Lisbon</title>
-<meta name="description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
-<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/fullcity">
-<meta property="og:title" content="Full City Tour | Tuk Tuk Lisbon">
-<meta property="og:description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
+<title>Van Full Day Tour · Tuk Tuk Lisbon</title>
+<meta name="description" content="Private full day van tour from Lisbon to Sintra, Cascais, Obidos, Nazare, Fatima or Evora. Book by WhatsApp.">
+<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/van">
+<meta property="og:title" content="Van Full Day Tour | Tuk Tuk Lisbon">
+<meta property="og:description" content="Private full day van tour from Lisbon to Sintra, Cascais, Obidos, Nazare, Fatima or Evora. Book by WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/fullcity">
-<meta property="og:image" content="https://www.tuktuklisbon.tours/images/hero.jpg">
+<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/van">
+<meta property="og:image" content="https://www.tuktuklisbon.tours/images/van-sintra.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18234798096"></script>
@@ -25,10 +25,10 @@
 {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
-  "name": "Full City Tour",
-  "description": "Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.",
-  "url": "https://www.tuktuklisbon.tours/tours/fullcity",
-  "image": "https://www.tuktuklisbon.tours/images/hero.jpg",
+  "name": "Van Full Day Tour",
+  "description": "Private full day van tour from Lisbon to Sintra, Cascais, Obidos, Nazare, Fatima or Evora. Book by WhatsApp.",
+  "url": "https://www.tuktuklisbon.tours/tours/van",
+  "image": "https://www.tuktuklisbon.tours/images/van-sintra.jpg",
   "provider": {
     "@type": "LocalBusiness",
     "name": "Tuk Tuk Lisbon",
@@ -42,35 +42,11 @@
   },
   "offers": {
     "@type": "Offer",
-    "price": "360",
+    "price": "600",
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
-    "url": "https://www.tuktuklisbon.tours/tours/fullcity"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "140",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "review": [
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Emma W."},
-      "datePublished": "2026-08-22",
-      "description": "Saw the whole city in one day! Guide was patient and accommodating.",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    },
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Carlos M."},
-      "datePublished": "2026-08-16",
-      "description": "Best value for money. Worth every minute and every euro!",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    }
-  ]
-}
+    "url": "https://www.tuktuklisbon.tours/tours/van"
+  }
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">
@@ -243,12 +219,12 @@ body { padding-bottom: 80px; }
 <body>
 
 <div class="title">
-  <h1>Full City Tour</h1>
-  <p>The complete Lisbon experience · 4h · All districts</p>
+  <h1>Van Full Day Tour</h1>
+  <p>Beyond Lisbon — full day private van · 8h · Your choice of destination</p>
 </div>
 <div class="review-banner">
   <div class="stars">★★★★★</div>
-  <div class="txt"><b>Top Rated</b> complete Lisbon tuk tuk tour in Lisbon</div>
+  <div class="txt"><b>Top Rated</b> private day trips beyond Lisbon in Lisbon</div>
 </div>
 
 <div class="c-wrap">
@@ -256,51 +232,59 @@ body { padding-bottom: 80px; }
 
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Alfama & Sé Cathedral" loading="eager">
-        <div class="s-num">1 / 7</div>
-        <div class="s-name">Alfama & Sé Cathedral</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-sintra.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Sintra" loading="eager">
+        <div class="s-num">1 / 8</div>
+        <div class="s-name">Sintra</div>
       </div>
-      <div class="s-desc"><p>Begin in Lisbon's oldest district — medieval streets, tiled facades and the 12th century cathedral that survived the great earthquake of 1755.</p></div>
+      <div class="s-desc"><p>A fairy-tale village in the hills — colourful palaces, ancient Moorish castles and lush forest parks just 40 minutes from Lisbon. A UNESCO World Heritage Cultural Landscape.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Castelo de São Jorge" loading="lazy">
-        <div class="s-num">2 / 7</div>
-        <div class="s-name">Castelo de São Jorge</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-cascais.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Cascais" loading="lazy">
+        <div class="s-num">2 / 8</div>
+        <div class="s-name">Cascais</div>
       </div>
-      <div class="s-desc"><p>The ancient Moorish castle crowning Lisbon's highest hill — with 360° views over the entire city, the Tagus and the bridge that echoes San Francisco.</p></div>
+      <div class="s-desc"><p>A charming coastal town where Lisbon's aristocracy once summered — beautiful beaches, a historic citadel and the wild Atlantic coastline stretching west.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Baixa & Chiado" loading="lazy">
-        <div class="s-num">3 / 7</div>
-        <div class="s-name">Baixa & Chiado</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-nazare.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Nazaré" loading="lazy">
+        <div class="s-num">3 / 8</div>
+        <div class="s-name">Nazaré</div>
       </div>
-      <div class="s-desc"><p>Through the elegant grid of Baixa — rebuilt after the 1755 earthquake — up into bohemian Chiado, where Lisbon's literary and artistic soul lives.</p></div>
+      <div class="s-desc"><p>Home to the world's biggest waves — surfers from across the globe come to ride the legendary swells of Praia do Norte. A traditional fishing village with a dramatic clifftop view.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Belém & Torre" loading="lazy">
-        <div class="s-num">4 / 7</div>
-        <div class="s-name">Belém & Torre</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-obidos.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Óbidos" loading="lazy">
+        <div class="s-num">4 / 8</div>
+        <div class="s-name">Óbidos</div>
       </div>
-      <div class="s-desc"><p>Out to Belém for the iconic Tower and Jerónimos Monastery — the two great monuments of Portugal's Age of Discovery, UNESCO World Heritage.</p></div>
+      <div class="s-desc"><p>A perfectly preserved medieval walled village — cobblestone streets, whitewashed houses trimmed in yellow and blue, and the famous ginja cherry liqueur served in chocolate cups.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Praça do Comércio" loading="lazy">
-        <div class="s-num">5 / 7</div>
-        <div class="s-name">Praça do Comércio</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-fatima.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Fátima" loading="lazy">
+        <div class="s-num">5 / 8</div>
+        <div class="s-name">Fátima</div>
       </div>
-      <div class="s-desc"><p>Back along the riverside to Lisbon's grand ceremonial square — the triumphal arch, the wide promenade and the Tagus glittering in the afternoon light.</p></div>
+      <div class="s-desc"><p>One of the most visited Catholic pilgrimage sites in the world — the Sanctuary of Fátima draws millions each year to the site of the 1917 Marian apparitions.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-6.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Panoramic Viewpoints" loading="lazy">
-        <div class="s-num">6 / 7</div>
-        <div class="s-name">Panoramic Viewpoints</div>
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-evora.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Évora" loading="lazy">
+        <div class="s-num">6 / 8</div>
+        <div class="s-name">Évora</div>
       </div>
-      <div class="s-desc"><p>The full city tour includes the best miradouros — elevated terraces where all of Lisbon unfolds below you, rooftop by rooftop, river to hills.</p></div>
+      <div class="s-desc"><p>A UNESCO World Heritage city in the Alentejo — Roman temples, a medieval cathedral and the haunting Chapel of Bones built from the skulls of 5,000 monks.</p></div>
+    </div>
+    <div class="slide">
+      <div class="s-photo">
+        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/van-cabo.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Cabo da Roca" loading="lazy">
+        <div class="s-num">7 / 8</div>
+        <div class="s-name">Cabo da Roca</div>
+      </div>
+      <div class="s-desc"><p>The westernmost point of continental Europe — where the land ends and the Atlantic begins. Standing here, the next stop west is America.</p></div>
     </div>
 
     <div class="slide">
@@ -328,7 +312,7 @@ body { padding-bottom: 80px; }
             <polygon points="0,-13 -3,-6 3,-6" fill="#334"/>
           </g>
           <text x="200" y="88" text-anchor="middle" font-family="DM Sans,sans-serif"
-                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Full City Route</text>
+                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Day Trip Destinations</text>
           
           <g transform="translate(120,220)">
             <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
@@ -374,7 +358,7 @@ body { padding-bottom: 80px; }
           </g>
           <rect x="344" y="14" width="40" height="18" rx="9" fill="rgba(0,0,0,.35)"/>
           <text x="364" y="27" text-anchor="middle" font-family="DM Sans,sans-serif"
-                font-size="10" font-weight="700" fill="rgba(255,255,255,.88)">7 / 7</text>
+                font-size="10" font-weight="700" fill="rgba(255,255,255,.88)">8 / 8</text>
         </svg>
       </div></div>
   </div>
@@ -396,17 +380,18 @@ body { padding-bottom: 80px; }
 <button class="dot" data-i="4"></button>
 <button class="dot" data-i="5"></button>
 <button class="dot" data-i="6"></button>
+<button class="dot" data-i="7"></button>
 </div>
 
 <div class="info">
   <div class="price-row">
-    <div class="price"><sup>€</sup>360</div>
-    <div class="price-sub">private group · up to 6 people</div>
+    <div class="price"><sup>€</sup>600</div>
+    <div class="price-sub">private group · no deposit</div>
   </div>
   <div class="pills">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      4h
+      8h
     </span>
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -425,7 +410,7 @@ body { padding-bottom: 80px; }
       Private tour
     </span>
   </div>
-  
+  <div class="van-note">🚐 This is a full day private van tour — no deposit required. Payment at the end of the tour. Choose your destination and we'll plan everything for you.</div>
 </div>
 
 
@@ -434,40 +419,40 @@ body { padding-bottom: 80px; }
   <h3>What's included</h3>
   <ul>
     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> English-speaking local guide</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Free photos during the tour</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Flexible pickup in Lisbon</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Private full day · 8 hours</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Hotel & airport pickup</li>
     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Pay at the end · no deposit</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 6 people · all Lisbon districts</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 8 people · custom destinations</li>
   </ul>
 </div>
 
 <div class="cta-sticky">
   <button class="cta" onclick="goBack()">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Book via WhatsApp
+    Chat with us on WhatsApp
   </button>
 </div>
 
 <script>
   const WA  = '351XXXXXXXXX';
-  const MSG = encodeURIComponent('Quero reservar o Full City Tour! 🛺');
+  const MSG = encodeURIComponent('Quero saber mais sobre o Van Full Day Tour! 🚐');
   function goBack() {
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', {
         send_to: ['AW-18234798096/8PsbCJb48L0cEJDgg_dD', 'AW-17831839287/wIbCCOv1-dIcELeM8bZC'],
         event_category: 'lead',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_van'
       });
       gtag('event', 'whatsapp_click', {
         event_category: 'engagement',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_van'
       });
     }
-    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20City%20Tour%2A%20%284h%20-%20EUR%20360%20per%20group%29.%20Could%20you%20check%20availability%20for%20me%3F";
+    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20Day%20Private%20Van%20Tour%2A%20%288h%20-%20EUR%20600%20per%20group%2C%20up%20to%208%20people%29.%20Could%20you%20check%20availability%20for%20me%3F";
   }
   const track = document.getElementById('track');
   const allDots = document.querySelectorAll('.dot');
-  const N = 7; let cur = 0;
+  const N = 8; let cur = 0;
   function go(n) {
     cur = Math.max(0, Math.min(N-1, n));
     track.scrollTo({ left: cur * track.offsetWidth, behavior: 'smooth' });
