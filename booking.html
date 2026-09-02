@@ -6,6 +6,15 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Book Online | Tuk Tuk Lisbon Tours</title>
   <meta name="description" content="Secure online booking for Tuk Tuk Lisbon Tours." />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18234798096"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18234798096');
+    gtag('config', 'AW-17831839287');
+  </script>
   <link rel="preconnect" href="https://widgets.bokun.io" crossorigin />
   <style>
     :root {
@@ -872,7 +881,23 @@
         }
       };
 
+      var ATTRIBUTION_PARAMS = [
+        'gclid',
+        'gbraid',
+        'wbraid',
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_term',
+        'utm_content',
+        'booking_source'
+      ];
       var params = new URLSearchParams(window.location.search);
+      var attribution = ATTRIBUTION_PARAMS.reduce(function (data, key) {
+        var value = params.get(key);
+        if (value) data[key] = value;
+        return data;
+      }, {});
       var tourId = String(params.get('tour') || 'alfama').toLowerCase();
       var tour = TOURS[tourId] || TOURS.alfama;
       var titleEl = document.getElementById('tour-title');
@@ -957,7 +982,7 @@
       renderHighlights();
 
       function track(eventName, data) {
-        var payload = Object.assign({ event: eventName, tour_id: tourId }, data || {});
+        var payload = Object.assign({ event: eventName, tour_id: tourId }, attribution, data || {});
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(payload);
         if (typeof window.gtag === 'function') window.gtag('event', eventName, payload);

@@ -44,6 +44,16 @@
       label: 'Book online',
     },
   };
+  const ATTRIBUTION_PARAMS = [
+    'gclid',
+    'gbraid',
+    'wbraid',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+  ];
 
   function normalizeTourId(tourId) {
     const key = String(tourId || '').trim();
@@ -52,6 +62,39 @@
 
   function getBookingLink(tourId) {
     return BOOKING_LINKS[normalizeTourId(tourId)] || null;
+  }
+
+  function appendAttribution(url, source) {
+    if (!url || !root || !root.location || typeof URL === 'undefined' || typeof URLSearchParams === 'undefined') {
+      return url;
+    }
+
+    const currentParams = new URLSearchParams(root.location.search || '');
+    const base = root.location.origin || 'https://www.tuktuklisbon.tours';
+    let parsed;
+
+    try {
+      parsed = new URL(url, base);
+    } catch {
+      return url;
+    }
+
+    ATTRIBUTION_PARAMS.forEach((key) => {
+      const value = currentParams.get(key);
+      if (value && !parsed.searchParams.has(key)) parsed.searchParams.set(key, value);
+    });
+
+    if (source && !parsed.searchParams.has('booking_source')) {
+      parsed.searchParams.set('booking_source', source);
+    }
+
+    if (/^https?:\/\//i.test(url)) return parsed.toString();
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+  }
+
+  function buildBookingUrl(tourId, source) {
+    const link = getBookingLink(tourId);
+    return link && link.url ? appendAttribution(link.url, source) : '';
   }
 
   function hasOnlineBooking(tourId) {
@@ -223,9 +266,10 @@
   function openOnlineBooking(tourId, source) {
     const normalizedTourId = normalizeTourId(tourId);
     const link = getBookingLink(normalizedTourId);
-    trackOnlineBooking(normalizedTourId, source, link);
+    const bookingUrl = buildBookingUrl(normalizedTourId, source);
+    trackOnlineBooking(normalizedTourId, source, link ? { ...link, url: bookingUrl || link.url } : link);
     if (!link || !link.url || !root || typeof root.open !== 'function') return false;
-    root.open(link.url, '_blank', 'noopener,noreferrer');
+    root.open(bookingUrl || link.url, '_blank', 'noopener,noreferrer');
     return true;
   }
 
@@ -272,6 +316,8 @@
     hasOnlineBooking,
     hydrateButtons,
     normalizeTourId,
+    appendAttribution,
+    buildBookingUrl,
     openOnlineBooking,
     trackOnlineBooking,
   };

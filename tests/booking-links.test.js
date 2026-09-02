@@ -20,6 +20,29 @@ test('has Bókun booking-page links for every tour', () => {
   });
 });
 
+test('preserves Google Ads attribution from landing page to checkout', () => {
+  const previousLocation = globalThis.location;
+  globalThis.location = {
+    origin: 'https://www.tuktuklisbon.tours',
+    search: '?gclid=CLICK123&utm_source=google&utm_medium=cpc&utm_campaign=express_30&utm_term=tuk+tuk+lisbon',
+  };
+
+  try {
+    const url = booking.buildBookingUrl('express', 'tour_page_price_block');
+    assert.match(url, /^\/booking\.html\?tour=express&/);
+    const params = new URLSearchParams(url.split('?')[1]);
+    assert.equal(params.get('gclid'), 'CLICK123');
+    assert.equal(params.get('utm_source'), 'google');
+    assert.equal(params.get('utm_medium'), 'cpc');
+    assert.equal(params.get('utm_campaign'), 'express_30');
+    assert.equal(params.get('utm_term'), 'tuk tuk lisbon');
+    assert.equal(params.get('booking_source'), 'tour_page_price_block');
+  } finally {
+    if (previousLocation === undefined) delete globalThis.location;
+    else globalThis.location = previousLocation;
+  }
+});
+
 test('embeds the Bókun calendar widget inline', () => {
   const html = fs.readFileSync(path.join(__dirname, '..', 'booking.html'), 'utf8');
 
@@ -47,6 +70,9 @@ test('shows Tripadvisor-powered trust messaging for online booking', () => {
 test('checkout page includes tour photos and reassurance content', () => {
   const bookingHtml = fs.readFileSync(path.join(__dirname, '..', 'booking.html'), 'utf8');
 
+  assert.match(bookingHtml, /googletagmanager\.com\/gtag\/js\?id=AW-18234798096/);
+  assert.match(bookingHtml, /gtag\('config', 'AW-17831839287'\)/);
+  assert.match(bookingHtml, /booking_source/);
   assert.match(bookingHtml, /id="photo-track"/);
   assert.match(bookingHtml, /\/images\/miradouros-1\.jpg/);
   assert.match(bookingHtml, /\/images\/express-senhora-do-monte\.png/);
