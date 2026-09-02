@@ -182,6 +182,7 @@ test('documents safe availability strategy in the sync plan', () => {
   const plan = buildTourSyncPlan();
 
   assert.equal(plan.updateExisting.experienceId, 1276905);
+  assert.equal(plan.bokunExperienceIds.express, 1278862);
   assert.equal(plan.bokunExperienceIds.belem, 1273417);
   assert.equal(plan.createDrafts.length, 4);
   assert.match(plan.availabilityStrategy, /Resource Management/i);
@@ -247,6 +248,7 @@ test('keeps the created Bókun IDs and contact update payload explicit', () => {
   const payload = buildContactInfoUpdatePayload();
 
   assert.equal(BOKUN_EXPERIENCE_IDS.chiado, 1273418);
+  assert.equal(BOKUN_EXPERIENCE_IDS.express, 1278862);
   assert.deepEqual(payload.mainPaxInfo.map((field) => field.type), [
     'FIRST_NAME',
     'LAST_NAME',
