@@ -1,0 +1,230 @@
+{
+  "business": {
+    "name": "Tuk Tuk Lisbon Tours",
+    "site": "https://www.tuktuklisbon.tours",
+    "email": "contact@tuktuklisbon.tours",
+    "whatsapp": "351967315921",
+    "displayWhatsapp": "+351 967 315 921",
+    "ownerGuideName": "Natanael",
+    "languages": ["English", "Portuguese"],
+    "operations": {
+      "tukTuks": 2,
+      "passengersPerTukTuk": 6,
+      "availabilityNote": "Online availability is managed in Bókun. Manual bookings must be added to Bókun before a time is confirmed to the customer."
+    }
+  },
+  "policies": {
+    "availability": "Use Bókun as the source of truth for online availability. Do not promise availability from WhatsApp, phone, or manual channels until the booking is held or created in Bókun.",
+    "payment": "Online bookings require a 20% deposit through the secure Bókun checkout. The remaining balance is paid in person on the tour day by card or cash.",
+    "pickup": "Pickup is flexible in Lisbon unless a tour page says otherwise.",
+    "privacy": "Collect only the details needed to reply to a tour request: name, email, desired date, preferred time, number of guests, pickup area, tour of interest, and message. Phone or WhatsApp is optional."
+  },
+  "tours": [
+    {
+      "id": "alfama",
+      "name": "Alfama Tour",
+      "shortName": "Alfama",
+      "homeName": "Viewpoints + Alfama (old town)",
+      "url": "/tours/alfama",
+      "duration": "1h30",
+      "durationMinutes": 90,
+      "price": {
+        "currency": "EUR",
+        "amount": 130,
+        "label": "EUR 130 per private group"
+      },
+      "capacity": {
+        "label": "up to 6 people per tuk tuk",
+        "maxGuests": 6,
+        "vehicle": "tuk tuk"
+      },
+      "description": "Private Alfama tuk tuk tour in Lisbon through Fado streets, viewpoints and medieval neighborhoods.",
+      "bestFor": ["Historic Lisbon", "Local & authentic Lisbon", "viewpoints", "old town", "short visit", "first time in Lisbon"],
+      "attractions": [
+        "Se Cathedral",
+        "Portas do Sol",
+        "Miradouro de Santa Luzia",
+        "Miradouro da Graca",
+        "Panteao Nacional",
+        "Igreja Sao Vicente de Fora"
+      ],
+      "highlights": ["Fado streets", "medieval Alfama", "panoramic viewpoints", "historic Lisbon"],
+      "included": [
+        "English-speaking local guide",
+        "Free photos during the tour",
+        "Flexible pickup in Lisbon",
+        "20% online deposit; remaining balance paid in person",
+        "Private group"
+      ],
+      "pickup": "Flexible pickup in Lisbon",
+      "important": [
+        "Price is per private group up to 6 people.",
+        "Instant online checkout depends on Bókun availability and resource rules."
+      ]
+    },
+    {
+      "id": "belem",
+      "name": "Belem Tour",
+      "shortName": "Belem",
+      "url": "/tours/belem",
+      "duration": "2h",
+      "durationMinutes": 120,
+      "price": {
+        "currency": "EUR",
+        "amount": 190,
+        "label": "EUR 190 per private group"
+      },
+      "capacity": {
+        "label": "up to 6 people per tuk tuk",
+        "maxGuests": 6,
+        "vehicle": "tuk tuk"
+      },
+      "description": "Private Belem tuk tuk tour in Lisbon with monuments, river views and a local guide.",
+      "bestFor": ["Belem & Portuguese Discoveries", "monuments", "river views", "pasteis de nata", "UNESCO"],
+      "attractions": [
+        "Belem Tower",
+        "Jeronimos Monastery",
+        "Monument to the Discoveries",
+        "Pasteis de Belem",
+        "Belem Riverside"
+      ],
+      "highlights": ["Age of Discoveries", "UNESCO monuments", "riverfront Lisbon", "pasteis de nata stop"],
+      "included": [
+        "English-speaking local guide",
+        "Free photos during the tour",
+        "Flexible pickup in Lisbon",
+        "20% online deposit; remaining balance paid in person",
+        "Private group"
+      ],
+      "pickup": "Flexible pickup in Lisbon",
+      "important": [
+        "Price is per private group up to 6 people.",
+        "Instant online checkout depends on Bókun availability and resource rules."
+      ]
+    },
+    {
+      "id": "chiado",
+      "name": "Chiado & Bairro Alto Tour",
+      "shortName": "Chiado",
+      "url": "/tours/chiado",
+      "duration": "2h",
+      "durationMinutes": 120,
+      "price": {
+        "currency": "EUR",
+        "amount": 190,
+        "label": "EUR 190 per private group"
+      },
+      "capacity": {
+        "label": "up to 6 people per tuk tuk",
+        "maxGuests": 6,
+        "vehicle": "tuk tuk"
+      },
+      "description": "Private Chiado and Bairro Alto tuk tuk tour through culture, viewpoints and bohemian Lisbon.",
+      "bestFor": ["culture", "art", "bohemian Lisbon", "downtown", "central Lisbon", "viewpoints"],
+      "attractions": [
+        "Praca do Comercio",
+        "Rua Augusta",
+        "Chiado District",
+        "Bairro Alto",
+        "Elevador da Bica",
+        "Miradouro de Sao Pedro de Alcantara"
+      ],
+      "highlights": ["Baixa", "Chiado", "Bairro Alto", "Bica funicular", "panoramic viewpoint"],
+      "included": [
+        "English-speaking local guide",
+        "Free photos during the tour",
+        "Flexible pickup in Lisbon",
+        "20% online deposit; remaining balance paid in person",
+        "Private group"
+      ],
+      "pickup": "Flexible pickup in Lisbon",
+      "important": [
+        "Price is per private group up to 6 people.",
+        "Instant online checkout depends on Bókun availability and resource rules."
+      ]
+    },
+    {
+      "id": "fullcity",
+      "name": "Full City Tour",
+      "shortName": "Full City",
+      "url": "/tours/fullcity",
+      "duration": "4h",
+      "durationMinutes": 240,
+      "price": {
+        "currency": "EUR",
+        "amount": 360,
+        "label": "EUR 360 per private group"
+      },
+      "capacity": {
+        "label": "up to 6 people per tuk tuk",
+        "maxGuests": 6,
+        "vehicle": "tuk tuk"
+      },
+      "description": "Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.",
+      "bestFor": ["See as much as possible", "complete Lisbon", "all districts", "first time in Lisbon", "longer tour"],
+      "attractions": [
+        "Alfama & Se Cathedral",
+        "Castelo de Sao Jorge",
+        "Baixa & Chiado",
+        "Belem & Tower",
+        "Praca do Comercio",
+        "Panoramic Viewpoints"
+      ],
+      "highlights": ["Alfama", "castle viewpoints", "Baixa", "Chiado", "Belem", "riverside"],
+      "included": [
+        "English-speaking local guide",
+        "Free photos during the tour",
+        "Flexible pickup in Lisbon",
+        "20% online deposit; remaining balance paid in person",
+        "All Lisbon districts"
+      ],
+      "pickup": "Flexible pickup in Lisbon",
+      "important": [
+        "Price is per private group up to 6 people.",
+        "Instant online checkout depends on Bókun availability and resource rules."
+      ]
+    },
+    {
+      "id": "van",
+      "name": "Van Full Day Tour",
+      "shortName": "Van",
+      "url": "/tours/van",
+      "duration": "8h",
+      "durationMinutes": 480,
+      "price": {
+        "currency": "EUR",
+        "amount": 600,
+        "label": "EUR 600 per private group"
+      },
+      "capacity": {
+        "label": "up to 8 people",
+        "maxGuests": 8,
+        "vehicle": "private van"
+      },
+      "description": "Private full day van tour from Lisbon to Sintra, Cascais, Obidos, Nazare, Fatima, Evora or Cabo da Roca.",
+      "bestFor": ["day trip", "beyond Lisbon", "Sintra", "Cascais", "Obidos", "Nazare", "Fatima", "Evora", "Cabo da Roca"],
+      "attractions": [
+        "Sintra",
+        "Cascais",
+        "Nazare",
+        "Obidos",
+        "Fatima",
+        "Evora",
+        "Cabo da Roca"
+      ],
+      "highlights": ["full day private van", "custom destination", "hotel and airport pickup", "beyond Lisbon"],
+      "included": [
+        "English-speaking local guide",
+        "Private full day - 8 hours",
+        "Hotel & airport pickup",
+        "20% online deposit; remaining balance paid in person",
+        "Custom destinations"
+      ],
+      "pickup": "Hotel & airport pickup",
+      "important": [
+        "Price is per private group up to 8 people.",
+        "Instant online checkout depends on Bókun availability and the dedicated van resource."
+      ]
+    }
+  ]
+}

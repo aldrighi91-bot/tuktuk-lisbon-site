@@ -18,7 +18,7 @@
 <link rel="preload" as="image" href="/images/hero.jpg" fetchpriority="high" />
 <meta name="facebook-domain-verification" content="eau25damrfkxfjfmizr6ld9k18vuq3" />
 <title>Private Tuk Tuk Tours in Lisbon | Tuk Tuk Lisbon</title>
-<meta name="description" content="Private tuk tuk tours in Lisbon with a local guide. Flexible pickup, English/Spanish/Portuguese guides, and payment only at the end of the tour." />
+<meta name="description" content="Private tuk tuk tours in Lisbon with a local guide. Flexible pickup, English/Spanish/Portuguese guides, and secure online booking with a 20% deposit." />
 <meta property="og:title" content="Private Tuk Tuk Tours in Lisbon | Tuk Tuk Lisbon" />
 <meta property="og:description" content="Book a private tuk tuk tour in Lisbon. Flexible pickup, local guide, and WhatsApp availability." />
 <meta property="og:type" content="website" />
@@ -65,6 +65,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/tailwind.css" />
+<link rel="stylesheet" href="/assets/concierge.css" />
 <style>
   html { scroll-behavior:smooth; }
   body { font-family:'DM Sans', sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
@@ -299,13 +300,20 @@
                   <p class="text-xs text-muted">for a group of 8</p>
                 </div>
               </div>
-              <a href="https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20Day%20Private%20Van%20Tour%2A%20%288h%20%E2%80%94%20%E2%82%AC600%20per%20group%2C%20up%20to%208%20people%29.%20Could%20you%20check%20availability%20for%20me%3F%20%F0%9F%98%8A"
-                 target="_blank" rel="noopener" data-whatsapp-label="van_home"
-                 class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold text-base transition">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                Book Van Tour via WhatsApp
-              </a>
-              <p class="text-xs text-muted text-center bg-surface py-2 rounded-md mt-3">Full payment only at the end of the tour.</p>
+              <div class="grid gap-2">
+                <button onclick="openOnlineBooking('van_home', 'home_van_card')" data-booking-tour="van_home" data-booking-label="Book Online" data-booking-pending-label="Online booking soon" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md bg-brand-700 text-white font-bold text-base transition hover:bg-brand-800 disabled:opacity-60 disabled:cursor-not-allowed">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span data-booking-text>Book Online</span>
+                </button>
+                <p class="text-[11px] leading-snug text-muted text-center">Pay 20% online. Remaining balance in person by card or cash.</p>
+                <a href="https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20Day%20Private%20Van%20Tour%2A%20%288h%20%E2%80%94%20%E2%82%AC600%20per%20group%2C%20up%20to%208%20people%29.%20Could%20you%20check%20availability%20for%20me%3F%20%F0%9F%98%8A"
+                   target="_blank" rel="noopener" data-whatsapp-label="van_home"
+                   class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold text-base transition">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  Book Van Tour via WhatsApp
+                </a>
+              </div>
+              <p class="text-xs text-muted text-center bg-surface py-2 rounded-md mt-3">Reserve online with 20% deposit. Remaining balance is paid in person by card or cash.</p>
             </div>
           </div>
         </div>
@@ -443,8 +451,85 @@
 </div>
 
 
-<script src="i18n.js"></script>
-<script src="app.js"></script>
+<script src="/booking-links.js?v=20260820-cachefix"></script>
+<script src="/i18n.js?v=20260820-cachefix"></script>
+<script src="/app.js?v=20260820-cachefix"></script>
+<script>
+(function () {
+  const bookingMap = [
+    { id: 'miradouros', booking: 'alfama', names: ['viewpoints + alfama', 'miradouros + alfama', 'miradores + alfama'] },
+    { id: 'centro-historico', booking: 'chiado', names: ['chiado & bairro alto'] },
+    { id: 'belem', booking: 'belem', names: ['belem', 'belém'] },
+    { id: 'personalizado', booking: 'fullcity', names: ['full city tour'] },
+  ];
+
+  function inferTour(article) {
+    const text = (article.textContent || '').toLowerCase();
+    return bookingMap.find((item) => item.names.some((name) => text.includes(name)));
+  }
+
+  function openBooking(tourId) {
+    if (window.openOnlineBooking) {
+      window.openOnlineBooking(tourId, 'home_inline_fallback');
+      return;
+    }
+    const item = bookingMap.find((entry) => entry.id === tourId);
+    const bookingId = item ? item.booking : tourId;
+    window.open('/booking.html?tour=' + encodeURIComponent(bookingId), '_blank', 'noopener,noreferrer');
+  }
+
+  function createButton(tourId) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'w-full h-12 inline-flex items-center justify-center gap-2 rounded-md bg-brand-700 text-white font-bold transition active:scale-[.98] hover:bg-brand-800';
+    button.setAttribute('data-booking-tour', tourId);
+    button.setAttribute('data-booking-label', 'Book Online');
+    button.innerHTML = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-booking-text>Book Online</span>';
+    button.addEventListener('click', () => openBooking(tourId));
+    return button;
+  }
+
+  function createTrustLine() {
+    const p = document.createElement('p');
+    p.className = 'text-[11px] leading-snug text-muted text-center';
+    p.textContent = 'Pay 20% online. Remaining balance in person by card or cash.';
+    return p;
+  }
+
+  function ensureHomepageBookingButtons() {
+    document.querySelectorAll('#tours-grid article').forEach((article) => {
+      if (article.querySelector('[data-booking-tour]')) return;
+      const tour = inferTour(article);
+      if (!tour) return;
+      const whatsapp = Array.from(article.querySelectorAll('button, a')).find((el) => /whatsapp/i.test(el.textContent || ''));
+      if (!whatsapp || !whatsapp.parentElement) return;
+      whatsapp.parentElement.insertBefore(createButton(tour.id), whatsapp);
+      whatsapp.parentElement.insertBefore(createTrustLine(), whatsapp);
+    });
+
+    if (window.TukTukBooking && typeof window.TukTukBooking.hydrateButtons === 'function') {
+      window.TukTukBooking.hydrateButtons(document);
+    }
+  }
+
+  let fallbackPending = false;
+  function scheduleHomepageBookingButtons() {
+    if (fallbackPending) return;
+    fallbackPending = true;
+    setTimeout(() => {
+      fallbackPending = false;
+      ensureHomepageBookingButtons();
+    }, 0);
+  }
+
+  ensureHomepageBookingButtons();
+  [100, 500, 1500, 3000].forEach((delay) => setTimeout(ensureHomepageBookingButtons, delay));
+  if (window.MutationObserver) {
+    new MutationObserver(scheduleHomepageBookingButtons).observe(document.documentElement, { childList: true, subtree: true });
+  }
+})();
+</script>
+<script defer src="/concierge.js"></script>
 </body>
 </html>
 

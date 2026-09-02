@@ -41,27 +41,27 @@
   };
   const POPULAR_ID = 'miradouros';
   const HERO_PROOF = {
-    en: ['Private tours', 'Flexible pickup', 'From €130/group', 'Pay at the end'],
-    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', 'Pague no final'],
-    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', 'Pago al final'],
+    en: ['Private tours', 'Flexible pickup', 'From €130/group', '20% deposit online'],
+    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', '20% online'],
+    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', '20% online'],
   };
 
   const TOUR_WA_MESSAGES = {
     en: {
       miradouros:       "Hello! I'm interested in booking the *Viewpoints + Alfama Tour* (1.5h — €130 per group). Could you check availability for me? 😊",
-      'centro-historico': "Hello! I'm interested in booking the *Chiado & Bairro Alto Tour* (1.5h — €190 per group). Could you check availability for me? 😊",
+      'centro-historico': "Hello! I'm interested in booking the *Chiado & Bairro Alto Tour* (2h — €190 per group). Could you check availability for me? 😊",
       belem:            "Hello! I'm interested in booking the *Belém Tour* (2h — €190 per group). Could you check availability for me? 😊",
       personalizado:    "Hello! I'm interested in booking the *Full City Tour* (4h — €360 per group). Could you check availability for me? 😊",
     },
     pt: {
       miradouros:       "Olá! Tenho interesse em reservar o *Tour Miradouros + Alfama* (1.5h — €130 por grupo). Podem verificar disponibilidade? 😊",
-      'centro-historico': "Olá! Tenho interesse em reservar o *Tour Chiado & Bairro Alto* (1.5h — €190 por grupo). Podem verificar disponibilidade? 😊",
+      'centro-historico': "Olá! Tenho interesse em reservar o *Tour Chiado & Bairro Alto* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
       belem:            "Olá! Tenho interesse em reservar o *Tour Belém* (2h — €190 por grupo). Podem verificar disponibilidade? 😊",
       personalizado:    "Olá! Tenho interesse em reservar o *Full City Tour* (4h — €360 por grupo). Podem verificar disponibilidade? 😊",
     },
     es: {
       miradouros:       "¡Hola! Me interesa reservar el *Tour Miradores + Alfama* (1.5h — €130 por grupo). ¿Pueden verificar disponibilidad? 😊",
-      'centro-historico': "¡Hola! Me interesa reservar el *Tour Chiado & Bairro Alto* (1.5h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
+      'centro-historico': "¡Hola! Me interesa reservar el *Tour Chiado & Bairro Alto* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
       belem:            "¡Hola! Me interesa reservar el *Tour Belém* (2h — €190 por grupo). ¿Pueden verificar disponibilidad? 😊",
       personalizado:    "¡Hola! Me interesa reservar el *Tour Ciudad Completa* (4h — €360 por grupo). ¿Pueden verificar disponibilidad? 😊",
     },
@@ -168,10 +168,17 @@
             <p class="text-sm text-muted">⏱ ${t.duration} · up to 6 people</p>
           </div>
         </div>
-        <button onclick="openWaTour('${id}')" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Book via WhatsApp
-        </button>
+        <div class="grid gap-2">
+          <button onclick="openOnlineBooking('${id}', 'home_tour_card')" data-booking-tour="${id}" data-booking-label="${tn.bookOnline}" data-booking-pending-label="${tn.bookOnlineSoon}" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md bg-brand-700 text-white font-bold transition active:scale-[.98] hover:bg-brand-800 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span data-booking-text>${tn.bookOnline}</span>
+          </button>
+          <p class="text-[11px] leading-snug text-muted text-center">${tn.bookTrust}</p>
+          <button onclick="openWaTour('${id}')" class="w-full h-12 inline-flex items-center justify-center gap-2 rounded-md cta-whatsapp text-white font-bold transition active:scale-[.98]">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            ${tn.bookWhatsapp}
+          </button>
+        </div>
       </div>
     </article>`;
   }
@@ -251,6 +258,7 @@
     van_home: 600,
     floating: 130,
     generic: 130,
+    concierge: 190,
     whatsapp_link: 130,
   };
 
@@ -273,7 +281,7 @@
   function captureAttribution() {
     const params = new URLSearchParams(window.location.search);
     const current = {};
-    ATTRIBUTION_PARAMS.forEach(key => {
+    ATTRIBUTION_PARAMS.forEach((key) => {
       const value = params.get(key);
       if (value) current[key] = value;
     });
@@ -474,6 +482,10 @@
     document.querySelectorAll('#lang-switcher .lang-btn').forEach(b => {
       b.setAttribute('aria-current', b.dataset.lang === lang ? 'true' : 'false');
     });
+
+    if (window.TukTukBooking && typeof window.TukTukBooking.hydrateButtons === 'function') {
+      window.TukTukBooking.hydrateButtons(document);
+    }
   }
 
   /* ===== language switcher ===== */
@@ -507,6 +519,12 @@
     const msgs = TOUR_WA_MESSAGES[lang] || TOUR_WA_MESSAGES['en'];
     const msg = msgs[tourId] || get('contact.whatsappMsg');
     openTrackedWhatsApp(tourId, msg);
+  };
+
+  window.openOnlineBooking = function (tourId, source) {
+    if (window.TukTukBooking && typeof window.TukTukBooking.openOnlineBooking === 'function') {
+      window.TukTukBooking.openOnlineBooking(tourId, source || 'site');
+    }
   };
 
   /* ===== boot ===== */

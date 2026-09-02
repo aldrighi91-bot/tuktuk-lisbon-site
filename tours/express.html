@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Full City Tour · Tuk Tuk Lisbon</title>
-<meta name="description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
-<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/fullcity">
-<meta property="og:title" content="Full City Tour | Tuk Tuk Lisbon">
-<meta property="og:description" content="Full day Lisbon city tour: Private 4h tuk tuk. All neighborhoods, viewpoints, culture. Local guide, €360/group. Book via WhatsApp.">
+<title>Tuk Tuk Express 30min · Tuk Tuk Lisbon</title>
+<meta name="description" content="Quick 30-minute electric tuk tuk tour in Lisbon through Alfama, Se Cathedral and Senhora do Monte, the highest viewpoint in the city. Book online or by WhatsApp.">
+<link rel="canonical" href="https://www.tuktuklisbon.tours/tours/express">
+<meta property="og:title" content="Tuk Tuk Express 30min | Tuk Tuk Lisbon">
+<meta property="og:description" content="Quick 30-minute electric tuk tuk tour in Lisbon through Alfama, Se Cathedral and Senhora do Monte, the highest viewpoint in the city.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/fullcity">
-<meta property="og:image" content="https://www.tuktuklisbon.tours/images/hero.jpg">
+<meta property="og:url" content="https://www.tuktuklisbon.tours/tours/express">
+<meta property="og:image" content="https://www.tuktuklisbon.tours/images/express-senhora-do-monte.png">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18234798096"></script>
@@ -25,10 +25,10 @@
 {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
-  "name": "Full City Tour",
-  "description": "Private Full City tuk tuk tour in Lisbon, a 4-hour flexible itinerary for the main districts and viewpoints.",
-  "url": "https://www.tuktuklisbon.tours/tours/fullcity",
-  "image": "https://www.tuktuklisbon.tours/images/hero.jpg",
+  "name": "Tuk Tuk Express 30min",
+  "description": "Quick 30-minute electric tuk tuk tour in Lisbon through Alfama, Se Cathedral and Senhora do Monte, the highest viewpoint in the city. Book online or by WhatsApp.",
+  "url": "https://www.tuktuklisbon.tours/tours/express",
+  "image": "https://www.tuktuklisbon.tours/images/express-senhora-do-monte.png",
   "provider": {
     "@type": "LocalBusiness",
     "name": "Tuk Tuk Lisbon",
@@ -42,35 +42,11 @@
   },
   "offers": {
     "@type": "Offer",
-    "price": "360",
+    "price": "10",
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
-    "url": "https://www.tuktuklisbon.tours/tours/fullcity"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "140",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "review": [
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Emma W."},
-      "datePublished": "2026-08-22",
-      "description": "Saw the whole city in one day! Guide was patient and accommodating.",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    },
-      {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Carlos M."},
-      "datePublished": "2026-08-16",
-      "description": "Best value for money. Worth every minute and every euro!",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    }
-  ]
-}
+    "url": "https://www.tuktuklisbon.tours/tours/express"
+  }
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛺%3C/text%3E%3C/svg%3E">
@@ -197,6 +173,14 @@ body {
 .cta svg { width: 19px; height: 19px; flex-shrink: 0; }
 .cta-online { background: var(--blue); box-shadow: 0 4px 16px -4px rgba(37,99,235,.45); }
 .cta-online:active { background: hsl(221 83% 43%); }
+.cta-inline { padding: 14px 18px 0; display: grid; gap: 9px; }
+.cta-copy {
+  margin: -1px 2px 2px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+  text-align: center;
+}
 .cta[disabled],
 .cta.is-booking-unavailable {
   background: hsl(215 16% 58%);
@@ -216,6 +200,31 @@ body {
 .review-banner .stars { color: #f5a623; font-size: 14px; letter-spacing: 1px; flex-shrink: 0; }
 .review-banner .txt { font-size: 12px; font-weight: 600; color: #6b4f00; line-height: 1.3; }
 .review-banner .txt b { font-weight: 800; }
+
+.trust-strip {
+  margin: 10px 18px 0;
+  display: grid;
+  gap: 8px;
+}
+.trust-item {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.trust-item strong {
+  display: block;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.trust-item span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
 
 /* Included list */
 .included {
@@ -257,12 +266,13 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
 <body>
 
 <div class="title">
-  <h1>Full City Tour</h1>
-  <p>The complete Lisbon experience · 4h · All districts</p>
+  <h1>Tuk Tuk Express</h1>
+  <p>Alfama, Se Cathedral & Senhora do Monte · 30min · Quick Lisbon route</p>
 </div>
+
 <div class="review-banner">
   <div class="stars">★★★★★</div>
-  <div class="txt"><b>Top Rated</b> complete Lisbon tuk tuk tour in Lisbon</div>
+  <div class="txt"><b>Quick route</b> to Lisbon's highest viewpoint</div>
 </div>
 
 <div class="c-wrap">
@@ -270,51 +280,51 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
 
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Alfama & Sé Cathedral" loading="eager">
+        <img src="/images/express-senhora-do-monte.png" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Senhora do Monte viewpoint" loading="eager">
         <div class="s-num">1 / 7</div>
-        <div class="s-name">Alfama & Sé Cathedral</div>
+        <div class="s-name">Senhora do Monte</div>
       </div>
-      <div class="s-desc"><p>Begin in Lisbon's oldest district — medieval streets, tiled facades and the 12th century cathedral that survived the great earthquake of 1755.</p></div>
+      <div class="s-desc"><p>The highest viewpoint in Lisbon and the main stop of this express route, with a wide view over Alfama, the castle, the river and the 25 de Abril Bridge.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Castelo de São Jorge" loading="lazy">
+        <img src="/images/express-tuk-se.png" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'" alt="Electric tuk tuk near Se Cathedral" loading="lazy">
         <div class="s-num">2 / 7</div>
-        <div class="s-name">Castelo de São Jorge</div>
+        <div class="s-name">Se Cathedral</div>
       </div>
-      <div class="s-desc"><p>The ancient Moorish castle crowning Lisbon's highest hill — with 360° views over the entire city, the Tagus and the bridge that echoes San Francisco.</p></div>
+      <div class="s-desc"><p>A fast pass through Lisbon's oldest cathedral area, with tiled streets and the classic Alfama atmosphere right from the tuk tuk.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Baixa & Chiado" loading="lazy">
+        <img src="/images/miradouros-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80'" alt="Portas do Sol" loading="lazy">
         <div class="s-num">3 / 7</div>
-        <div class="s-name">Baixa & Chiado</div>
+        <div class="s-name">Portas do Sol</div>
       </div>
-      <div class="s-desc"><p>Through the elegant grid of Baixa — rebuilt after the 1755 earthquake — up into bohemian Chiado, where Lisbon's literary and artistic soul lives.</p></div>
+      <div class="s-desc"><p>One of Alfama's most loved panoramic terraces, overlooking red rooftops, churches and the Tagus River.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Belém & Torre" loading="lazy">
+        <img src="/images/miradouros-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=800&q=80'" alt="Miradouro de Santa Luzia" loading="lazy">
         <div class="s-num">4 / 7</div>
-        <div class="s-name">Belém & Torre</div>
+        <div class="s-name">Santa Luzia</div>
       </div>
-      <div class="s-desc"><p>Out to Belém for the iconic Tower and Jerónimos Monastery — the two great monuments of Portugal's Age of Discovery, UNESCO World Heritage.</p></div>
+      <div class="s-desc"><p>A beautiful Alfama viewpoint with tile panels, river views and one of the most photogenic corners of old Lisbon.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Praça do Comércio" loading="lazy">
+        <img src="/images/miradouros-4.jpg" onerror="this.src='https://images.unsplash.com/photo-1580978543604-72c75b2a0a75?w=800&q=80'" alt="Miradouro da Graca" loading="lazy">
         <div class="s-num">5 / 7</div>
-        <div class="s-name">Praça do Comércio</div>
+        <div class="s-name">Graca Viewpoint</div>
       </div>
-      <div class="s-desc"><p>Back along the riverside to Lisbon's grand ceremonial square — the triumphal arch, the wide promenade and the Tagus glittering in the afternoon light.</p></div>
+      <div class="s-desc"><p>The route climbs quickly toward Graca, giving you the feeling of Lisbon's hills without needing a long walking tour.</p></div>
     </div>
     <div class="slide">
       <div class="s-photo">
-        <img src="https://raw.githubusercontent.com/aldrighi91-bot/tuktuk-lisbon-site/main/images/fullcity-6.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Panoramic Viewpoints" loading="lazy">
+        <img src="/images/miradouros-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80'" alt="Alfama streets" loading="lazy">
         <div class="s-num">6 / 7</div>
-        <div class="s-name">Panoramic Viewpoints</div>
+        <div class="s-name">Alfama Streets</div>
       </div>
-      <div class="s-desc"><p>The full city tour includes the best miradouros — elevated terraces where all of Lisbon unfolds below you, rooftop by rooftop, river to hills.</p></div>
+      <div class="s-desc"><p>A compact ride through narrow streets, viewpoints and historic corners that are hard to reach by car or bus.</p></div>
     </div>
 
     <div class="slide">
@@ -342,7 +352,7 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
             <polygon points="0,-13 -3,-6 3,-6" fill="#334"/>
           </g>
           <text x="200" y="88" text-anchor="middle" font-family="DM Sans,sans-serif"
-                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Full City Route</text>
+                font-size="11" font-weight="700" fill="#6b7a99" opacity=".8">Lisboa — Express Route</text>
           
           <g transform="translate(120,220)">
             <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
@@ -380,12 +390,6 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
             <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
                   font-size="10" font-weight="800" fill="white">6</text>
           </g>
-          <g transform="translate(200,310)">
-            <circle cx="0" cy="-22" r="12" fill="hsl(221 83% 53%)"/>
-            <polygon points="0,0 -6,-14 6,-14" fill="hsl(221 83% 53%)"/>
-            <text x="0" y="-18" text-anchor="middle" font-family="DM Sans,sans-serif"
-                  font-size="10" font-weight="800" fill="white">7</text>
-          </g>
           <rect x="344" y="14" width="40" height="18" rx="9" fill="rgba(0,0,0,.35)"/>
           <text x="364" y="27" text-anchor="middle" font-family="DM Sans,sans-serif"
                 font-size="10" font-weight="700" fill="rgba(255,255,255,.88)">7 / 7</text>
@@ -414,13 +418,13 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
 
 <div class="info">
   <div class="price-row">
-    <div class="price"><sup>€</sup>360</div>
-    <div class="price-sub">private group · up to 6 people</div>
+    <div class="price"><sup>€</sup>10</div>
+    <div class="price-sub">per person · quick express route</div>
   </div>
   <div class="pills">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      4h
+      30min
     </span>
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -432,7 +436,7 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
     </span>
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      20% deposit online
+      Book online
     </span>
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -442,21 +446,46 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
   
 </div>
 
+<div class="cta-inline">
+  <button class="cta cta-online" onclick="bookOnline('express', 'tour_page_price_block')" data-booking-tour="express" data-booking-label="Book online" data-booking-pending-label="Online booking soon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span data-booking-text>Book online</span>
+  </button>
+  <p class="cta-copy">Secure checkout powered by Bókun, a Tripadvisor company. Choose your time online when the Express product is connected.</p>
+  <button class="cta" onclick="goBack()">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Book via WhatsApp
+  </button>
+</div>
 
+<div class="trust-strip">
+  <div class="trust-item">
+    <strong>Tripadvisor-powered booking technology</strong>
+    <span>The online checkout runs on Bókun, part of Tripadvisor and connected with Viator distribution tools.</span>
+  </div>
+  <div class="trust-item">
+    <strong>20% deposit online</strong>
+    <span>The Express product is priced at EUR 10 per person and can be connected to the Bókun checkout as soon as the product ID is confirmed.</span>
+  </div>
+  <div class="trust-item">
+    <strong>Fastest scenic route</strong>
+    <span>Designed for travelers who want Alfama, Se Cathedral and Senhora do Monte without booking a long tour.</span>
+  </div>
+</div>
 
 <div class="included">
   <h3>What's included</h3>
   <ul>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> English-speaking local guide</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Free photos during the tour</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Flexible pickup in Lisbon</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> 20% deposit online · balance in person</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 6 people · all Lisbon districts</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> 30-minute electric tuk tuk ride</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Main stop at Senhora do Monte</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Alfama and Se Cathedral route</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Photo stop at Lisbon's highest viewpoint</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> EUR 10 per person</li>
   </ul>
 </div>
 
 <div class="cta-sticky">
-  <button class="cta cta-online" onclick="bookOnline('fullcity')" data-booking-tour="fullcity" data-booking-label="Book online" data-booking-pending-label="Online booking soon">
+  <button class="cta cta-online" onclick="bookOnline('express')" data-booking-tour="express" data-booking-label="Book online" data-booking-pending-label="Online booking soon">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     <span data-booking-text>Book online</span>
   </button>
@@ -469,24 +498,24 @@ body { padding-bottom: 138px; --tlc-bottom-offset: 148px; --tlc-mobile-bottom-of
 <script src="/booking-links.js?v=20260820-cachefix"></script>
 <script>
   const WA  = '351XXXXXXXXX';
-  const MSG = encodeURIComponent('Quero reservar o Full City Tour! 🛺');
+  const MSG = encodeURIComponent('Quero reservar o Tuk Tuk Express 30min! 🛺');
   function goBack() {
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', {
         send_to: ['AW-18234798096/8PsbCJb48L0cEJDgg_dD', 'AW-17831839287/wIbCCOv1-dIcELeM8bZC'],
         event_category: 'lead',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_express'
       });
       gtag('event', 'whatsapp_click', {
         event_category: 'engagement',
-        event_label: 'tour_fullcity'
+        event_label: 'tour_express'
       });
     }
-    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2AFull%20City%20Tour%2A%20%284h%20-%20EUR%20360%20per%20group%29.%20Could%20you%20check%20availability%20for%20me%3F";
+    window.location.href = "https://wa.me/351967315921?text=Hello%21%20I%27m%20interested%20in%20booking%20the%20%2ATuk%20Tuk%20Express%2030min%2A%20%28EUR%2010%20per%20person%29%20with%20a%20stop%20at%20Senhora%20do%20Monte.%20Could%20you%20check%20availability%20for%20me%3F";
   }
-  function bookOnline(tourId) {
+  function bookOnline(tourId, source) {
     if (window.TukTukBooking && typeof window.TukTukBooking.openOnlineBooking === 'function') {
-      window.TukTukBooking.openOnlineBooking(tourId, 'tour_page_sticky');
+      window.TukTukBooking.openOnlineBooking(tourId, source || 'tour_page_sticky');
     }
   }
   const track = document.getElementById('track');

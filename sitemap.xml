@@ -10,73 +10,97 @@
 
   <!-- Tour Pages -->
   <url>
-    <loc>https://www.tuktuklisbon.tours/tours/alfama.html</loc>
+    <loc>https://www.tuktuklisbon.tours/tours/alfama</loc>
     <lastmod>2026-09-02</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/tours/belem.html</loc>
+    <loc>https://www.tuktuklisbon.tours/tours/express</loc>
     <lastmod>2026-09-02</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/tours/chiado.html</loc>
+    <loc>https://www.tuktuklisbon.tours/tours/belem</loc>
     <lastmod>2026-09-02</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/tours/fullcity.html</loc>
+    <loc>https://www.tuktuklisbon.tours/tours/chiado</loc>
     <lastmod>2026-09-02</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/tours/van.html</loc>
+    <loc>https://www.tuktuklisbon.tours/tours/fullcity</loc>
     <lastmod>2026-09-02</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/tours/van</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Blog Posts (Original 3) -->
+  <!-- Blog Posts -->
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/hidden-gems-alfama.html</loc>
+    <loc>https://www.tuktuklisbon.tours/blog/hidden-gems-alfama</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/sintra-day-trip-guide.html</loc>
+    <loc>https://www.tuktuklisbon.tours/blog/sintra-day-trip-guide</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/lisbon-neighborhoods-guide.html</loc>
+    <loc>https://www.tuktuklisbon.tours/blog/lisbon-neighborhoods-guide</loc>
     <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/blog/3day-itinerary</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/blog/lisbon-street-art</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.tuktuklisbon.tours/blog/photography-spots-lisbon</loc>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog Posts (NEW 3) -->
+  <!-- Utility Pages -->
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/3day-itinerary.html</loc>
-    <lastmod>2026-09-02</lastmod>
+    <loc>https://www.tuktuklisbon.tours/terms</loc>
+    <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/lisbon-street-art.html</loc>
-    <lastmod>2026-09-02</lastmod>
+    <loc>https://www.tuktuklisbon.tours/privacy-policy</loc>
+    <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.tuktuklisbon.tours/blog/photography-spots-lisbon.html</loc>
-    <lastmod>2026-09-02</lastmod>
+    <loc>https://www.tuktuklisbon.tours/ads-tool</loc>
+    <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.2</priority>
   </url>
 </urlset>

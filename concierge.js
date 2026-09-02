@@ -1,0 +1,803 @@
+(function () {
+  const STORAGE_KEY = 'tlc_state_v1';
+  const WHATSAPP = '351967315921';
+  const CONTACT_EMAIL = 'contact@tuktuklisbon.tours';
+  const ICONS = {
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>',
+    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+    minimize: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>',
+    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
+  };
+  const PHONE_COUNTRIES = [
+    { iso: 'US', name: 'United States', dial: '+1' },
+    { iso: 'CA', name: 'Canada', dial: '+1' },
+    { iso: 'GB', name: 'United Kingdom', dial: '+44' },
+    { iso: 'PT', name: 'Portugal', dial: '+351' },
+    { iso: 'BR', name: 'Brazil', dial: '+55' },
+    { iso: 'AU', name: 'Australia', dial: '+61' },
+    { iso: 'IE', name: 'Ireland', dial: '+353' },
+    { iso: 'MX', name: 'Mexico', dial: '+52' },
+    { iso: 'PR', name: 'Puerto Rico', dial: '+1' },
+    { iso: 'DO', name: 'Dominican Republic', dial: '+1' },
+    { iso: 'JM', name: 'Jamaica', dial: '+1' },
+    { iso: 'CR', name: 'Costa Rica', dial: '+506' },
+    { iso: 'PA', name: 'Panama', dial: '+507' },
+    { iso: 'ES', name: 'Spain', dial: '+34' },
+    { iso: 'FR', name: 'France', dial: '+33' },
+    { iso: 'DE', name: 'Germany', dial: '+49' },
+    { iso: 'IT', name: 'Italy', dial: '+39' },
+    { iso: 'NL', name: 'Netherlands', dial: '+31' },
+    { iso: 'BE', name: 'Belgium', dial: '+32' },
+    { iso: 'CH', name: 'Switzerland', dial: '+41' },
+    { iso: 'AT', name: 'Austria', dial: '+43' },
+    { iso: 'SE', name: 'Sweden', dial: '+46' },
+    { iso: 'NO', name: 'Norway', dial: '+47' },
+    { iso: 'DK', name: 'Denmark', dial: '+45' },
+    { iso: 'FI', name: 'Finland', dial: '+358' },
+    { iso: 'IS', name: 'Iceland', dial: '+354' },
+    { iso: 'PL', name: 'Poland', dial: '+48' },
+    { iso: 'CZ', name: 'Czechia', dial: '+420' },
+    { iso: 'HU', name: 'Hungary', dial: '+36' },
+    { iso: 'RO', name: 'Romania', dial: '+40' },
+    { iso: 'GR', name: 'Greece', dial: '+30' },
+    { iso: 'TR', name: 'Turkey', dial: '+90' },
+    { iso: 'HR', name: 'Croatia', dial: '+385' },
+    { iso: 'SI', name: 'Slovenia', dial: '+386' },
+    { iso: 'SK', name: 'Slovakia', dial: '+421' },
+    { iso: 'LT', name: 'Lithuania', dial: '+370' },
+    { iso: 'LV', name: 'Latvia', dial: '+371' },
+    { iso: 'EE', name: 'Estonia', dial: '+372' },
+    { iso: 'UA', name: 'Ukraine', dial: '+380' },
+    { iso: 'AR', name: 'Argentina', dial: '+54' },
+    { iso: 'CL', name: 'Chile', dial: '+56' },
+    { iso: 'CO', name: 'Colombia', dial: '+57' },
+    { iso: 'PE', name: 'Peru', dial: '+51' },
+    { iso: 'EC', name: 'Ecuador', dial: '+593' },
+    { iso: 'BO', name: 'Bolivia', dial: '+591' },
+    { iso: 'PY', name: 'Paraguay', dial: '+595' },
+    { iso: 'UY', name: 'Uruguay', dial: '+598' },
+    { iso: 'IL', name: 'Israel', dial: '+972' },
+    { iso: 'AE', name: 'United Arab Emirates', dial: '+971' },
+    { iso: 'SA', name: 'Saudi Arabia', dial: '+966' },
+    { iso: 'QA', name: 'Qatar', dial: '+974' },
+    { iso: 'KW', name: 'Kuwait', dial: '+965' },
+    { iso: 'BH', name: 'Bahrain', dial: '+973' },
+    { iso: 'OM', name: 'Oman', dial: '+968' },
+    { iso: 'MA', name: 'Morocco', dial: '+212' },
+    { iso: 'EG', name: 'Egypt', dial: '+20' },
+    { iso: 'ZA', name: 'South Africa', dial: '+27' },
+    { iso: 'KE', name: 'Kenya', dial: '+254' },
+    { iso: 'NG', name: 'Nigeria', dial: '+234' },
+    { iso: 'GH', name: 'Ghana', dial: '+233' },
+    { iso: 'IN', name: 'India', dial: '+91' },
+    { iso: 'SG', name: 'Singapore', dial: '+65' },
+    { iso: 'MY', name: 'Malaysia', dial: '+60' },
+    { iso: 'ID', name: 'Indonesia', dial: '+62' },
+    { iso: 'PH', name: 'Philippines', dial: '+63' },
+    { iso: 'TH', name: 'Thailand', dial: '+66' },
+    { iso: 'VN', name: 'Vietnam', dial: '+84' },
+    { iso: 'HK', name: 'Hong Kong', dial: '+852' },
+    { iso: 'TW', name: 'Taiwan', dial: '+886' },
+    { iso: 'JP', name: 'Japan', dial: '+81' },
+    { iso: 'KR', name: 'South Korea', dial: '+82' },
+    { iso: 'CN', name: 'China', dial: '+86' },
+    { iso: 'NZ', name: 'New Zealand', dial: '+64' },
+  ];
+
+  const initialState = {
+    messages: [],
+    lead: {},
+    finder: {},
+    expectedField: '',
+    started: false,
+    leadStartedTracked: false,
+    qualification: 'INFORMATIONAL',
+    lastRecommendedTour: '',
+    quickReplies: [],
+    ctas: [],
+    panelOpen: false,
+    phoneCountry: '',
+  };
+
+  let state = loadState();
+  let root;
+  let messagesEl;
+  let quickEl;
+  let ctasEl;
+  let inputEl;
+  let phoneEl;
+  let phoneNumberEl;
+  let countryTriggerEl;
+  let countrySearchEl;
+  let countryListEl;
+
+  function loadState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      return normalizeState(parsed);
+    } catch {
+      return normalizeState();
+    }
+  }
+
+  function normalizeState(parsed = {}) {
+    return {
+      ...initialState,
+      ...parsed,
+      lead: parsed.lead && typeof parsed.lead === 'object' ? parsed.lead : {},
+      finder: parsed.finder && typeof parsed.finder === 'object' ? parsed.finder : {},
+      quickReplies: Array.isArray(parsed.quickReplies) ? parsed.quickReplies : [],
+      ctas: Array.isArray(parsed.ctas) ? parsed.ctas : [],
+      panelOpen: parsed.panelOpen === true,
+      phoneCountry: findPhoneCountry(parsed.phoneCountry)?.iso || defaultPhoneCountry().iso,
+    };
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      messages: state.messages.slice(-24),
+      lead: state.lead,
+      finder: state.finder,
+      expectedField: state.expectedField,
+      started: state.started,
+      leadStartedTracked: state.leadStartedTracked,
+      qualification: state.qualification,
+      lastRecommendedTour: state.lastRecommendedTour,
+      quickReplies: state.quickReplies || [],
+      ctas: state.ctas || [],
+      panelOpen: state.panelOpen === true,
+      phoneCountry: findPhoneCountry(state.phoneCountry)?.iso || defaultPhoneCountry().iso,
+    }));
+  }
+
+  function track(eventName, params) {
+    const payload = { event: eventName, ...(params || {}) };
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(payload);
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, {
+        event_category: 'concierge',
+        ...(params || {}),
+      });
+    }
+  }
+
+  function createRoot() {
+    root = document.createElement('div');
+    root.className = 'tlc-root';
+    root.dataset.open = state.panelOpen ? 'true' : 'false';
+    root.dataset.teaser = state.panelOpen || sessionStorage.getItem('tlc_teaser_closed') ? 'hidden' : 'waiting';
+    root.innerHTML = `
+      <div class="tlc-teaser" role="dialog" aria-label="Tour assistant prompt">
+        <button class="tlc-teaser-close" type="button" data-teaser-close aria-label="Dismiss tour assistant prompt">${ICONS.close}</button>
+        <p><strong>Hi! Planning your visit to Lisbon?</strong><br>I can help you choose the perfect private tour in less than a minute.</p>
+        <div class="tlc-quick">
+          <button class="tlc-chip" data-action="find_tour">Find the right tour</button>
+          <button class="tlc-chip" data-action="ask_question">Ask a question</button>
+          <button class="tlc-chip" data-action="check_availability">Check availability</button>
+        </div>
+      </div>
+      <section class="tlc-panel" aria-label="Tuk Tuk Lisbon tour assistant">
+        <header class="tlc-header">
+          <div>
+            <div class="tlc-title">Tuk Tuk Lisbon Assistant</div>
+            <div class="tlc-subtitle">Natanael's local tour concierge</div>
+          </div>
+          <div class="tlc-header-actions">
+            <button class="tlc-icon-btn" data-minimize aria-label="Minimize chat">${ICONS.minimize}</button>
+            <button class="tlc-icon-btn" data-close aria-label="Close chat">${ICONS.close}</button>
+          </div>
+        </header>
+        <div class="tlc-messages" aria-live="polite"></div>
+        <div class="tlc-quick"></div>
+        <div class="tlc-ctas"></div>
+        <form class="tlc-form">
+          <div class="tlc-phone" hidden>
+            <div class="tlc-phone-row">
+              <div class="tlc-country">
+                <button class="tlc-country-trigger" type="button" aria-label="Select phone country code" aria-expanded="false"></button>
+                <div class="tlc-country-menu" hidden>
+                  <input class="tlc-country-search" type="search" autocomplete="off" placeholder="Search country" aria-label="Search country">
+                  <div class="tlc-country-list" role="listbox"></div>
+                </div>
+              </div>
+              <input class="tlc-phone-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="Mobile number">
+            </div>
+          </div>
+          <textarea class="tlc-input" rows="1" maxlength="1200" placeholder="Ask about tours, dates, group size..."></textarea>
+          <button class="tlc-send" type="submit" aria-label="Send">${ICONS.send}</button>
+        </form>
+      </section>
+      <button class="tlc-launcher" type="button" aria-label="Open tour assistant">${ICONS.chat}<span>Tour help</span></button>
+    `;
+    document.body.appendChild(root);
+    messagesEl = root.querySelector('.tlc-messages');
+    quickEl = root.querySelector('.tlc-panel .tlc-quick');
+    ctasEl = root.querySelector('.tlc-ctas');
+    inputEl = root.querySelector('.tlc-input');
+    phoneEl = root.querySelector('.tlc-phone');
+    phoneNumberEl = root.querySelector('.tlc-phone-number');
+    countryTriggerEl = root.querySelector('.tlc-country-trigger');
+    countrySearchEl = root.querySelector('.tlc-country-search');
+    countryListEl = root.querySelector('.tlc-country-list');
+  }
+
+  function bindEvents() {
+    root.querySelector('.tlc-launcher').addEventListener('click', openChat);
+    root.querySelector('[data-teaser-close]').addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      hideTeaser();
+    });
+    root.querySelector('[data-minimize]').addEventListener('click', closeChat);
+    root.querySelector('[data-close]').addEventListener('click', () => {
+      closeChat();
+      hideTeaser();
+    });
+    root.addEventListener('click', (event) => {
+      if (root.dataset.busy === 'true') return;
+      const actionButton = event.target.closest('[data-action]');
+      if (actionButton) {
+        openChat();
+        handleAction(actionButton.dataset.action, actionButton.dataset.tourId || '');
+      }
+      const ctaButton = event.target.closest('[data-cta]');
+      if (ctaButton) handleCta(ctaButton.dataset.cta, ctaButton.dataset.href || '', ctaButton.dataset.tourId || '');
+    });
+    root.querySelector('.tlc-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = getComposerMessage();
+      if (!message) return;
+      clearComposer();
+      sendMessage(message);
+    });
+    inputEl.addEventListener('input', () => {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 110) + 'px';
+    });
+    countryTriggerEl.addEventListener('click', () => {
+      const expanded = countryTriggerEl.getAttribute('aria-expanded') === 'true';
+      setCountryMenuOpen(!expanded);
+    });
+    countrySearchEl.addEventListener('input', renderCountryOptions);
+    countryListEl.addEventListener('click', (event) => {
+      const option = event.target.closest('[data-country]');
+      if (!option) return;
+      selectPhoneCountry(option.dataset.country);
+    });
+    phoneNumberEl.addEventListener('focus', () => {
+      if (!state.phoneCountry) {
+        state.phoneCountry = defaultPhoneCountry().iso;
+        saveState();
+        renderPhoneComposer();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) setCountryMenuOpen(false);
+      if (!event.target.closest || !event.target.closest('.tlc-country')) setCountryMenuOpen(false);
+    });
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setCountryMenuOpen(false);
+    });
+  }
+
+  function openChat() {
+    const wasOpen = root.dataset.open === 'true';
+    root.dataset.open = 'true';
+    state.panelOpen = true;
+    root.dataset.teaser = 'hidden';
+    sessionStorage.setItem('tlc_teaser_closed', '1');
+    saveState();
+    inputEl.focus({ preventScroll: true });
+    if (!wasOpen) track('concierge_open');
+    if (!state.messages.length) {
+      callConcierge('', 'intro');
+    } else {
+      render();
+    }
+  }
+
+  function closeChat() {
+    root.dataset.open = 'false';
+    state.panelOpen = false;
+    saveState();
+  }
+
+  function hideTeaser() {
+    root.dataset.teaser = 'hidden';
+    sessionStorage.setItem('tlc_teaser_closed', '1');
+  }
+
+  function showTeaserLater() {
+    if (sessionStorage.getItem('tlc_teaser_closed')) return;
+    window.setTimeout(() => {
+      if (root && root.dataset.open !== 'true') root.dataset.teaser = 'visible';
+    }, 9500);
+  }
+
+  function addMessage(role, text) {
+    state.messages.push({ role, text, ts: Date.now() });
+    state.messages = state.messages.slice(-30);
+    saveState();
+    renderMessages();
+  }
+
+  function addAssistantOnce(text) {
+    const last = state.messages[state.messages.length - 1];
+    if (last && last.role === 'assistant' && last.text === text) {
+      renderMessages();
+      return;
+    }
+    addMessage('assistant', text);
+  }
+
+  function renderMessages() {
+    messagesEl.innerHTML = state.messages.map((message) => {
+      const div = document.createElement('div');
+      div.className = 'tlc-message';
+      div.dataset.role = message.role;
+      div.textContent = message.text;
+      return div.outerHTML;
+    }).join('');
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function renderQuickReplies(items) {
+    const quickReplies = items || state.quickReplies || [];
+    quickEl.innerHTML = quickReplies.map((label) => {
+      const action = labelToAction(label);
+      return `<button class="tlc-chip" data-action="${action}">${escapeHtml(label)}</button>`;
+    }).join('');
+  }
+
+  function renderCtas(items) {
+    const ctas = items || [];
+    ctasEl.innerHTML = ctas.map((cta, index) => {
+      const kind = index === 0 || cta.action === 'submit_lead' ? 'primary' : 'secondary';
+      return `<button class="tlc-cta" data-kind="${kind}" data-cta="${escapeHtml(cta.action)}" data-href="${escapeHtml(cta.href || '')}" data-tour-id="${escapeHtml(cta.tourId || '')}">${escapeHtml(cta.label)}</button>`;
+    }).join('');
+  }
+
+  function setActionOptions(quickReplies, ctas) {
+    state.quickReplies = quickReplies || [];
+    state.ctas = ctas || [];
+    saveState();
+    renderQuickReplies(state.quickReplies);
+    renderCtas(state.ctas);
+  }
+
+  function render() {
+    renderMessages();
+    renderQuickReplies(state.quickReplies || []);
+    renderCtas(state.ctas || []);
+    renderPhoneComposer();
+  }
+
+  function getComposerMessage() {
+    if (!isPhoneExpected()) return inputEl.value.trim();
+    const raw = phoneNumberEl.value.trim();
+    if (!raw) return '';
+    if (/^\+/.test(raw)) return normalizePhoneForSend(raw);
+    if (/^00/.test(raw)) return `+${raw.replace(/^00/, '').replace(/[^\d]/g, '')}`;
+    const country = getSelectedPhoneCountry();
+    const digits = raw.replace(/[^\d]/g, '');
+    return digits ? `${country.dial} ${digits}` : '';
+  }
+
+  function clearComposer() {
+    if (isPhoneExpected()) {
+      phoneNumberEl.value = '';
+      setCountryMenuOpen(false);
+      return;
+    }
+    inputEl.value = '';
+  }
+
+  function labelToAction(label) {
+    const normalized = label.toLowerCase();
+    if (normalized.includes('find')) return 'find_tour';
+    if (normalized.includes('book online')) return 'book_online';
+    if (normalized.includes('availability') || normalized.includes('book') || normalized.includes('send request')) return normalized.includes('send request') ? 'submit_lead' : 'check_availability';
+    if (normalized.includes('view tour')) return 'view_tour';
+    if (normalized.includes('whatsapp')) return 'whatsapp';
+    if (normalized.includes('question')) return 'ask_question';
+    return 'message:' + label;
+  }
+
+  function isPhoneExpected() {
+    return state.expectedField === 'phone';
+  }
+
+  function defaultPhoneCountry() {
+    return findPhoneCountry('US') || PHONE_COUNTRIES[0];
+  }
+
+  function findPhoneCountry(iso) {
+    return PHONE_COUNTRIES.find((country) => country.iso === String(iso || '').toUpperCase()) || null;
+  }
+
+  function getSelectedPhoneCountry() {
+    return findPhoneCountry(state.phoneCountry) || defaultPhoneCountry();
+  }
+
+  function flagForCountry(iso) {
+    return String(iso || 'US')
+      .toUpperCase()
+      .replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
+  }
+
+  function normalizePhoneForSend(value) {
+    return `+${String(value).replace(/[^\d]/g, '')}`;
+  }
+
+  function renderPhoneComposer() {
+    const phoneMode = isPhoneExpected();
+    root.dataset.phoneMode = phoneMode ? 'true' : 'false';
+    phoneEl.hidden = !phoneMode;
+    inputEl.hidden = phoneMode;
+    if (phoneMode) renderSelectedPhoneCountry();
+  }
+
+  function renderSelectedPhoneCountry() {
+    const country = getSelectedPhoneCountry();
+    countryTriggerEl.innerHTML = [
+      `<span class="tlc-country-flag">${flagForCountry(country.iso)}</span>`,
+      `<span class="tlc-country-code">${escapeHtml(country.dial)}</span>`,
+      '<span class="tlc-country-caret">&#8964;</span>',
+    ].join('');
+    renderCountryOptions();
+  }
+
+  function renderCountryOptions() {
+    const query = normalizeCountrySearch(countrySearchEl.value || '');
+    const selected = getSelectedPhoneCountry();
+    const matches = PHONE_COUNTRIES
+      .filter((country) => {
+        if (!query) return true;
+        const haystack = normalizeCountrySearch(`${country.name} ${country.iso} ${country.dial}`);
+        return haystack.includes(query);
+      })
+      .slice(0, 12);
+    countryListEl.innerHTML = matches.map((country) => {
+      const active = country.iso === selected.iso ? 'true' : 'false';
+      return [
+        `<button class="tlc-country-option" type="button" role="option" aria-selected="${active}" data-country="${escapeHtml(country.iso)}">`,
+        `<span>${flagForCountry(country.iso)}</span>`,
+        `<span class="tlc-country-name">${escapeHtml(country.name)}</span>`,
+        `<span class="tlc-country-dial">${escapeHtml(country.dial)}</span>`,
+        '</button>',
+      ].join('');
+    }).join('') || '<div class="tlc-country-empty">Type the full number with + country code</div>';
+  }
+
+  function normalizeCountrySearch(value) {
+    return String(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function selectPhoneCountry(iso) {
+    const country = findPhoneCountry(iso);
+    if (!country) return;
+    state.phoneCountry = country.iso;
+    saveState();
+    renderSelectedPhoneCountry();
+    setCountryMenuOpen(false);
+    phoneNumberEl.focus({ preventScroll: true });
+  }
+
+  function setCountryMenuOpen(open) {
+    if (!countryTriggerEl || !countrySearchEl || !countryListEl) return;
+    countryTriggerEl.setAttribute('aria-expanded', open ? 'true' : 'false');
+    root.dataset.countryMenu = open ? 'true' : 'false';
+    root.querySelector('.tlc-country-menu').hidden = !open;
+    if (open) {
+      countrySearchEl.value = '';
+      renderCountryOptions();
+      countrySearchEl.focus({ preventScroll: true });
+    }
+  }
+
+  function handleAction(action, tourId) {
+    if (action.indexOf('message:') === 0) {
+      sendMessage(action.slice(8));
+      return;
+    }
+    if (action === 'submit_lead') {
+      submitLead();
+      return;
+    }
+    if (action === 'view_tour') {
+      const tour = state.lastRecommendedTour || state.lead.tourId;
+      if (tour) openInNewTab(`/tours/${tour}`);
+      return;
+    }
+    if (action === 'book_online') {
+      openOnlineBooking(tourId || state.lastRecommendedTour || state.lead.tourId || '');
+      return;
+    }
+    if (action === 'whatsapp') {
+      openWhatsApp(tourId || state.lead.tourId || '');
+      return;
+    }
+    callConcierge('', action, tourId);
+  }
+
+  function handleCta(action, href, tourId) {
+    if (action === 'link' && href) {
+      if (isTourLink(href)) {
+        openInNewTab(href);
+        return;
+      }
+      window.location.href = href;
+      return;
+    }
+    if (action === 'check_availability') {
+      callConcierge('', 'check_availability', tourId);
+      return;
+    }
+    if (action === 'book_online') {
+      openOnlineBooking(tourId);
+      return;
+    }
+    if (action === 'whatsapp') {
+      openWhatsApp(tourId);
+      return;
+    }
+    if (action === 'submit_lead') {
+      submitLead();
+    }
+  }
+
+  function sendMessage(message) {
+    addMessage('user', message);
+    callConcierge(message, '');
+  }
+
+  function isTourLink(href) {
+    return /^\/tours\/[a-z0-9-]+\/?$/i.test(href);
+  }
+
+  function openInNewTab(href) {
+    saveState();
+    const anchor = document.createElement('a');
+    anchor.href = href;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+  }
+
+  function openOnlineBooking(tourId) {
+    const selectedTour = tourId || state.lastRecommendedTour || state.lead.tourId || '';
+    saveState();
+    if (window.TukTukBooking && typeof window.TukTukBooking.openOnlineBooking === 'function') {
+      const opened = window.TukTukBooking.openOnlineBooking(selectedTour, 'concierge_cta');
+      if (opened) return;
+    }
+    addMessage('assistant', 'Online booking for this tour is being connected. I can still collect your details so the team can create or hold the booking in Bókun before confirming it.');
+    renderCtas([{ label: 'Check Availability', action: 'check_availability', tourId: selectedTour }]);
+  }
+
+  async function callConcierge(message, action, tourId) {
+    if (!state.started && action !== 'intro') {
+      state.started = true;
+      track('concierge_started');
+    }
+
+    setBusy(true);
+    try {
+      const response = await fetch('/api/concierge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          action,
+          tourId,
+          state: {
+            lead: state.lead,
+            finder: state.finder,
+            expectedField: state.expectedField,
+          },
+        }),
+      });
+      const data = await response.json();
+      applyConciergeResponse(data);
+    } catch {
+      addMessage('assistant', "I can't answer instantly right now. You can still email Natanael or use WhatsApp if it is urgent.");
+      renderCtas([
+        { label: 'Email Natanael', action: 'link', href: buildMailto() },
+        { label: 'WhatsApp', action: 'whatsapp' },
+      ]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function applyConciergeResponse(data) {
+    if (data.leadPatch) state.lead = { ...state.lead, ...data.leadPatch };
+    if (data.finderPatch) state.finder = { ...state.finder, ...data.finderPatch };
+    if (data.nextExpectedField !== undefined) state.expectedField = data.nextExpectedField || '';
+    if (data.qualification) state.qualification = data.qualification;
+    if (data.recommendedTour) state.lastRecommendedTour = data.recommendedTour;
+    state.quickReplies = data.quickReplies || [];
+    state.ctas = data.ctas || [];
+    saveState();
+
+    addMessage('assistant', data.reply || 'How can I help with your Lisbon tour?');
+    renderQuickReplies(state.quickReplies);
+    renderCtas(state.ctas);
+    renderPhoneComposer();
+
+    if (Array.isArray(data.analytics)) {
+      data.analytics.forEach((eventName) => {
+        const params = {
+          tour_id: data.recommendedTour || state.lead.tourId || '',
+          qualification: state.qualification,
+        };
+        if (eventName === 'lead_started') {
+          trackLeadStarted(params);
+          return;
+        }
+        track(eventName, params);
+      });
+    }
+    if (data.recommendedTour && !(Array.isArray(data.analytics) && data.analytics.includes('tour_recommended'))) {
+      track('tour_recommended', {
+        tour_id: data.recommendedTour,
+        qualification: state.qualification,
+      });
+    }
+  }
+
+  async function submitLead() {
+    trackLeadStarted({ qualification: state.qualification, tour_id: state.lead.tourId || '' });
+    setBusy(true);
+    try {
+      const response = await fetch('/api/concierge-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lead: state.lead,
+          qualification: state.qualification,
+          sourcePath: window.location.pathname,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok || data.ok === false) {
+        const missing = Array.isArray(data.fields) && data.fields.length ? formatMissingFields(data.fields) : '';
+        addAssistantOnce(missing
+          ? `I still need: ${missing}. Send that here and I can prepare the request.`
+          : `The request is prepared, but automatic delivery is not connected on this preview yet. You can email Natanael directly at ${CONTACT_EMAIL}.`);
+        setActionOptions(['Add a question'], [{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
+        return;
+      }
+
+      track('lead_submitted', {
+        qualification: state.qualification,
+        tour_id: state.lead.tourId || '',
+        lead_id: data.leadId,
+      });
+      const selectedTour = state.lead.tourId || state.lastRecommendedTour || '';
+      addMessage('assistant', 'Thanks. Your request was sent to Natanael. The booking should only be confirmed after it is created or held in Bókun.');
+      setActionOptions(['Ask a question'], [
+        { label: 'Book Online', action: 'book_online', tourId: selectedTour },
+        { label: 'Back to home', action: 'link', href: '/' },
+        { label: 'WhatsApp as backup', action: 'whatsapp', tourId: selectedTour },
+      ]);
+    } catch {
+      addAssistantOnce(`I could not submit the request right now. You can email Natanael directly at ${CONTACT_EMAIL}.`);
+      setActionOptions(['Add a question'], [{ label: 'Email Natanael', action: 'link', href: buildMailto() }]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function openWhatsApp(tourId) {
+    const message = buildWhatsAppMessage(tourId);
+    track('whatsapp_from_concierge', {
+      tour_id: tourId || state.lead.tourId || '',
+      qualification: state.qualification,
+    });
+
+    if (window.TukTukTracking && typeof window.TukTukTracking.openWhatsApp === 'function') {
+      window.TukTukTracking.openWhatsApp('concierge', message);
+      return;
+    }
+
+    const anchor = document.createElement('a');
+    anchor.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener';
+    anchor.dataset.whatsappLabel = 'concierge';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+  }
+
+  function buildWhatsAppMessage(tourId) {
+    const lead = state.lead || {};
+    const tour = tourId || lead.tourId || 'not sure yet';
+    return [
+      "Hello! I'm planning a Lisbon tour and used the site assistant.",
+      `Tour: ${tour}`,
+      lead.desiredDate ? `Date: ${lead.desiredDate}` : '',
+      lead.preferredTime ? `Time: ${lead.preferredTime}` : '',
+      lead.guests ? `Guests: ${lead.guests}` : '',
+      lead.pickupArea ? `Pickup: ${lead.pickupArea}` : '',
+      lead.name ? `Name: ${lead.name}` : '',
+      lead.email ? `Email: ${lead.email}` : '',
+      lead.message ? `Message: ${lead.message}` : '',
+      'Could you send the Bókun checkout link or hold this in Bókun before confirming?'
+    ].filter(Boolean).join('\n');
+  }
+
+  function buildMailto() {
+    const subject = encodeURIComponent('Lisbon tour availability request');
+    const body = encodeURIComponent(buildWhatsAppMessage(state.lead.tourId || ''));
+    return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+  }
+
+  function setBusy(isBusy) {
+    root.dataset.busy = isBusy ? 'true' : 'false';
+    root.querySelector('.tlc-send').disabled = isBusy;
+    inputEl.disabled = isBusy;
+    phoneNumberEl.disabled = isBusy;
+    countryTriggerEl.disabled = isBusy;
+    countrySearchEl.disabled = isBusy;
+  }
+
+  function trackLeadStarted(params) {
+    if (state.leadStartedTracked) return;
+    state.leadStartedTracked = true;
+    saveState();
+    track('lead_started', params);
+  }
+
+  function formatMissingFields(fields) {
+    const labels = {
+      desiredDate: 'desired date',
+      preferredTime: 'preferred time',
+      pickupArea: 'pickup area',
+      tourId: 'tour of interest',
+      guests: 'number of guests',
+      phone: 'mobile number',
+    };
+    return fields.map((field) => labels[field] || field).join(', ');
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function syncStateFromStorage(event) {
+    if (event.key !== STORAGE_KEY) return;
+    state = loadState();
+    if (!root) return;
+    root.dataset.open = state.panelOpen ? 'true' : 'false';
+    root.dataset.teaser = state.panelOpen ? 'hidden' : root.dataset.teaser;
+    render();
+  }
+
+  function boot() {
+    createRoot();
+    bindEvents();
+    render();
+    window.addEventListener('storage', syncStateFromStorage);
+    if (state.panelOpen && !state.messages.length) callConcierge('', 'intro');
+    showTeaserLater();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

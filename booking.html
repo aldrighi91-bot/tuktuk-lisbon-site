@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Book Online | Tuk Tuk Lisbon Tours</title>
+  <meta name="description" content="Secure online booking for Tuk Tuk Lisbon Tours." />
+  <link rel="preconnect" href="https://widgets.bokun.io" crossorigin />
+  <style>
+    :root {
+      --blue: #0f5eb8;
+      --blue-dark: #0a3f7e;
+      --ink: #182033;
+      --muted: #657085;
+      --line: #dce3ee;
+      --soft: #f5f8fc;
+      --green: #128c46;
+      --trip: #00aa6c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .back {
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 18px 48px rgba(17, 42, 77, .10);
+      overflow: hidden;
+    }
+
+    .intro {
+      padding: 26px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .booking-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .82fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .tripadvisor-badge {
+      flex: 0 0 auto;
+      width: 196px;
+      padding: 10px 12px;
+      border: 1px solid #bfe7d7;
+      border-radius: 10px;
+      background: #fff;
+      color: #003f2d;
+      box-shadow: 0 10px 24px rgba(0, 120, 84, .10);
+    }
+
+    .tripadvisor-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #003f2d;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .tripadvisor-owl {
+      position: relative;
+      width: 30px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .tripadvisor-owl .eye {
+      position: absolute;
+      top: 3px;
+      width: 17px;
+      height: 17px;
+      border: 4px solid #003f2d;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .tripadvisor-owl .eye::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 999px;
+      background: #003f2d;
+    }
+
+    .tripadvisor-owl .eye.left { left: 0; }
+    .tripadvisor-owl .eye.right { right: 0; }
+
+    .tripadvisor-owl .beak {
+      position: absolute;
+      left: 50%;
+      top: 11px;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid #00aa6c;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .tripadvisor-badge .rating-row {
+      display: flex;
+      gap: 3px;
+      margin: 8px 0 5px;
+    }
+
+    .tripadvisor-badge .rating-bubble {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--trip);
+      box-shadow: inset 0 0 0 1px rgba(0, 80, 55, .10);
+    }
+
+    .tripadvisor-badge .rating-copy {
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 750;
+      line-height: 1.2;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 7vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      max-width: 680px;
+    }
+
+    .fact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .fact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid #cdd9ea;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .fact-chip span {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .photo-card {
+      position: relative;
+      min-height: 310px;
+      border: 1px solid #cad6e7;
+      border-radius: 10px;
+      background: #e9eef6;
+      overflow: hidden;
+      box-shadow: 0 16px 34px rgba(17, 42, 77, .14);
+    }
+
+    .photo-track {
+      height: 100%;
+      min-height: 310px;
+      display: flex;
+      transition: transform .35s ease;
+    }
+
+    .photo-slide {
+      min-width: 100%;
+      height: 100%;
+      min-height: 310px;
+      position: relative;
+    }
+
+    .photo-slide img {
+      width: 100%;
+      height: 100%;
+      min-height: 310px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.38));
+      pointer-events: none;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-shadow: 0 1px 3px rgba(0,0,0,.35);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .photo-count {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: var(--ink);
+      text-shadow: none;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .photo-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 999px;
+      background: rgba(255,255,255,.88);
+      color: var(--ink);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+
+    .photo-nav.prev { left: 12px; }
+    .photo-nav.next { right: 12px; }
+
+    .photo-dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 54px;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .photo-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      padding: 0;
+    }
+
+    .photo-dot[aria-current="true"] {
+      width: 20px;
+      background: #fff;
+    }
+
+    .trust-rail {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .trust-card {
+      min-height: 92px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .trust-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.25;
+    }
+
+    .trust-card span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .trust-card.trip strong { color: #006b4a; }
+
+    .trust-icon {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: #edf5ff;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .trust-card.trip .trust-icon {
+      background: #e8f8f1;
+      color: #006b4a;
+    }
+
+    .tour-details {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .detail-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+    }
+
+    .detail-card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .detail-list li {
+      display: flex;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .detail-list li::before {
+      content: '✓';
+      flex: 0 0 auto;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .booking-path {
+      display: grid;
+      gap: 8px;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .path-step strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .path-number {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .widget-wrap {
+      min-height: 420px;
+      padding: 22px;
+    }
+
+    .status {
+      min-height: 220px;
+      display: grid;
+      gap: 14px;
+      align-content: center;
+      justify-items: start;
+      padding: 22px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .status h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .status p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .button.primary { color: #fff; background: var(--blue); }
+    .button.whatsapp { color: #fff; background: var(--green); }
+    .button.secondary { color: var(--ink); background: #fff; border-color: var(--line); }
+
+    .bokunWidget {
+      width: 100%;
+      min-height: 420px;
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 20px, 960px);
+        padding-top: 12px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        padding-bottom: 14px;
+      }
+
+      .brand span:last-child { max-width: 180px; }
+      .intro { padding: 18px; }
+      .booking-hero { grid-template-columns: 1fr; }
+      .photo-card, .photo-track, .photo-slide, .photo-slide img { min-height: 238px; }
+      .trust-rail { grid-template-columns: 1fr 1fr; }
+      .tour-details { grid-template-columns: 1fr; }
+      .widget-wrap { padding: 12px; }
+      .actions, .button { width: 100%; }
+    }
+
+    @media (max-width: 430px) {
+      .shell { width: min(100% - 16px, 960px); }
+      .topbar { gap: 10px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .brand span:last-child { max-width: 170px; }
+      .back { min-height: 40px; padding: 0 12px; }
+      .hero-title-row { gap: 10px; }
+      .tripadvisor-badge {
+        width: 154px;
+        padding: 9px;
+      }
+      .tripadvisor-wordmark {
+        gap: 5px;
+        font-size: 15px;
+      }
+      .tripadvisor-owl {
+        width: 24px;
+        height: 18px;
+      }
+      .tripadvisor-owl .eye {
+        width: 14px;
+        height: 14px;
+        border-width: 3px;
+      }
+      .tripadvisor-owl .eye::after { inset: 3px; }
+      .tripadvisor-owl .beak {
+        top: 9px;
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-top-width: 5px;
+      }
+      .tripadvisor-badge .rating-bubble { width: 10px; height: 10px; }
+      .tripadvisor-badge .rating-copy { font-size: 9.8px; }
+      h1 { font-size: 32px; }
+      .summary { font-size: 15px; }
+      .trust-rail { grid-template-columns: 1fr 1fr; }
+      .trust-card { min-height: 0; padding: 11px; }
+      .trust-card strong { font-size: 12.5px; }
+      .trust-card span { font-size: 11.5px; }
+      .trust-icon { width: 26px; height: 26px; margin-bottom: 7px; }
+      .photo-nav { width: 34px; height: 34px; }
+    }
+
+    @media (max-width: 340px) {
+      .trust-rail { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Booking navigation">
+      <a class="brand" href="/">
+        <span class="brand-mark">T</span>
+        <span>Tuk Tuk Lisbon Tours</span>
+      </a>
+      <a class="back" href="/">Back to site</a>
+    </nav>
+
+    <section class="panel" aria-live="polite">
+      <div class="intro">
+        <div class="booking-hero">
+          <div class="hero-copy">
+            <div class="hero-title-row">
+              <div>
+                <p class="eyebrow">Online booking</p>
+                <h1 id="tour-title">Loading tour...</h1>
+              </div>
+              <div class="tripadvisor-badge" aria-label="Tripadvisor listed product with Bókun checkout">
+                <div class="tripadvisor-wordmark">
+                  <span class="tripadvisor-owl" aria-hidden="true">
+                    <span class="eye left"></span>
+                    <span class="eye right"></span>
+                    <span class="beak"></span>
+                  </span>
+                  <span>Tripadvisor</span>
+                </div>
+                <span class="rating-row" aria-hidden="true">
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                  <span class="rating-bubble"></span>
+                </span>
+                <span class="rating-copy">Listed product · Bókun checkout</span>
+              </div>
+            </div>
+            <p class="summary" id="tour-summary">Preparing the secure booking checkout.</p>
+            <div class="fact-row" aria-label="Tour quick facts">
+              <span class="fact-chip"><span>Time</span><strong id="tour-duration">--</strong></span>
+              <span class="fact-chip"><span>Price</span><strong id="tour-price">--</strong></span>
+              <span class="fact-chip"><span>Deposit</span><strong>20% online</strong></span>
+              <span class="fact-chip"><span>Group</span><strong id="tour-capacity">Private group</strong></span>
+            </div>
+          </div>
+          <div class="photo-card" aria-label="Tour photos">
+            <div class="photo-track" id="photo-track"></div>
+            <button class="photo-nav prev" type="button" id="photo-prev" aria-label="Previous photo">‹</button>
+            <button class="photo-nav next" type="button" id="photo-next" aria-label="Next photo">›</button>
+            <div class="photo-dots" id="photo-dots" aria-label="Photo navigation"></div>
+            <div class="photo-caption">
+              <span id="photo-caption">Private Lisbon tuk tuk tour</span>
+              <span class="photo-count" id="photo-count">1 / 1</span>
+            </div>
+          </div>
+        </div>
+        <div class="trust-rail" aria-label="Booking trust signals">
+          <div class="trust-card trip">
+            <span class="trust-icon">T</span>
+            <strong>Tripadvisor-powered technology</strong>
+            <span>Bókun is a Tripadvisor company and connects with Viator distribution tools.</span>
+          </div>
+          <div class="trust-card">
+            <span class="trust-icon">✓</span>
+            <strong>Pay 20% online</strong>
+            <span>Secure the tour with a deposit through Bókun and Stripe. The remaining 80% is paid in person.</span>
+          </div>
+          <div class="trust-card">
+            <span class="trust-icon">N</span>
+            <strong>Live Bókun availability</strong>
+            <span>Choose one of the live available times and Natanael can follow up on pickup details when needed.</span>
+          </div>
+          <div class="trust-card">
+            <span class="trust-icon">€</span>
+            <strong>Balance paid in person</strong>
+            <span>Pay the remaining balance on the tour day by card or cash, whichever you prefer.</span>
+          </div>
+        </div>
+        <div class="tour-details">
+          <div class="detail-card">
+            <h2>What you can expect</h2>
+            <ul class="detail-list" id="tour-highlights"></ul>
+          </div>
+          <div class="detail-card">
+            <h2>How this checkout works</h2>
+            <div class="booking-path">
+              <div class="path-step">
+                <span class="path-number">1</span>
+                <span><strong>Select participants and date</strong>Prices are shown in EUR inside the Bókun widget.</span>
+              </div>
+              <div class="path-step">
+                <span class="path-number">2</span>
+                <span><strong>Choose an available time</strong>The checkout uses Bókun availability for the selected product.</span>
+              </div>
+              <div class="path-step">
+                <span class="path-number">3</span>
+                <span><strong>Pay only the 20% deposit</strong>The checkout charges the deposit online, not the full tour price.</span>
+              </div>
+              <div class="path-step">
+                <span class="path-number">4</span>
+                <span><strong>Receive booking details</strong>Natanael can confirm pickup details personally when needed.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="widget-wrap" id="booking-widget">
+        <div class="status">
+          <h2>Loading checkout</h2>
+          <p>Please wait a moment while the booking system opens.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var TOURS = {
+        alfama: {
+          title: 'Alfama Tour',
+          summary: '1h30 private tuk tuk tour - EUR 130 per group, up to 6 people. Pay a 20% deposit online and the remaining balance in person by card or cash.',
+          duration: '1h30',
+          price: 'EUR 130 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Alfama, Graça and Lisbon viewpoints',
+          images: [
+            '/images/miradouros-1.jpg',
+            '/images/miradouros-2.jpg',
+            '/images/miradouros-3.jpg',
+            '/images/miradouros-4.jpg',
+            '/images/miradouros-5.jpg'
+          ],
+          highlights: [
+            'Private electric tuk tuk tour through historic Alfama and Graça.',
+            'Scenic viewpoints including Senhora do Monte and Graça.',
+            'Narrow old-town streets and São Jorge Castle surroundings.',
+            'Local guide experience operated directly by Tuk Tuk Lisbon Tours.'
+          ],
+          url: '/tours/alfama',
+          ready: true
+        },
+        express: {
+          title: 'Tuk Tuk Express 30min',
+          summary: '30-minute electric tuk tuk route - EUR 10 per person, with Alfama, Se Cathedral and Senhora do Monte, the highest viewpoint in Lisbon.',
+          duration: '30min',
+          price: 'EUR 10 / person',
+          capacity: 'Up to 6 people per tuk tuk',
+          photoCaption: 'Alfama, Se Cathedral and Senhora do Monte',
+          images: [
+            '/images/express-senhora-do-monte.png',
+            '/images/express-tuk-se.png',
+            '/images/miradouros-2.jpg',
+            '/images/miradouros-3.jpg',
+            '/images/miradouros-4.jpg',
+            '/images/miradouros-5.jpg'
+          ],
+          highlights: [
+            'Fast 30-minute route for travelers with limited time in Lisbon.',
+            'Main photo stop at Senhora do Monte, the highest viewpoint in the city.',
+            'Pass through Alfama and the Se Cathedral area by electric tuk tuk.',
+            'Simple option for guests who want a quick scenic introduction to old Lisbon.'
+          ],
+          url: '/tours/express',
+          ready: true
+        },
+        belem: {
+          title: 'Belém Tour',
+          summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people. Pay a 20% deposit online and the remaining balance in person by card or cash.',
+          duration: '2h',
+          price: 'EUR 190 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Belém monuments and Portuguese Discoveries',
+          images: [
+            '/images/belem-1.jpg',
+            '/images/belem-2.jpg',
+            '/images/belem-3.jpg',
+            '/images/belem-4.jpg',
+            '/images/belem-5.jpg'
+          ],
+          highlights: [
+            'Private tuk tuk route focused on Belém and Portuguese Discoveries.',
+            'Belém Tower, Jerónimos Monastery and the Monument to the Discoveries.',
+            'Includes time around the famous pastéis de nata area.',
+            'Comfortable way to reach riverside landmarks without losing time.'
+          ],
+          url: '/tours/belem',
+          ready: true
+        },
+        chiado: {
+          title: 'Chiado & Bairro Alto Tour',
+          summary: '2h private tuk tuk tour - EUR 190 per group, up to 6 people. Pay a 20% deposit online and the remaining balance in person by card or cash.',
+          duration: '2h',
+          price: 'EUR 190 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'Chiado, Baixa and Bairro Alto',
+          images: [
+            '/images/centro-1.jpg',
+            '/images/centro-2.jpg',
+            '/images/centro-3.jpg',
+            '/images/centro-4.jpg',
+            '/images/centro-5.jpg'
+          ],
+          highlights: [
+            'Cultural and bohemian Lisbon through Chiado and Bairro Alto.',
+            'Baixa Pombalina streets, elegant squares and classic viewpoints.',
+            'Good choice for guests who want central Lisbon with local context.',
+            'Private pace, with photo stops when the route allows.'
+          ],
+          url: '/tours/chiado',
+          ready: true
+        },
+        fullcity: {
+          title: 'Full City Tour',
+          summary: '4h private tuk tuk tour - EUR 360 per group, up to 6 people. Pay a 20% deposit online and the remaining balance in person by card or cash.',
+          duration: '4h',
+          price: 'EUR 360 / group',
+          capacity: 'Up to 6 people',
+          photoCaption: 'A broader private route across Lisbon',
+          images: [
+            '/images/fullcity-1.jpg',
+            '/images/fullcity-2.jpg',
+            '/images/fullcity-3.jpg',
+            '/images/fullcity-4.jpg',
+            '/images/fullcity-5.jpg'
+          ],
+          highlights: [
+            'Longer private route for guests who want to see more of Lisbon.',
+            'Flexible itinerary with neighborhoods and stops adjusted to your interests.',
+            'Combines viewpoints, historic districts and iconic city areas.',
+            'Best option when you have half a day and want a broader overview.'
+          ],
+          url: '/tours/fullcity',
+          ready: true
+        },
+        van: {
+          title: 'Van Full Day Tour',
+          summary: '8h private van tour - EUR 600 per group, up to 8 people. Pay a 20% deposit online and the remaining balance in person by card or cash.',
+          duration: '8h',
+          price: 'EUR 600 / group',
+          capacity: 'Up to 8 people',
+          photoCaption: 'Private day trips beyond Lisbon',
+          images: [
+            '/images/van-sintra.jpg',
+            '/images/van-cascais.jpg',
+            '/images/van-cabo.jpg',
+            '/images/van-obidos.jpg',
+            '/images/van-nazare.jpg'
+          ],
+          highlights: [
+            'Private van for full-day trips outside central Lisbon.',
+            'Choose destinations such as Sintra, Cascais, Cabo da Roca, Óbidos or Nazaré.',
+            'Local expert guide and flexible itinerary for your group.',
+            'Pickup and drop-off in Lisbon center according to confirmed details.'
+          ],
+          url: '/tours/van',
+          ready: true
+        }
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var tourId = String(params.get('tour') || 'alfama').toLowerCase();
+      var tour = TOURS[tourId] || TOURS.alfama;
+      var titleEl = document.getElementById('tour-title');
+      var summaryEl = document.getElementById('tour-summary');
+      var widgetEl = document.getElementById('booking-widget');
+      var durationEl = document.getElementById('tour-duration');
+      var priceEl = document.getElementById('tour-price');
+      var capacityEl = document.getElementById('tour-capacity');
+      var highlightsEl = document.getElementById('tour-highlights');
+      var photoTrackEl = document.getElementById('photo-track');
+      var photoDotsEl = document.getElementById('photo-dots');
+      var photoCountEl = document.getElementById('photo-count');
+      var photoCaptionEl = document.getElementById('photo-caption');
+      var photoPrevEl = document.getElementById('photo-prev');
+      var photoNextEl = document.getElementById('photo-next');
+      var currentPhoto = 0;
+
+      titleEl.textContent = tour.title;
+      summaryEl.textContent = tour.summary;
+      durationEl.textContent = tour.duration || '';
+      priceEl.textContent = tour.price || '';
+      capacityEl.textContent = tour.capacity || '';
+      photoCaptionEl.textContent = tour.photoCaption || tour.title;
+
+      function setPhoto(index) {
+        var images = tour.images || [];
+        if (!images.length) return;
+        currentPhoto = (index + images.length) % images.length;
+        photoTrackEl.style.transform = 'translateX(-' + (currentPhoto * 100) + '%)';
+        photoCountEl.textContent = (currentPhoto + 1) + ' / ' + images.length;
+        Array.prototype.forEach.call(photoDotsEl.children, function (dot, dotIndex) {
+          dot.setAttribute('aria-current', dotIndex === currentPhoto ? 'true' : 'false');
+        });
+      }
+
+      function renderPhotos() {
+        var images = tour.images || [];
+        photoTrackEl.innerHTML = '';
+        photoDotsEl.innerHTML = '';
+        images.forEach(function (src, index) {
+          var slide = document.createElement('div');
+          slide.className = 'photo-slide';
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = tour.title + ' photo ' + (index + 1);
+          img.loading = index === 0 ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          slide.appendChild(img);
+          photoTrackEl.appendChild(slide);
+
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'photo-dot';
+          dot.setAttribute('aria-label', 'Show photo ' + (index + 1));
+          dot.addEventListener('click', function () {
+            setPhoto(index);
+            track('booking_gallery_interaction', { booking_provider: 'bokun' });
+          });
+          photoDotsEl.appendChild(dot);
+        });
+        setPhoto(0);
+      }
+
+      function renderHighlights() {
+        highlightsEl.innerHTML = '';
+        (tour.highlights || []).forEach(function (item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          highlightsEl.appendChild(li);
+        });
+      }
+
+      photoPrevEl.addEventListener('click', function () {
+        setPhoto(currentPhoto - 1);
+        track('booking_gallery_interaction', { booking_provider: 'bokun' });
+      });
+      photoNextEl.addEventListener('click', function () {
+        setPhoto(currentPhoto + 1);
+        track('booking_gallery_interaction', { booking_provider: 'bokun' });
+      });
+      renderPhotos();
+      renderHighlights();
+
+      function track(eventName, data) {
+        var payload = Object.assign({ event: eventName, tour_id: tourId }, data || {});
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(payload);
+        if (typeof window.gtag === 'function') window.gtag('event', eventName, payload);
+      }
+
+      function renderStatus(heading, message, includeTourLink) {
+        widgetEl.innerHTML = [
+          '<div class="status">',
+          '<h2>' + heading + '</h2>',
+          '<p>' + message + '</p>',
+          '<div class="actions">',
+          includeTourLink ? '<a class="button secondary" href="' + tour.url + '">View tour</a>' : '',
+          '<a class="button whatsapp" href="https://wa.me/351967315921" target="_blank" rel="noopener">WhatsApp Natanael</a>',
+          '<a class="button primary" href="mailto:contact@tuktuklisbon.tours">Email us</a>',
+          '</div>',
+          '</div>'
+        ].join('');
+      }
+
+      function loadBokunWidget(bookingChannelUuid, experienceId) {
+        widgetEl.innerHTML = '<div class="bokunWidget" data-src="https://widgets.bokun.io/online-sales/' +
+          bookingChannelUuid + '/experience-calendar/' + experienceId + '"></div>';
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=' + bookingChannelUuid;
+        script.onerror = function () {
+          renderStatus('Checkout could not load', 'Please contact Natanael directly and he will confirm availability.', true);
+        };
+        document.head.appendChild(script);
+        track('booking_checkout_loaded', { booking_provider: 'bokun' });
+
+        window.setTimeout(function () {
+          var iframe = widgetEl.querySelector('iframe');
+          if (!iframe) return;
+          var rect = iframe.getBoundingClientRect();
+          if (rect.height < 40) {
+            renderStatus(
+              'Checkout is connected but not displaying here',
+              'Please contact Natanael directly while the Bókun payment/channel settings are being finalized.',
+              true
+            );
+          }
+        }, 12000);
+      }
+
+      track('booking_page_view', { booking_provider: 'bokun' });
+
+      if (!tour.ready) {
+        renderStatus('Online checkout is being prepared', 'This tour has been created in Bókun as a draft and will be available here after final validation.', true);
+        return;
+      }
+
+      fetch('/api/bokun-widget-config')
+        .then(function (response) { return response.json(); })
+        .then(function (config) {
+          var experienceId = config && config.products && config.products[tourId];
+          if (!config || !config.ok || !config.bookingChannelUuid || !experienceId) {
+            renderStatus('Checkout is not connected yet', 'The tour is configured, but the public Bókun widget channel still needs to be provided.', true);
+            return;
+          }
+
+          loadBokunWidget(config.bookingChannelUuid, experienceId);
+        })
+        .catch(function () {
+          renderStatus('Checkout could not load', 'Please contact Natanael directly and he will confirm availability.', true);
+        });
+    })();
+  </script>
+</body>
+</html>

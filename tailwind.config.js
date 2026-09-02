@@ -7,6 +7,7 @@ module.exports = {
     './terms.html',
     './ads-tool.html',
     './tours/**/*.html',
+    './concierge.js',
   ],
   theme: {
     extend: {
