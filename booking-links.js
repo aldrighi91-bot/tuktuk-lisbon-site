@@ -18,6 +18,11 @@
       url: '/booking.html?tour=alfama',
       label: 'Book online',
     },
+    express: {
+      provider: 'Bókun',
+      url: '/booking.html?tour=express',
+      label: 'Book online',
+    },
     belem: {
       provider: 'Bókun',
       url: '/booking.html?tour=belem',

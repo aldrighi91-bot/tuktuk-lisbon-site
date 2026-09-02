@@ -12,7 +12,7 @@ test('maps home tour identifiers to booking tour identifiers', () => {
 });
 
 test('has Bókun booking-page links for every tour', () => {
-  ['alfama', 'belem', 'chiado', 'fullcity', 'van'].forEach((tourId) => {
+  ['alfama', 'express', 'belem', 'chiado', 'fullcity', 'van'].forEach((tourId) => {
     const link = booking.getBookingLink(tourId);
     assert.equal(booking.hasOnlineBooking(tourId), true);
     assert.equal(link.url, `/booking.html?tour=${tourId}`);
@@ -49,6 +49,7 @@ test('checkout page includes tour photos and reassurance content', () => {
 
   assert.match(bookingHtml, /id="photo-track"/);
   assert.match(bookingHtml, /\/images\/miradouros-1\.jpg/);
+  assert.match(bookingHtml, /\/images\/express-senhora-do-monte\.png/);
   assert.match(bookingHtml, /\/images\/belem-1\.jpg/);
   assert.match(bookingHtml, /\/images\/van-sintra\.jpg/);
   assert.match(bookingHtml, /What you can expect/);
@@ -63,6 +64,7 @@ test('tour pages and structured data use the current deposit policy', () => {
     'booking.html',
     'data/tours.json',
     'tours/alfama.html',
+    'tours/express.html',
     'tours/belem.html',
     'tours/chiado.html',
     'tours/fullcity.html',
