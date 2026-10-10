@@ -75,7 +75,7 @@ test('checkout page includes tour photos and reassurance content', () => {
   assert.match(bookingHtml, /booking_source/);
   assert.match(bookingHtml, /id="photo-track"/);
   assert.match(bookingHtml, /\/images\/miradouros-1\.jpg/);
-  assert.match(bookingHtml, /\/images\/express-senhora-do-monte\.png/);
+  assert.match(bookingHtml, /\/images\/express-senhora-do-monte\.webp/);
   assert.match(bookingHtml, /\/images\/belem-1\.jpg/);
   assert.match(bookingHtml, /\/images\/van-sintra\.jpg/);
   assert.match(bookingHtml, /What you can expect/);
