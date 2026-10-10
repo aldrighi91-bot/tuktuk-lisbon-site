@@ -1,4 +1,4 @@
-/* Translations for Tuk Tuk Lisbon site — PT / EN / ES */
+/* Translations for Tuk Tuk Lisbon Tours site — PT / EN / ES */
 window.I18N = {
   pt: {
     nav: { tours:"Passeios", howItWorks:"Como Funciona", contact:"Contacto" },
@@ -136,7 +136,7 @@ window.I18N = {
     footer: { desc:"Discover Lisbon in an authentic and comfortable way with our private tuk tuk tours.",
       contact:"Contact", zones:"Operating Zones", hoursTitle:"Hours",
       hoursText:"08:00 – 22:00\nEvery day", social:"Social",
-      rights:"© 2026 Tuk Tuk Lisbon. All rights reserved.",
+      rights:"© 2026 Tuk Tuk Lisbon Tours. All rights reserved.",
       privacy:"Privacy Policy", terms:"Terms of Service" },
   },
 

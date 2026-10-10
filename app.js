@@ -1,4 +1,4 @@
-/* Tuk Tuk Lisbon — static site logic */
+/* Tuk Tuk Lisbon Tours — static site logic */
 (function () {
   const WHATSAPP = '351967315921';
 
@@ -41,9 +41,9 @@
   };
   const POPULAR_ID = 'miradouros';
   const HERO_PROOF = {
-    en: ['Private tours', 'Flexible pickup', 'From €130/group', '20% deposit online'],
-    pt: ['Tours privados', 'Pickup flexível', 'A partir de €130/grupo', '20% online'],
-    es: ['Tours privados', 'Pickup flexible', 'Desde €130/grupo', '20% online'],
+    en: ['★ 5.0 on Google', 'Private tours', 'Flexible pickup', 'From €130/group', '20% deposit online'],
+    pt: ['★ 5.0 no Google', 'Tours privados', 'Pickup flexível', 'A partir de €130/grupo', '20% online'],
+    es: ['★ 5.0 en Google', 'Tours privados', 'Pickup flexible', 'Desde €130/grupo', '20% online'],
   };
 
   const TOUR_WA_MESSAGES = {

@@ -177,10 +177,10 @@
           <button class="tlc-chip" data-action="check_availability">Check availability</button>
         </div>
       </div>
-      <section class="tlc-panel" aria-label="Tuk Tuk Lisbon tour assistant">
+      <section class="tlc-panel" aria-label="Tuk Tuk Lisbon Tours tour assistant">
         <header class="tlc-header">
           <div>
-            <div class="tlc-title">Tuk Tuk Lisbon Assistant</div>
+            <div class="tlc-title">Tuk Tuk Lisbon Tours Assistant</div>
             <div class="tlc-subtitle">Natanael's local tour concierge</div>
           </div>
           <div class="tlc-header-actions">
