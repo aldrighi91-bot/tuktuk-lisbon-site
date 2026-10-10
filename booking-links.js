@@ -1,4 +1,4 @@
-/* Central online booking link map for Tuk Tuk Lisbon. */
+/* Central online booking link map for Tuk Tuk Lisbon Tours. */
 (function (root, factory) {
   const api = factory(root);
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

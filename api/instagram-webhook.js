@@ -59,7 +59,7 @@ function formatTourLine(tour, index) {
 
 function buildToursMenu() {
   return [
-    'Hi, I am Lisa from Tuk Tuk Lisbon.',
+    'Hi, I am Lisa from Tuk Tuk Lisbon Tours.',
     '',
     'Here are our private tour options:',
     '',
@@ -148,7 +148,7 @@ function buildReply(text = '') {
 
   if (wantsBooking) {
     return [
-      'Hi, I am Lisa from Tuk Tuk Lisbon. I can help check availability.',
+      'Hi, I am Lisa from Tuk Tuk Lisbon Tours. I can help check availability.',
       '',
       'Please send:',
       '1. Tour or area you want to visit',
@@ -162,7 +162,7 @@ function buildReply(text = '') {
 
   if (saysHello) {
     return [
-      'Hi, I am Lisa from Tuk Tuk Lisbon. We offer private tuk tuk tours in Lisbon with local guides.',
+      'Hi, I am Lisa from Tuk Tuk Lisbon Tours. We offer private tuk tuk tours in Lisbon with local guides.',
       '',
       'Would you like to see our tour options?',
       'You can reply: tours, prices, availability, Alfama, Belem, Full City, or Van.',
@@ -170,7 +170,7 @@ function buildReply(text = '') {
   }
 
   return [
-    'Hi, I am Lisa from Tuk Tuk Lisbon. Thanks for your message.',
+    'Hi, I am Lisa from Tuk Tuk Lisbon Tours. Thanks for your message.',
     '',
     'I can help with tour prices, availability, pickup, duration, and booking by WhatsApp.',
     'For faster confirmation, message us here: https://wa.me/351967315921',

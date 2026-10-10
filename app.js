@@ -1,4 +1,4 @@
-/* Tuk Tuk Lisbon — static site logic */
+/* Tuk Tuk Lisbon Tours — static site logic */
 (function () {
   const WHATSAPP = '351967315921';
 
